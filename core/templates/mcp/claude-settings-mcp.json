@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": ["mcp__ado__wit_work_item", "mcp__ado__wit_work_item_attachment"],
+    "deny": [
+      "mcp__ado__wit_work_item_write",
+      "mcp__ado__wit_work_item_comment_write",
+      "mcp__ado__wit_work_item_link_write",
+      "mcp__ado__wit_backlog"
+    ]
+  }
+}

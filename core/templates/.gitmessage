@@ -1,0 +1,45 @@
+
+# ▲ LÍNEA 1 — type(scope): descripción corta en imperativo
+#   · máx. 72 caracteres, en minúscula y sin punto final
+#   · type : feat | fix | refactor | perf | docs | test | chore | ci | style | revert
+#   · scope: área afectada (trackings, evidence, billing, ui, infra…)
+#   La línea 2 se deja en blanco. El cuerpo, a unas 72 columnas.
+#
+# LÍMITE: el mensaje completo no debe superar 4000 caracteres, contando
+# espacios y saltos de línea, porque se reutiliza como descripción del PR.
+# Estas líneas con # no cuentan: Git las elimina.
+# Comprobar tras el commit:  git log -1 --format=%B | wc -m
+#
+# NO uses encabezados Markdown (#, ##, ###): Git borra toda línea que
+# empiece por #. Usa los rótulos en negrita de abajo.
+# Borra las secciones que no apliquen y las viñetas que queden vacías.
+
+BUG-XXXXX / PBI-XXXXX — [MÓDULO] Título del ticket
+
+**Problema**
+# Qué fallaba o qué faltaba, y a quién afectaba. Sin describir la solución.
+
+**Causa**
+# Solo en fix: por qué ocurría (la causa raíz, no el síntoma).
+
+**Cambios**
+# Una viñeta por cambio: qué se hizo y por qué. Agrupa por capa si ayuda:
+#   - Backend (Archivo.cs): …
+#   - Frontend (componente.tsx): …
+#   - Infra / datos (migración, configuración, pipeline): …
+-
+
+**Alcance y no regresión**
+# Qué NO cambia (contratos, permisos, flujos existentes) y qué queda
+# fuera a propósito.
+-
+
+**Pruebas**
+# Cómo se verificó: tests automáticos añadidos o ejecutados y pasos
+# manuales. Indica también lo que no se pudo probar.
+-
+
+Ref: #XXXXX
+# ▲ Enlaza el work item (bug o PBI) sin cambiar su estado, que se gestiona
+#   a mano. No uses fix | fixes | fixed: Azure Repos lo cerraría.
+#   Mantén el prefijo "Ref:": una línea que empiece por # se borra.

@@ -1,0 +1,23 @@
+{
+  "$comment": "fi-sdd-standard (ADR-0023). Lo crea install.py y lo completa /project-context. Rutas y globs desde la raíz del repo, como .gitignore.",
+  "protected": [],
+  "secrets": [
+    ".env",
+    ".env.*",
+    "**/appsettings.*.json",
+    "**/secrets.json",
+    "**/*.pfx",
+    "**/*.pem",
+    "**/*.key"
+  ],
+  "secretsAllowed": [],
+  "format": {},
+  "patterns": [],
+  "$examples": {
+    "protected": ["src/ClientApp/src/core-ui/**"],
+    "format": {".cs": ["dotnet", "csharpier", "format", "{file}"], ".tsx": ["npx", "prettier", "--write", "{file}"]},
+    "patterns": [
+      {"glob": "**/Controllers/*Controller.cs", "require": "\\[(Authorize|AuthorizeRoles|AllowAnonymous)", "message": "Todo controller declara su autorización ([Authorize] o [AllowAnonymous])"}
+    ]
+  }
+}
