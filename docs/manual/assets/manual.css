@@ -1,0 +1,165 @@
+/* Manual de fi-sdd-standard · capa de impresión sobre el FI Design System v1.0.
+   Solo consume tokens del sistema (--fi-*); no redefine colores de marca. */
+
+@font-face { font-family: 'Jost'; font-weight: 400; src: url('jost-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Jost'; font-weight: 500; src: url('jost-latin-500-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Jost'; font-weight: 600; src: url('jost-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Jost'; font-weight: 700; src: url('jost-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'JetBrains Mono'; font-weight: 400; src: url('jetbrains-mono-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'JetBrains Mono'; font-weight: 600; src: url('jetbrains-mono-latin-600-normal.woff2') format('woff2'); }
+
+@layer utilities {
+  :root {
+    --fi-font-mono: 'JetBrains Mono', 'DejaVu Sans Mono', monospace;
+    --fi-font-sans: 'Jost', 'DejaVu Sans', sans-serif;
+  }
+
+  @page { size: A4; }
+
+  html, body { background: var(--fi-color-surface); }
+  body {
+    font-size: 10pt;
+    line-height: 1.55;
+    color: var(--fi-color-text);
+    font-variant-ligatures: none;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ---------- Portada ---------- */
+  .cover {
+    break-after: page;
+    position: relative;
+    height: 297mm;
+    width: 210mm;
+    background: var(--fi-color-surface-inverse);
+    color: var(--fi-color-text-inverse);
+    padding: 34mm 22mm 24mm 26mm;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: 8mm;
+    background: var(--fi-color-accent);
+  }
+  .cover .fi-overline { color: var(--fi-navy-200); }
+  .cover h1 {
+    font-size: 40pt;
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--fi-color-text-inverse);
+    margin: 10mm 0 6mm;
+  }
+  .cover h1 strong { color: var(--fi-color-accent); font-weight: 600; }
+  .cover .lead { font-size: 14pt; color: var(--fi-navy-200); max-width: 135mm; line-height: 1.45; }
+  .cover .meta { position: absolute; bottom: 24mm; left: 26mm; right: 22mm; font-size: 9.5pt; color: var(--fi-navy-200); }
+  .cover .meta dl { display: grid; grid-template-columns: 38mm 1fr; gap: 2mm 6mm; margin: 0; }
+  .cover .meta dt { color: var(--fi-navy-300); text-transform: uppercase; letter-spacing: 0.12em; font-size: 7.5pt; font-weight: 600; }
+  .cover .meta dd { margin: 0; color: var(--fi-color-text-inverse); }
+  .cover .badges { display: flex; gap: 2mm; margin-top: 9mm; flex-wrap: wrap; }
+  .cover-art { position: absolute; right: -30mm; top: 118mm; width: 150mm; opacity: 0.9; }
+
+  /* ---------- Índice ---------- */
+  .toc { break-after: page; }
+  .toc ol { list-style: none; padding: 0; margin: 0; display: block; }
+  .toc li { display: flex; align-items: baseline; gap: 2mm; padding: 1.1mm 0; color: var(--fi-color-text); }
+  .toc li.l1 { font-weight: 600; font-size: 10.5pt; margin-top: 3mm; color: var(--fi-color-text-strong); border-top: var(--fi-border-subtle); padding-top: 2.4mm; }
+  .toc li.l2 { padding-left: 8mm; font-size: 9.5pt; color: var(--fi-color-text-muted); }
+  .toc li .t { flex: 0 1 auto; }
+  .toc li .dots { flex: 1 1 auto; border-bottom: 1px dotted var(--fi-color-border-strong); transform: translateY(-1.2mm); }
+  .toc li .p { flex: 0 0 auto; font-variant-numeric: tabular-nums; min-width: 7mm; text-align: right; }
+  .toc a { color: inherit; text-decoration: none; }
+  .toc .tnum { display: inline-block; min-width: 9mm; color: var(--fi-yellow-700); font-weight: 600; }
+  .toc li.l2 .tnum { min-width: 10mm; font-weight: 500; color: var(--fi-color-text-subtle); }
+
+  /* ---------- Capítulos y títulos ---------- */
+  section.chapter { break-before: page; }
+  h1.ch {
+    font-size: 26pt;
+    font-weight: 300;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+    margin: 0 0 4mm;
+    color: var(--fi-color-text-strong);
+  }
+  .ch-head { margin-bottom: 7mm; padding-bottom: 5mm; border-bottom: var(--fi-border-subtle); }
+  .ch-head .fi-lead { font-size: 11.5pt; max-width: none; margin: 0; }
+  h2 { font-size: 15pt; font-weight: 600; margin: 8mm 0 3mm; color: var(--fi-color-text-strong); break-after: avoid; }
+  h3 { font-size: 12pt; font-weight: 600; margin: 6mm 0 2mm; color: var(--fi-color-text-strong); break-after: avoid; }
+  h4 { font-size: 10.5pt; font-weight: 700; margin: 4mm 0 1.5mm; color: var(--fi-color-text-strong); break-after: avoid; }
+  h2 .num, h1 .num { color: var(--fi-yellow-700); font-weight: 600; margin-right: 2mm; }
+  p { margin: 0 0 2.6mm; }
+  ul:not([class]), ol:not([class]) { margin: 0 0 3mm; gap: 1mm; color: var(--fi-color-text); }
+  li > p { margin: 0; }
+  .pdfmark { font-size: 1px; color: var(--fi-color-surface); line-height: 0; }
+
+  /* ---------- Código y salidas ---------- */
+  pre {
+    font-size: 7.9pt;
+    line-height: 1.5;
+    padding: 3mm 3.5mm;
+    margin: 0 0 3.5mm;
+    white-space: pre-wrap;
+    word-break: break-word;
+    break-inside: avoid;
+  }
+  :not(pre) > code { font-size: 0.86em; white-space: nowrap; }
+  td :not(pre) > code, li :not(pre) > code { white-space: normal; }
+  .ex { break-inside: avoid; margin: 0 0 3.5mm; }
+  .ex .ex-label {
+    display: flex; align-items: center; gap: 2mm;
+    font-size: 7pt; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fi-color-text-subtle);
+    margin-bottom: 1.2mm;
+  }
+  .ex .ex-label::before { content: ''; width: 5mm; height: 0.7mm; border-radius: 1mm; background: var(--fi-color-accent); }
+  .ex.ask pre { background: var(--fi-color-primary-subtle); border-color: var(--fi-yellow-200); }
+  .ex.out pre { background: var(--fi-color-surface-sunken); }
+  .ex.cmd pre { background: var(--fi-color-surface-inverse); color: var(--fi-navy-100); border-color: var(--fi-color-surface-inverse); }
+
+  /* ---------- Tablas ---------- */
+  .fi-table-wrap { background-image: none; overflow: visible; margin: 0 0 4mm; break-inside: auto; }
+  .fi-table { font-size: 8.6pt; }
+  .fi-table th { font-size: 7.4pt; }
+  .fi-table td, .fi-table th { padding: 1.7mm 2.4mm; vertical-align: top; }
+  .fi-table tr { break-inside: avoid; }
+  .fi-table thead { display: table-header-group; }
+
+  /* ---------- Fichas ---------- */
+  .ficha { break-inside: avoid-page; margin: 0 0 5mm; }
+  .ficha .fi-card__header { padding-bottom: 2mm; }
+  .ficha .fi-dl { font-size: 8.8pt; }
+  .kv { display: grid; grid-template-columns: 30mm 1fr; gap: 1.6mm 5mm; margin: 0 0 3mm; font-size: 9pt; }
+  .kv dt { font-size: 7.4pt; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fi-color-text-subtle); padding-top: 0.5mm; }
+  .kv dd { margin: 0; }
+  .card-skill { border-inline-start: var(--fi-border-width-rail) solid var(--fi-color-accent); background: var(--fi-color-surface); border-radius: var(--fi-radius-surface); padding: 4mm 5mm 1mm; margin: 0 0 5mm; box-shadow: var(--fi-shadow-xs); border-top: var(--fi-border-subtle); border-right: var(--fi-border-subtle); border-bottom: var(--fi-border-subtle); }
+  .card-skill > h3:first-child, .card-skill > h4:first-child { margin-top: 0; }
+
+  .fi-alert { margin: 0 0 4mm; break-inside: avoid; font-size: 9pt; grid-template-columns: minmax(0, 1fr); padding: 3mm 4mm; }
+  .fi-alert__content { gap: 0.5mm; }
+  .fi-alert ul, .fi-alert ol { margin-bottom: 0; }
+  .fi-alert pre { margin-top: 1.5mm; margin-bottom: 0; background: var(--fi-color-surface); }
+  .fi-alert p:last-child { margin-bottom: 0; }
+  .fi-alert .fi-alert__title { font-weight: 700; display: block; margin-bottom: 1mm; color: var(--fi-color-text-strong); }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin: 0 0 4mm; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4mm; margin: 0 0 4mm; }
+  .tile { border: var(--fi-border-subtle); border-radius: var(--fi-radius-surface); padding: 3.5mm 4mm; break-inside: avoid; background: var(--fi-color-surface); }
+  .tile h4 { margin-top: 0; }
+  .tile p, .tile ul { font-size: 8.8pt; }
+  .tile.accent { border-inline-start: var(--fi-border-width-rail) solid var(--fi-color-accent); }
+
+  .fi-badge { font-size: 7pt; vertical-align: middle; }
+  figure { margin: 0 0 5mm; break-inside: avoid; }
+  figure svg { width: 100%; height: auto; display: block; }
+  figcaption { font-size: 8pt; color: var(--fi-color-text-subtle); margin-top: 2mm; }
+
+  .tree { font-family: var(--fi-font-mono); }
+  .avoid { break-inside: avoid; }
+  .pb { break-before: page; }
+}

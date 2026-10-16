@@ -10,7 +10,8 @@ Para que el equipo los use, entran en `dev` con un PR, como cualquier cambio.
 | `.agents/` (skills, hooks, scripts), `.github/agents/`, `.github/prompts/` | `.claude/skills/`, `.claude/agents/` (copias locales: `install.py` las genera) |
 | `.claude/settings.json` (permisos y hooks del equipo) | `.claude/settings.local.json` (personal) |
 | `AGENTS.md`, `CLAUDE.md`, `.gitmessage`, `.sdd-kit.json`, `sdd-guardrails.json` | — |
-| `docs/` (contexto, ADR, `docs/sdd/`) y los comentarios de los bloques de `/document-project` | — |
+| `docs/` (contexto, ADR, `docs/sdd/`) y los comentarios de los bloques de `/document-project` | De `docs/sdd/`: `assets/`, `commit-message.md`, `test-cases.csv` y `_borradores/` (ADR-0027) |
+| — | `.github/copilot-instructions.md` (copia de `AGENTS.md` para Visual Studio, generada por `install.py`) |
 
 ## 2 · Preparar la rama del PR
 

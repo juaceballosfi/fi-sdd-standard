@@ -58,6 +58,10 @@ git commit -F <carpeta>/commit-message.md
   `wbs-execution`.
 - Los archivos nuevos (`??`) hay que añadirlos con `git add`: `git commit -- <rutas>` no los
   incluye.
+- De la carpeta, git no añade `assets/`, `commit-message.md` ni `test-cases.csv` (ADR-0027): están
+  en `.gitignore`. `git commit -F` lee `commit-message.md` del disco igualmente.
+- Si la rama tiene borradores en `docs/sdd/_borradores/`, crea antes cada work item en Azure DevOps,
+  anota su ID donde se citaba el borrador y bórralo (`git rm`): `pr-check.py` da error si llegan al PR.
 
 ### A.4 · Comprobar el commit
 

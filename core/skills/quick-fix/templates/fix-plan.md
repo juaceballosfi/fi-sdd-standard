@@ -1,6 +1,6 @@
 # Plan de corrección — <ID> <Título>
 
-**Generado con:** quick-fix v3.8 · [Claude Code | GitHub Copilot | Codex] · [modelo]
+**Generado con:** quick-fix v3.9 · [Claude Code | GitHub Copilot | Codex] · [modelo]
 **Work item:** #<ID> · **Fecha:** AAAA-MM-DD · **Estado:** Aprobado (<persona>, AAAA-MM-DD)
 
 ## Vía rápida

@@ -1,6 +1,6 @@
 # Referencia de la API
 
-**Generado con:** project-context v3.8 · [herramienta] · [modelo] · [AAAA-MM-DD]
+**Generado con:** project-context v3.9 · [herramienta] · [modelo] · [AAAA-MM-DD]
 
 ## Convenciones
 <!-- Prefijo de las rutas, autenticación, cabeceras (idioma, tenant), formato de errores. -->

@@ -1,6 +1,6 @@
 # Análisis y diagnóstico
 
-**Generado con:** technical-analysis v3.8 · [Claude Code | GitHub Copilot | Codex] · [modelo]
+**Generado con:** technical-analysis v3.9 · [Claude Code | GitHub Copilot | Codex] · [modelo]
 **Work item:** #[ID] | **Sprint:** [iteración, si se conoce] | **Fecha:** [AAAA-MM-DD] | **Versión:** 1.0
 
 ## 2.1 Criterios de aceptación

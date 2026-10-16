@@ -41,5 +41,5 @@ conoce un proyecto concreto: lee lo que necesita de `AGENTS.md`.
 | `code-explorer` | stable | 1 |
 | `backend-dev`, `frontend-dev` | stable | 2 |
 | `qa-reviewer`, `runtime-tester` | stable | 3 |
-| `migration-reviewer` | draft | 3 (cuando un work item tenga una migración) |
+| `migration-reviewer` | stable | 3 |
 | `doc-writer` | stable | 4 |

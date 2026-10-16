@@ -1,6 +1,6 @@
 # Bloque B-NN — <áreas del bloque>
 
-**Generado con:** document-project v3.8 · [Claude Code | GitHub Copilot | Codex] · [modelo]
+**Generado con:** document-project v3.9 · [Claude Code | GitHub Copilot | Codex] · [modelo]
 **Fecha:** AAAA-MM-DD · **Rama:** `<rama>` · **Base:** `<commit>` · **Work item:** #<ID> | ninguno
 **Áreas:** A-NN <nombre>, A-NN <nombre>
 

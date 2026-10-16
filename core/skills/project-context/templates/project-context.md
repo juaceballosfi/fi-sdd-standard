@@ -1,6 +1,6 @@
 # Project context — [Nombre del proyecto]
 
-**Generado con:** project-context v3.8 · [Claude Code | GitHub Copilot | Codex] · [modelo] · [AAAA-MM-DD]
+**Generado con:** project-context v3.9 · [Claude Code | GitHub Copilot | Codex] · [modelo] · [AAAA-MM-DD]
 <!-- sdd:context · [AAAA-MM-DD] · fuentes: [archivos de los que salen los datos: *.csproj, package.json, lockfile, pipeline…] -->
 
 <!-- Fixed headings (ADR-0021): skills and agents look for them by name. Instructions in English

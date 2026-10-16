@@ -38,6 +38,7 @@ contradicts a rule here, stop and ask.
 - Commit messages follow `.gitmessage` (ADR-0004): `Ref: #<id>`, never `fix #<id>`.
 - One commit per work item. No AI attribution trailers (`Co-Authored-By`): the SDD stamp is the evidence.
 - Never commit, push, merge or change branches unless the user asks.
+- Not committed (ADR-0027): a work item's `assets/`, `commit-message.md` and `test-cases.csv`, and drafts in `docs/sdd/_borradores/`.
 
 ## Security
 - Never read or print secrets: `.env*`, `appsettings.*.json` with credentials, keys, tokens.

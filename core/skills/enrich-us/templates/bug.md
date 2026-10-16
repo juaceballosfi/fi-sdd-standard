@@ -1,6 +1,6 @@
 # [Título descriptivo del bug]
 
-**Generado con:** enrich-us v3.8 · [Claude Code | GitHub Copilot | Codex] · [modelo]
+**Generado con:** enrich-us v3.9 · [Claude Code | GitHub Copilot | Codex] · [modelo]
 **Work item:** #[ID] | **Sprint:** [iteración, si se conoce] | **Fecha:** [AAAA-MM-DD] | **Tipo:** Bug | **Fuente:** story.md (work item #[ID], revisión [N])
 
 ---

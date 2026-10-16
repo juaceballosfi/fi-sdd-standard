@@ -1,6 +1,6 @@
 # Informe de QA — <ID> <Título>
 
-**Generado con:** qa-review v3.8 · [Claude Code | GitHub Copilot | Codex] · [modelo]
+**Generado con:** qa-review v3.9 · [Claude Code | GitHub Copilot | Codex] · [modelo]
 **Fecha:** AAAA-MM-DD · **Ronda:** 1 · **Revisor:** qa-reviewer (subagente) | esta sesión
 **Alcance:** `<base>..<head>` · N archivos de código · **Pruebas ejecutadas por el revisor:** Sí | No (motivo)
 **Revisado contra:** pbi.md, 03-solution-proposal.md, 04-implementation-plan.md, 06-risks-mitigations.md, AGENTS.md
@@ -14,7 +14,7 @@
 ## Hallazgos
 <!-- sdd:qa-findings -->
 [Estado: Abierto · A corregir · Corregido (AAAA-MM-DD) · Corregido (verificado AAAA-MM-DD) ·
-Aceptado (riesgo asumido por <persona>, AAAA-MM-DD) · Descartado (<motivo>) · Borrador (_borradores/<slug>.md).
+Aceptado (riesgo asumido por <persona>, AAAA-MM-DD) · Descartado (<motivo>) · Borrador (_borradores/<slug>.md) → Work item #<ID> (creado en Azure DevOps; el borrador se borra antes del PR).
 Una fila descartada no se borra: muestra qué se revisó.]
 
 | ID | Severidad | Archivo:línea | Qué está mal | Por qué importa (SPEC o regla) | Estado |

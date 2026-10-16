@@ -6,7 +6,7 @@ copia `0000-plantilla.md` con el siguiente número y añádela a este índice en
 | ADR | Decisión | Estado |
 | --- | --- | --- |
 | [0001](0001-registrar-decisiones-con-adr.md) | Registrar las decisiones con ADR | Aceptada |
-| [0002](0002-carpeta-unica-sdd-versionada.md) | Azure DevOps es la fuente del requisito; todo el trabajo SDD en `docs/sdd/<id>-<título>/`, versionado | Aceptada |
+| [0002](0002-carpeta-unica-sdd-versionada.md) | Azure DevOps es la fuente del requisito; todo el trabajo SDD en `docs/sdd/<id>-<título>/`, versionado | Sustituida en parte por 0027 |
 | [0003](0003-idioma.md) | Español para documentación, comentarios y commits; inglés para instrucciones internas | Aceptada |
 | [0004](0004-formato-de-commit.md) | Formato de commit: `.gitmessage` de Bonis | Aceptada |
 | [0005](0005-herramientas-y-adaptadores.md) | Herramientas soportadas y rutas de cada una | Aceptada |
@@ -31,3 +31,4 @@ copia `0000-plantilla.md` con el siguiente número y añádela a este índice en
 | [0024](0024-via-rapida-para-bugs.md) | Vía rápida para bugs pequeños con `quick-fix` y su compuerta | Aceptada |
 | [0025](0025-qa-modo-y-casos-de-prueba.md) | Modo QA de `enrich-us` y skill `test-cases`, con CSV para Azure Test Plans | Aceptada |
 | [0026](0026-bucle-de-pipeline-en-la-fase-4.md) | El bucle de pipeline en rojo pasa a la fase 4 | Aceptada |
+| [0027](0027-que-se-versiona.md) | Qué se versiona en un proyecto con el kit: fuera `assets/`, `commit-message.md`, `test-cases.csv` y los borradores | Aceptada |

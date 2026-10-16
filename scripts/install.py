@@ -11,7 +11,8 @@ Tools:
                   generated folder is added to .gitignore (VS Code also reads .claude/skills and
                   would show the skills twice).
     visualstudio  .github/copilot-instructions.md generated from AGENTS.md (Visual Studio does not
-                  document AGENTS.md support). Check VS Code does not load the rules twice.
+                  document AGENTS.md support). Local copy in .gitignore (ADR-0027). Check VS Code does
+                  not load the rules twice.
 
 Rules:
     - Never overwrites a project file. Kit-managed files (listed in .sdd-kit.json) are refreshed.
@@ -20,6 +21,10 @@ Rules:
     - Agents (core/agents): only those with `status: stable` are installed (ADR-0017).
       copilot → .github/agents/<name>.agent.md (committed; VS Code and Visual Studio read it).
       claude  → .claude/agents/<name>.md (local copy with model and Claude tool names; .gitignore).
+    - What is not committed (ADR-0027) goes to .gitignore: the attachments, commit-message.md and
+      test-cases.csv of each work item, .claude/settings.local.json and .github/copilot-instructions.md.
+      Files of that list that are already committed are reported (REVISAR), never removed.
+    - The kit manual (docs/manual/) stays in the kit repository: it is never copied to a project.
 """
 from __future__ import annotations
 
@@ -301,6 +306,33 @@ class Installer:
                 sdd.mkdir(parents=True)
                 (sdd / ".gitkeep").write_text("", encoding="utf-8")
 
+    LOCAL_ONLY = [
+        "docs/sdd/*/assets/",
+        "docs/sdd/*/commit-message.md",
+        "docs/sdd/*/test-cases.csv",
+        ".claude/settings.local.json",
+        ".github/copilot-instructions.md",
+        ".agents/**/__pycache__/",
+    ]
+
+    def local_only(self) -> None:
+        """ADR-0027: what each person generates or downloads stays out of git."""
+        lines = list(self.LOCAL_ONLY)
+        instructions = self.target / ".github" / "copilot-instructions.md"
+        if instructions.exists() and "GENERATED from AGENTS.md" not in instructions.read_text(encoding="utf-8"):
+            lines.remove(".github/copilot-instructions.md")  # the project's own file: it stays versioned
+        self.gitignore(lines, "# fi-sdd-standard: no se versiona (ADR-0027)")
+        if not (self.target / ".git").exists():
+            return
+        specs = [f":(glob){l}**" if l.endswith("/") else f":(glob){l}" for l in lines]
+        out = subprocess.run(["git", "-C", str(self.target), "ls-files", "--", *specs],
+                             capture_output=True, text=True, encoding="utf-8", errors="replace")
+        tracked = [l for l in out.stdout.splitlines() if l.strip()]
+        if tracked:
+            sample = ", ".join(tracked[:3]) + (" …" if len(tracked) > 3 else "")
+            self.log("REVISAR", f"{len(tracked)} archivo(s) versionados que ya no se versionan (ADR-0027): {sample}. "
+                     "Para dejar de versionarlos sin borrarlos del disco: git rm -r --cached <rutas>")
+
     def save_state(self) -> None:
         state = {
             "kit": "fi-sdd-standard",
@@ -330,6 +362,7 @@ class Installer:
         if "visualstudio" in self.tools:
             self.copilot_instructions()
         self.docs()
+        self.local_only()
         self.save_state()
         self.print_report()
         return 1 if any(a == "CONFLICTO" for a, _ in self.report) else 0

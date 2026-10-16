@@ -8,7 +8,7 @@ Creates docs/sdd/<id>-<slug>/ with:
     story.md     header pre-filled (ID, title, type, who prepares it, date); the person copies the
                  work item from Azure DevOps into it
     bitacora.md  working log with the first entry
-    assets/      images and files of the work item
+    assets/      images and files of the work item (local: not committed, ADR-0027)
 
 The slug follows the same rule as enrich-us: title in lowercase, without accents, every other
 character replaced by '-', cut at a '-' so it is at most 40 characters.
@@ -131,7 +131,7 @@ def main() -> int:
         created.append("bitacora.md  ← notas de trabajo; ya tiene la primera entrada")
     if not (folder / "assets").is_dir():
         (folder / "assets").mkdir(parents=True)
-        created.append("assets/      ← imágenes y archivos del work item, con nombre descriptivo")
+        created.append("assets/      ← imágenes y archivos del work item, con nombre descriptivo (no se versiona, ADR-0027)")
 
     checker = shown(KIT / "scripts" / "check-sdd-item.py")
     if existing:

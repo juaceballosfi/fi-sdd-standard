@@ -8,12 +8,15 @@ Usage:
 It reports which step the work item has reached and whether each artifact follows the standard:
 story.md prepared by a person with its assets (ADR-0015),
 stamps, anchors, unresolved markers, the working log and the commit message format (ADR-0004).
+Attachments and commit-message.md are not committed (ADR-0027): a missing attachment that git
+ignores is a warning, and a folder already committed with `Ref: #<id>` counts as step 5.
 Exit code 0 = no errors (warnings allowed), 1 = errors. Reused later by the PR validation pipeline.
 """
 from __future__ import annotations
 
 import argparse
 import re
+import subprocess
 import sys
 import unicodedata
 from pathlib import Path
@@ -40,6 +43,31 @@ DESIGN_FILES = [
     ("05-wbs-estimation.md", "05-wbs-estimacion.md"),
     ("06-risks-mitigations.md", "06-riesgos-y-mitigaciones.md"),
 ]
+
+
+def git(folder: Path, *args: str) -> subprocess.CompletedProcess | None:
+    try:
+        return subprocess.run(["git", "-C", str(folder), *args], capture_output=True, text=True,
+                              encoding="utf-8", errors="replace")
+    except OSError:
+        return None
+
+
+def git_ignored(folder: Path, path: Path) -> bool:
+    """True when git ignores the path (ADR-0027: attachments stay out of the repository)."""
+    out = git(folder, "check-ignore", "-q", "--no-index", str(path))
+    return out is not None and out.returncode == 0
+
+
+def last_commit_message(folder: Path, item_id: str | None) -> tuple[str, str] | None:
+    """The latest commit that touched the folder and links the work item with Ref: #<id>."""
+    if not item_id:
+        return None
+    out = git(folder, "log", "-1", "--format=%h%x00%B", f"--grep=^Ref: #{item_id}$", "--", ".")
+    if out is None or out.returncode != 0 or "\x00" not in out.stdout:
+        return None
+    sha, body = out.stdout.split("\x00", 1)
+    return sha.strip(), body.strip() + "\n"
 
 
 class Report:
@@ -198,7 +226,11 @@ def check_story(folder: Path, s: str, item_id: str | None, r: Report) -> None:
             continue  # external link, or a template placeholder already reported above
         path = (folder / target.split("#")[0]).resolve()
         if not path.exists():
-            r.err("story.md", f"enlace roto: {target}")
+            if git_ignored(folder, path):
+                r.warn("story.md", f"{target} no está en este equipo (los adjuntos no se versionan, ADR-0027): "
+                       "bájalo del work item en Azure DevOps con ese nombre")
+            else:
+                r.err("story.md", f"enlace roto: {target}")
             continue
         linked.add(path)
         if folder.resolve() not in path.parents:
@@ -376,7 +408,13 @@ def check_folder(folder: Path, r: Report) -> tuple[int, str]:
         r.info("documentación", "sin documentar: /document-code <id> (paso 5)")
 
     commit = folder / "commit-message.md"
-    if commit.exists():
+    # Once the folder is committed, the commit is what counts; before that, commit-message.md.
+    committed = last_commit_message(folder, item_id) if step >= 1 else None
+    if committed:
+        step = max(step, 5)
+        r.ok("commit", f"{committed[0]} enlaza #{item_id} (commit-message.md no se versiona, ADR-0027)")
+        check_commit_message(committed[1], item_id, r)
+    elif commit.exists():
         step = max(step, 5)
         check_commit_message(commit.read_text(encoding="utf-8"), item_id, r)
 
@@ -392,7 +430,10 @@ def check_folder(folder: Path, r: Report) -> tuple[int, str]:
         if qa_open:
             blockers.append(f"{qa_open} hallazgo(s) de QA sin decidir")
         if blockers:
-            label = "5 · commit-message.md escrito, pero no listo: " + ", ".join(blockers)
+            where = f"en el commit {committed[0]}" if committed else "commit-message.md escrito"
+            label = f"5 · {where}, pero no listo: " + ", ".join(blockers)
+        elif committed:
+            label = f"5 · en el commit {committed[0]}" + ("" if qa.exists() else " (sin revisión de QA)")
         elif not qa.exists():
             label = "5 · listo para commit (sin revisión de QA)"
     return step, label

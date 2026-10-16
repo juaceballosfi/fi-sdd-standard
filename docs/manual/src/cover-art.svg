@@ -1,0 +1,24 @@
+<svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <g fill="none" stroke="#5a6f95" stroke-width="1.2" opacity="0.55">
+    <circle cx="300" cy="300" r="120"/>
+    <circle cx="300" cy="300" r="190"/>
+    <circle cx="300" cy="300" r="260"/>
+  </g>
+  <g fill="none" stroke="#efac14" stroke-width="3" stroke-linecap="round">
+    <path d="M 110 300 A 190 190 0 0 1 300 110"/>
+    <path d="M 300 110 A 190 190 0 0 1 490 300" stroke-dasharray="2 10"/>
+  </g>
+  <g font-family="JetBrains Mono, monospace" font-size="15" font-weight="600" text-anchor="middle">
+    <g transform="translate(110 300)"><circle r="20" fill="#efac14"/><text y="5" fill="#232f41">1</text></g>
+    <g transform="translate(166 166)"><circle r="20" fill="#efac14"/><text y="5" fill="#232f41">2</text></g>
+    <g transform="translate(300 110)"><circle r="20" fill="#efac14"/><text y="5" fill="#232f41">3</text></g>
+    <g transform="translate(434 166)"><circle r="20" fill="#232f41" stroke="#efac14" stroke-width="2"/><text y="5" fill="#efac14">4</text></g>
+    <g transform="translate(490 300)"><circle r="20" fill="#232f41" stroke="#7b8fb2" stroke-width="2"/><text y="5" fill="#ccd5e6">5</text></g>
+    <g transform="translate(434 434)"><circle r="20" fill="#232f41" stroke="#7b8fb2" stroke-width="2"/><text y="5" fill="#ccd5e6">6</text></g>
+    <g transform="translate(300 490)"><circle r="20" fill="#232f41" stroke="#7b8fb2" stroke-width="2"/><text y="5" fill="#ccd5e6">7</text></g>
+    <g transform="translate(300 300)"><rect x="-46" y="-22" width="92" height="44" rx="8" fill="#efac14"/><text y="6" fill="#232f41" font-size="16">story.md</text></g>
+  </g>
+  <g fill="none" stroke="#7b8fb2" stroke-width="1.2" stroke-dasharray="3 6">
+    <path d="M 490 300 A 190 190 0 0 1 300 490"/>
+  </g>
+</svg>

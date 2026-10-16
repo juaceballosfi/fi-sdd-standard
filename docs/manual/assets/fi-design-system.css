@@ -1,0 +1,5135 @@
+/* ==========================================================================
+   FI GROUP by EPSA · Design System v1.0 — BUNDLE
+   Generado por build.py. No editar a mano: modifica los módulos de origen.
+   ========================================================================== */
+
+@layer reset, tokens, base, components, utilities;
+
+
+/* ===== tokens/palette.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   tokens/palette.css — Capa 1: PRIMITIVAS DE COLOR
+   --------------------------------------------------------------------------
+   Estas variables son el "material bruto" del sistema: valores crudos, sin
+   significado de uso. NUNCA se usan directamente en un componente.
+   Siempre se consumen a través de la capa semántica (tokens/semantic.css).
+
+   Origen (Brand Transition Guidelines, Feb 2026):
+     #efac14  Amarillo FI      → color prioritario de la transición
+     #374a66  Gris oscuro FI   → color prioritario de la transición
+     #afafc3  Gris claro FI    → neutro de apoyo
+     #0000a4  Azul FI          → legado: solo logotipo, nunca como color principal
+     Blanco / Negro
+
+   Escalas: 50 (más claro) → 950 (más oscuro). El tono de marca se marca
+   con el comentario [MARCA] en su posición dentro de la rampa.
+   ========================================================================== */
+
+@layer tokens {
+  :root {
+    /* ---------------------------------------------------------------------
+       AMARILLO — Identidad principal de la transición.
+       Se usa para acción primaria, foco de atención y el "rail" de marca.
+       Nota de accesibilidad: nunca texto blanco sobre 400–600.
+       --------------------------------------------------------------------- */
+    --fi-yellow-50: #fff8e6;
+    --fi-yellow-100: #fdecc0;
+    --fi-yellow-200: #fbdd8c;
+    --fi-yellow-300: #f7ca50;
+    --fi-yellow-400: #f3bb2c;
+    --fi-yellow-500: #efac14; /* [MARCA] */
+    --fi-yellow-600: #d1900d;
+    --fi-yellow-700: #a8710f;
+    --fi-yellow-800: #855a12;
+    --fi-yellow-900: #6b4913;
+    --fi-yellow-950: #3f2907;
+
+    /* ---------------------------------------------------------------------
+       NAVY (el "Dark Grey" de marca) — Estructura, texto y superficies
+       oscuras. Es el color secundario y el ancla tipográfica del sistema.
+       --------------------------------------------------------------------- */
+    --fi-navy-50: #f4f6fa;
+    --fi-navy-100: #e6ebf3;
+    --fi-navy-200: #ccd5e6;
+    --fi-navy-300: #a7b6d0;
+    --fi-navy-400: #7b8fb2;
+    --fi-navy-500: #5a6f95;
+    --fi-navy-600: #45587a;
+    --fi-navy-700: #374a66; /* [MARCA] */
+    --fi-navy-800: #2c3b52;
+    --fi-navy-900: #232f41;
+    --fi-navy-950: #151d29;
+
+    /* ---------------------------------------------------------------------
+       NEUTRO — Gris frío con matiz lila heredado de #afafc3.
+       Bordes, fondos, texto deshabilitado, separadores.
+       --------------------------------------------------------------------- */
+    --fi-neutral-0: #ffffff;
+    --fi-neutral-50: #f8f8fb;
+    --fi-neutral-100: #f1f1f6;
+    --fi-neutral-200: #e5e5ee;
+    --fi-neutral-300: #d2d2e0;
+    --fi-neutral-400: #afafc3; /* [MARCA] */
+    --fi-neutral-500: #9192aa;
+    --fi-neutral-600: #74758f;
+    --fi-neutral-700: #5c5d74;
+    --fi-neutral-800: #45465a;
+    --fi-neutral-900: #333443;
+    --fi-neutral-950: #1e1f2a;
+    --fi-neutral-1000: #000000;
+
+    /* ---------------------------------------------------------------------
+       AZUL LEGADO — Uso restringido.
+       La guía pide "retirar el azul como elemento principal": esta rampa
+       existe solo para el logotipo, ilustraciones heredadas y estados de
+       migración. No debe aparecer en botones ni en superficies de producto.
+       --------------------------------------------------------------------- */
+    --fi-legacy-50: #ececff;
+    --fi-legacy-100: #d8d8ff;
+    --fi-legacy-200: #b5b5ff;
+    --fi-legacy-300: #8a8aff;
+    --fi-legacy-400: #5757f0;
+    --fi-legacy-500: #2b2bd6;
+    --fi-legacy-600: #0000a4; /* [MARCA] */
+    --fi-legacy-700: #00008c;
+    --fi-legacy-800: #000070;
+    --fi-legacy-900: #00004f;
+
+    /* ---------------------------------------------------------------------
+       VERDE — Éxito, validaciones, proyectos aprobados.
+       Verde ligeramente azulado para convivir con el navy sin saturar.
+       --------------------------------------------------------------------- */
+    --fi-green-50: #e8f7f0;
+    --fi-green-100: #c9ecdd;
+    --fi-green-200: #97dbbe;
+    --fi-green-300: #5fc79c;
+    --fi-green-400: #2fae7e;
+    --fi-green-500: #17966a;
+    --fi-green-600: #0f7a56;
+    --fi-green-700: #0d6146;
+    --fi-green-800: #0c4d38;
+    --fi-green-900: #083225;
+
+    /* ---------------------------------------------------------------------
+       NARANJA — Advertencia.
+       Desplazado en tono respecto al amarillo de marca (43° → 28°) para que
+       "primary" y "warning" nunca se confundan en badges o alertas.
+       --------------------------------------------------------------------- */
+    --fi-orange-50: #fef2e7;
+    --fi-orange-100: #fbdfc3;
+    --fi-orange-200: #f7bf87;
+    --fi-orange-300: #f29e4c;
+    --fi-orange-400: #ee8722;
+    --fi-orange-500: #d97210;
+    --fi-orange-600: #b45a0b;
+    --fi-orange-700: #8f470b;
+    --fi-orange-800: #70380c;
+    --fi-orange-900: #472309;
+
+    /* ---------------------------------------------------------------------
+       ROJO — Error, destrucción de datos, plazos vencidos.
+       --------------------------------------------------------------------- */
+    --fi-red-50: #fdedec;
+    --fi-red-100: #fad6d3;
+    --fi-red-200: #f3aca6;
+    --fi-red-300: #ea8078;
+    --fi-red-400: #e05a4f;
+    --fi-red-500: #cf3a2d;
+    --fi-red-600: #b02a1f;
+    --fi-red-700: #8e231a;
+    --fi-red-800: #6f1c15;
+    --fi-red-900: #45110d;
+
+    /* ---------------------------------------------------------------------
+       AZUL ACERO — Información neutra.
+       Sustituye al azul de marca en mensajes informativos: comunica "info"
+       sin reintroducir #0000a4 como color de producto.
+       --------------------------------------------------------------------- */
+    --fi-steel-50: #ecf3fa;
+    --fi-steel-100: #d3e4f5;
+    --fi-steel-200: #a7c9ea;
+    --fi-steel-300: #74a9db;
+    --fi-steel-400: #4a8bc9;
+    --fi-steel-500: #2f72b0;
+    --fi-steel-600: #245b8f;
+    --fi-steel-700: #1e4a74;
+    --fi-steel-800: #1a3c5d;
+    --fi-steel-900: #10263c;
+
+    /* ---------------------------------------------------------------------
+       CANALES RGB — Para componer rgb(var(--x) / alpha) en sombras,
+       overlays y estados translúcidos sin duplicar hexadecimales.
+       --------------------------------------------------------------------- */
+    --fi-rgb-yellow: 239 172 20;
+    --fi-rgb-navy: 55 74 102;
+    --fi-rgb-navy-deep: 21 29 41;
+    --fi-rgb-neutral: 175 175 195;
+    --fi-rgb-white: 255 255 255;
+    --fi-rgb-black: 0 0 0;
+    --fi-rgb-green: 23 150 106;
+    --fi-rgb-orange: 217 114 16;
+    --fi-rgb-red: 207 58 45;
+    --fi-rgb-steel: 47 114 176;
+  }
+}
+
+/* ===== tokens/semantic.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   tokens/semantic.css — Capa 2: SEMÁNTICA DE COLOR
+   --------------------------------------------------------------------------
+   Traduce las primitivas a intenciones de uso. Es la única capa de color que
+   deben consumir los componentes y el producto.
+
+   CONTRATO DE NOMBRES (idéntico en todos los roles):
+     --fi-color-{rol}                 Relleno sólido (fondo de un botón lleno)
+     --fi-color-{rol}-hover           Relleno sólido en hover
+     --fi-color-{rol}-active          Relleno sólido pulsado
+     --fi-color-{rol}-on              Texto/icono SOBRE el relleno sólido
+     --fi-color-{rol}-subtle          Fondo tenue (badges, alertas, filas)
+     --fi-color-{rol}-subtle-hover    Fondo tenue en hover
+     --fi-color-{rol}-text            Texto del rol sobre fondo claro
+     --fi-color-{rol}-border          Borde del rol
+     --fi-color-{rol}-ring            Halo de foco del rol
+
+   ROLES: primary · secondary · success · warning · danger · info ·
+          neutral (muted) · legacy (restringido)
+
+   TEMAS: claro por defecto. Oscuro con [data-fi-theme="dark"] en <html>,
+   o automático por preferencia del sistema cuando el atributo no fuerza uno.
+   ========================================================================== */
+
+@layer tokens {
+  :root {
+    /* =====================================================================
+       SUPERFICIES — de más al fondo a más elevado
+       ===================================================================== */
+    --fi-color-canvas: var(--fi-neutral-50); /* fondo de página */
+    --fi-color-surface: var(--fi-neutral-0); /* tarjetas, paneles */
+    --fi-color-surface-raised: var(--fi-neutral-0); /* modales, popovers */
+    --fi-color-surface-sunken: var(--fi-neutral-100); /* zonas hundidas, code */
+    --fi-color-surface-hover: var(--fi-neutral-50); /* fila/ítem en hover */
+    --fi-color-surface-active: var(--fi-neutral-100); /* fila/ítem pulsado */
+    --fi-color-surface-selected: var(--fi-yellow-50); /* selección de marca */
+    --fi-color-surface-disabled: var(--fi-neutral-100);
+    --fi-color-surface-inverse: var(--fi-navy-900); /* bloques oscuros */
+    --fi-color-overlay: rgb(var(--fi-rgb-navy-deep) / 0.55); /* backdrop */
+    --fi-color-scrim: rgb(var(--fi-rgb-navy-deep) / 0.08);
+
+    /* =====================================================================
+       TEXTO
+       ===================================================================== */
+    --fi-color-text: var(--fi-navy-900); /* cuerpo principal */
+    --fi-color-text-strong: var(--fi-navy-950); /* títulos */
+    --fi-color-text-muted: var(--fi-neutral-700); /* secundario */
+    --fi-color-text-subtle: var(--fi-neutral-600); /* terciario, captions */
+    --fi-color-text-placeholder: var(--fi-neutral-500);
+    --fi-color-text-disabled: var(--fi-neutral-500);
+    --fi-color-text-inverse: var(--fi-neutral-0); /* sobre superficie oscura */
+    --fi-color-text-on-brand: var(--fi-navy-900); /* sobre amarillo */
+    --fi-color-text-link: var(--fi-navy-700);
+    --fi-color-text-link-hover: var(--fi-yellow-700);
+
+    /* =====================================================================
+       BORDES Y SEPARADORES
+       ===================================================================== */
+    --fi-color-border-subtle: var(--fi-neutral-200); /* separadores suaves */
+    --fi-color-border: var(--fi-neutral-300); /* borde por defecto */
+    --fi-color-border-strong: var(--fi-neutral-400); /* inputs, controles */
+    --fi-color-border-interactive: var(--fi-navy-400); /* hover de control */
+    --fi-color-border-inverse: rgb(var(--fi-rgb-white) / 0.16);
+
+    /* =====================================================================
+       FOCO — accesible en cualquier fondo
+       El anillo usa navy (contraste ≥ 3:1 sobre blanco, amarillo y gris).
+       El "offset" pinta un halo del color de la superficie para separar el
+       anillo del control, de modo que también se ve sobre botones amarillos.
+       ===================================================================== */
+    --fi-color-focus-ring: var(--fi-navy-600);
+    --fi-color-focus-offset: var(--fi-color-surface);
+    --fi-focus-ring-width: 2px;
+    --fi-focus-ring-offset: 2px;
+    --fi-focus-ring: 0 0 0 var(--fi-focus-ring-offset) var(--fi-color-focus-offset),
+      0 0 0 calc(var(--fi-focus-ring-offset) + var(--fi-focus-ring-width)) var(--fi-color-focus-ring);
+
+    /* =====================================================================
+       ROL · PRIMARY — Amarillo de marca. Acción principal.
+       ===================================================================== */
+    --fi-color-primary: var(--fi-yellow-500);
+    --fi-color-primary-hover: var(--fi-yellow-400);
+    --fi-color-primary-active: var(--fi-yellow-600);
+    --fi-color-primary-on: var(--fi-navy-900);
+    --fi-color-primary-subtle: var(--fi-yellow-50);
+    --fi-color-primary-subtle-hover: var(--fi-yellow-100);
+    --fi-color-primary-text: var(--fi-yellow-800);
+    --fi-color-primary-border: var(--fi-yellow-300);
+    --fi-color-primary-ring: rgb(var(--fi-rgb-yellow) / 0.4);
+
+    /* =====================================================================
+       ROL · SECONDARY — Navy. Acción de apoyo y estructura.
+       ===================================================================== */
+    --fi-color-secondary: var(--fi-navy-700);
+    --fi-color-secondary-hover: var(--fi-navy-600);
+    --fi-color-secondary-active: var(--fi-navy-800);
+    --fi-color-secondary-on: var(--fi-neutral-0);
+    --fi-color-secondary-subtle: var(--fi-navy-50);
+    --fi-color-secondary-subtle-hover: var(--fi-navy-100);
+    --fi-color-secondary-text: var(--fi-navy-700);
+    --fi-color-secondary-border: var(--fi-navy-200);
+    --fi-color-secondary-ring: rgb(var(--fi-rgb-navy) / 0.35);
+
+    /* =====================================================================
+       ROL · SUCCESS — Aprobado, certificado, validado.
+       ===================================================================== */
+    --fi-color-success: var(--fi-green-600);
+    --fi-color-success-hover: var(--fi-green-500);
+    --fi-color-success-active: var(--fi-green-700);
+    --fi-color-success-on: var(--fi-neutral-0);
+    --fi-color-success-subtle: var(--fi-green-50);
+    --fi-color-success-subtle-hover: var(--fi-green-100);
+    --fi-color-success-text: var(--fi-green-700);
+    --fi-color-success-border: var(--fi-green-200);
+    --fi-color-success-ring: rgb(var(--fi-rgb-green) / 0.35);
+
+    /* =====================================================================
+       ROL · WARNING — Requiere revisión, plazo próximo.
+       ===================================================================== */
+    --fi-color-warning: var(--fi-orange-500);
+    --fi-color-warning-hover: var(--fi-orange-400);
+    --fi-color-warning-active: var(--fi-orange-600);
+    --fi-color-warning-on: var(--fi-neutral-0);
+    --fi-color-warning-subtle: var(--fi-orange-50);
+    --fi-color-warning-subtle-hover: var(--fi-orange-100);
+    --fi-color-warning-text: var(--fi-orange-700);
+    --fi-color-warning-border: var(--fi-orange-200);
+    --fi-color-warning-ring: rgb(var(--fi-rgb-orange) / 0.35);
+
+    /* =====================================================================
+       ROL · DANGER — Rechazado, eliminación, error bloqueante.
+       ===================================================================== */
+    --fi-color-danger: var(--fi-red-600);
+    --fi-color-danger-hover: var(--fi-red-500);
+    --fi-color-danger-active: var(--fi-red-700);
+    --fi-color-danger-on: var(--fi-neutral-0);
+    --fi-color-danger-subtle: var(--fi-red-50);
+    --fi-color-danger-subtle-hover: var(--fi-red-100);
+    --fi-color-danger-text: var(--fi-red-700);
+    --fi-color-danger-border: var(--fi-red-200);
+    --fi-color-danger-ring: rgb(var(--fi-rgb-red) / 0.35);
+
+    /* =====================================================================
+       ROL · INFO — Contexto, ayuda, cambios de estado neutros.
+       ===================================================================== */
+    --fi-color-info: var(--fi-steel-600);
+    --fi-color-info-hover: var(--fi-steel-500);
+    --fi-color-info-active: var(--fi-steel-700);
+    --fi-color-info-on: var(--fi-neutral-0);
+    --fi-color-info-subtle: var(--fi-steel-50);
+    --fi-color-info-subtle-hover: var(--fi-steel-100);
+    --fi-color-info-text: var(--fi-steel-700);
+    --fi-color-info-border: var(--fi-steel-200);
+    --fi-color-info-ring: rgb(var(--fi-rgb-steel) / 0.35);
+
+    /* =====================================================================
+       ROL · NEUTRAL (muted) — Estados inactivos, borradores, "sin datos".
+       ===================================================================== */
+    --fi-color-neutral: var(--fi-neutral-600);
+    --fi-color-neutral-hover: var(--fi-neutral-500);
+    --fi-color-neutral-active: var(--fi-neutral-700);
+    --fi-color-neutral-on: var(--fi-neutral-0);
+    --fi-color-neutral-subtle: var(--fi-neutral-100);
+    --fi-color-neutral-subtle-hover: var(--fi-neutral-200);
+    --fi-color-neutral-text: var(--fi-neutral-700);
+    --fi-color-neutral-border: var(--fi-neutral-300);
+    --fi-color-neutral-ring: rgb(var(--fi-rgb-neutral) / 0.5);
+
+    /* =====================================================================
+       ROL · LEGACY — Solo logotipo y material heredado. No usar en UI nueva.
+       ===================================================================== */
+    --fi-color-legacy: var(--fi-legacy-600);
+    --fi-color-legacy-on: var(--fi-neutral-0);
+    --fi-color-legacy-subtle: var(--fi-legacy-50);
+    --fi-color-legacy-text: var(--fi-legacy-700);
+    --fi-color-legacy-border: var(--fi-legacy-200);
+
+    /* =====================================================================
+       ACENTOS DE MARCA — El "rail" amarillo es el gesto identitario del
+       sistema: una línea de 3px que marca lo activo o lo destacado
+       (pestaña activa, ítem de menú, borde de tarjeta, cabecera de sección).
+       Sustituye a los triángulos históricos, discontinuados por la guía.
+       ===================================================================== */
+    --fi-color-accent: var(--fi-yellow-500);
+    --fi-color-accent-soft: var(--fi-yellow-200);
+    --fi-rail-size: 3px;
+
+    /* =====================================================================
+       COLORES DE DATOS — Series de gráficas y etiquetas de categoría.
+       Orden pensado para que las dos primeras series sean las de marca.
+       ===================================================================== */
+    --fi-color-data-1: var(--fi-yellow-500);
+    --fi-color-data-2: var(--fi-navy-700);
+    --fi-color-data-3: var(--fi-steel-400);
+    --fi-color-data-4: var(--fi-green-400);
+    --fi-color-data-5: var(--fi-orange-400);
+    --fi-color-data-6: var(--fi-neutral-400);
+  }
+
+  /* =======================================================================
+     TEMA OSCURO
+     Solo se redefinen superficies, texto, bordes y los pasos de rampa que
+     necesitan invertirse. Los nombres semánticos no cambian: cualquier
+     componente sigue funcionando sin tocar una línea.
+     ======================================================================= */
+  [data-fi-theme='dark'] {
+    color-scheme: dark;
+
+    --fi-color-canvas: var(--fi-navy-950);
+    --fi-color-surface: #1b2534;
+    --fi-color-surface-raised: #22303f;
+    --fi-color-surface-sunken: #131b26;
+    --fi-color-surface-hover: #22303f;
+    --fi-color-surface-active: #2a3a4c;
+    --fi-color-surface-selected: rgb(var(--fi-rgb-yellow) / 0.14);
+    --fi-color-surface-disabled: #22303f;
+    --fi-color-surface-inverse: var(--fi-neutral-100);
+    --fi-color-overlay: rgb(0 0 0 / 0.65);
+    --fi-color-scrim: rgb(var(--fi-rgb-white) / 0.06);
+
+    --fi-color-text: var(--fi-neutral-100);
+    --fi-color-text-strong: var(--fi-neutral-0);
+    --fi-color-text-muted: var(--fi-neutral-300);
+    --fi-color-text-subtle: var(--fi-navy-300);
+    --fi-color-text-placeholder: var(--fi-navy-400);
+    --fi-color-text-disabled: var(--fi-navy-400);
+    --fi-color-text-inverse: var(--fi-navy-900);
+    --fi-color-text-on-brand: var(--fi-navy-950);
+    --fi-color-text-link: var(--fi-yellow-300);
+    --fi-color-text-link-hover: var(--fi-yellow-200);
+
+    --fi-color-border-subtle: rgb(var(--fi-rgb-white) / 0.08);
+    --fi-color-border: rgb(var(--fi-rgb-white) / 0.16);
+    --fi-color-border-strong: rgb(var(--fi-rgb-white) / 0.28);
+    --fi-color-border-interactive: var(--fi-navy-400);
+    --fi-color-border-inverse: var(--fi-neutral-300);
+
+    /* Sobre fondo oscuro el anillo navy desaparece: pasa a amarillo. */
+    --fi-color-focus-ring: var(--fi-yellow-400);
+
+    --fi-color-primary: var(--fi-yellow-400);
+    --fi-color-primary-hover: var(--fi-yellow-300);
+    --fi-color-primary-active: var(--fi-yellow-500);
+    --fi-color-primary-on: var(--fi-navy-950);
+    --fi-color-primary-subtle: rgb(var(--fi-rgb-yellow) / 0.14);
+    --fi-color-primary-subtle-hover: rgb(var(--fi-rgb-yellow) / 0.22);
+    --fi-color-primary-text: var(--fi-yellow-300);
+    --fi-color-primary-border: rgb(var(--fi-rgb-yellow) / 0.4);
+
+    --fi-color-secondary: var(--fi-navy-300);
+    --fi-color-secondary-hover: var(--fi-navy-200);
+    --fi-color-secondary-active: var(--fi-navy-400);
+    --fi-color-secondary-on: var(--fi-navy-950);
+    --fi-color-secondary-subtle: rgb(var(--fi-rgb-navy) / 0.4);
+    --fi-color-secondary-subtle-hover: rgb(var(--fi-rgb-navy) / 0.55);
+    --fi-color-secondary-text: var(--fi-navy-200);
+    --fi-color-secondary-border: rgb(var(--fi-rgb-navy) / 0.6);
+
+    --fi-color-success: var(--fi-green-400);
+    --fi-color-success-hover: var(--fi-green-300);
+    --fi-color-success-active: var(--fi-green-500);
+    --fi-color-success-on: var(--fi-green-900);
+    --fi-color-success-subtle: rgb(var(--fi-rgb-green) / 0.16);
+    --fi-color-success-subtle-hover: rgb(var(--fi-rgb-green) / 0.24);
+    --fi-color-success-text: var(--fi-green-300);
+    --fi-color-success-border: rgb(var(--fi-rgb-green) / 0.45);
+
+    --fi-color-warning: var(--fi-orange-400);
+    --fi-color-warning-hover: var(--fi-orange-300);
+    --fi-color-warning-active: var(--fi-orange-500);
+    --fi-color-warning-on: var(--fi-orange-900);
+    --fi-color-warning-subtle: rgb(var(--fi-rgb-orange) / 0.16);
+    --fi-color-warning-subtle-hover: rgb(var(--fi-rgb-orange) / 0.24);
+    --fi-color-warning-text: var(--fi-orange-200);
+    --fi-color-warning-border: rgb(var(--fi-rgb-orange) / 0.45);
+
+    --fi-color-danger: var(--fi-red-400);
+    --fi-color-danger-hover: var(--fi-red-300);
+    --fi-color-danger-active: var(--fi-red-500);
+    --fi-color-danger-on: var(--fi-red-900);
+    --fi-color-danger-subtle: rgb(var(--fi-rgb-red) / 0.16);
+    --fi-color-danger-subtle-hover: rgb(var(--fi-rgb-red) / 0.24);
+    --fi-color-danger-text: var(--fi-red-200);
+    --fi-color-danger-border: rgb(var(--fi-rgb-red) / 0.45);
+
+    --fi-color-info: var(--fi-steel-400);
+    --fi-color-info-hover: var(--fi-steel-300);
+    --fi-color-info-active: var(--fi-steel-500);
+    --fi-color-info-on: var(--fi-steel-900);
+    --fi-color-info-subtle: rgb(var(--fi-rgb-steel) / 0.16);
+    --fi-color-info-subtle-hover: rgb(var(--fi-rgb-steel) / 0.24);
+    --fi-color-info-text: var(--fi-steel-200);
+    --fi-color-info-border: rgb(var(--fi-rgb-steel) / 0.45);
+
+    --fi-color-neutral: var(--fi-neutral-400);
+    --fi-color-neutral-hover: var(--fi-neutral-300);
+    --fi-color-neutral-active: var(--fi-neutral-500);
+    --fi-color-neutral-on: var(--fi-navy-950);
+    --fi-color-neutral-subtle: rgb(var(--fi-rgb-white) / 0.08);
+    --fi-color-neutral-subtle-hover: rgb(var(--fi-rgb-white) / 0.14);
+    --fi-color-neutral-text: var(--fi-neutral-300);
+    --fi-color-neutral-border: rgb(var(--fi-rgb-white) / 0.2);
+
+    --fi-color-legacy: var(--fi-legacy-300);
+    --fi-color-legacy-text: var(--fi-legacy-200);
+    --fi-color-legacy-subtle: rgb(87 87 240 / 0.18);
+    --fi-color-legacy-border: rgb(87 87 240 / 0.4);
+
+    --fi-color-accent: var(--fi-yellow-400);
+    --fi-color-accent-soft: rgb(var(--fi-rgb-yellow) / 0.35);
+
+    --fi-color-data-3: var(--fi-steel-300);
+    --fi-color-data-2: var(--fi-navy-200);
+  }
+
+  /* Tema automático: sigue al sistema operativo salvo que se fuerce claro. */
+  @media (prefers-color-scheme: dark) {
+    [data-fi-theme='auto'] {
+      color-scheme: dark;
+
+      --fi-color-canvas: var(--fi-navy-950);
+      --fi-color-surface: #1b2534;
+      --fi-color-surface-raised: #22303f;
+      --fi-color-surface-sunken: #131b26;
+      --fi-color-surface-hover: #22303f;
+      --fi-color-surface-active: #2a3a4c;
+      --fi-color-surface-selected: rgb(var(--fi-rgb-yellow) / 0.14);
+      --fi-color-surface-disabled: #22303f;
+      --fi-color-surface-inverse: var(--fi-neutral-100);
+      --fi-color-overlay: rgb(0 0 0 / 0.65);
+
+      --fi-color-text: var(--fi-neutral-100);
+      --fi-color-text-strong: var(--fi-neutral-0);
+      --fi-color-text-muted: var(--fi-neutral-300);
+      --fi-color-text-subtle: var(--fi-navy-300);
+      --fi-color-text-placeholder: var(--fi-navy-400);
+      --fi-color-text-disabled: var(--fi-navy-400);
+      --fi-color-text-inverse: var(--fi-navy-900);
+      --fi-color-text-link: var(--fi-yellow-300);
+
+      --fi-color-border-subtle: rgb(var(--fi-rgb-white) / 0.08);
+      --fi-color-border: rgb(var(--fi-rgb-white) / 0.16);
+      --fi-color-border-strong: rgb(var(--fi-rgb-white) / 0.28);
+
+      --fi-color-focus-ring: var(--fi-yellow-400);
+
+      --fi-color-primary: var(--fi-yellow-400);
+      --fi-color-primary-subtle: rgb(var(--fi-rgb-yellow) / 0.14);
+      --fi-color-primary-text: var(--fi-yellow-300);
+      --fi-color-secondary: var(--fi-navy-300);
+      --fi-color-secondary-on: var(--fi-navy-950);
+      --fi-color-secondary-subtle: rgb(var(--fi-rgb-navy) / 0.4);
+      --fi-color-secondary-text: var(--fi-navy-200);
+      --fi-color-success-subtle: rgb(var(--fi-rgb-green) / 0.16);
+      --fi-color-success-text: var(--fi-green-300);
+      --fi-color-warning-subtle: rgb(var(--fi-rgb-orange) / 0.16);
+      --fi-color-warning-text: var(--fi-orange-200);
+      --fi-color-danger-subtle: rgb(var(--fi-rgb-red) / 0.16);
+      --fi-color-danger-text: var(--fi-red-200);
+      --fi-color-info-subtle: rgb(var(--fi-rgb-steel) / 0.16);
+      --fi-color-info-text: var(--fi-steel-200);
+      --fi-color-neutral-subtle: rgb(var(--fi-rgb-white) / 0.08);
+      --fi-color-neutral-text: var(--fi-neutral-300);
+    }
+  }
+}
+
+/* ===== tokens/typography.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   tokens/typography.css — TIPOGRAFÍA
+   --------------------------------------------------------------------------
+   La guía de transición mantiene Century Gothic en todas las comunicaciones.
+   Century Gothic no es una fuente web: la pila degrada a geométricas de
+   proporciones equivalentes (Jost y Questrial son las más fieles en pantalla)
+   para que el ritmo y la altura de x no cambien entre equipos.
+
+   Instalación recomendada en la app:
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+   La escala es modular (ratio 1.2 · quinta menor) y fluida entre 360px y
+   1440px con clamp(), de modo que no hacen falta media queries de texto.
+   ========================================================================== */
+
+@layer tokens {
+  :root {
+    /* =====================================================================
+       FAMILIAS
+       ===================================================================== */
+    --fi-font-sans: 'Century Gothic', 'Jost', 'Questrial', 'Futura',
+      'URW Gothic', 'Avant Garde', 'Trebuchet MS', system-ui, sans-serif;
+    /* Display = misma familia con tracking negativo: la guía pide una sola
+       voz tipográfica, la jerarquía la crean peso y espaciado, no otra fuente. */
+    --fi-font-display: var(--fi-font-sans);
+    /* Datos tabulares y código: mono con cifras de ancho fijo. */
+    --fi-font-mono: 'JetBrains Mono', 'SFMono-Regular', 'Menlo', 'Consolas',
+      'Liberation Mono', monospace;
+
+    /* =====================================================================
+       PESOS — Century Gothic Light/Regular/SemiBold/Bold/ExtraBold/Black
+       ===================================================================== */
+    --fi-font-weight-light: 300;
+    --fi-font-weight-regular: 400;
+    --fi-font-weight-medium: 500;
+    --fi-font-weight-semibold: 600;
+    --fi-font-weight-bold: 700;
+    --fi-font-weight-extrabold: 800;
+    --fi-font-weight-black: 900;
+
+    /* =====================================================================
+       ESCALA DE TAMAÑO — base 16px
+       ===================================================================== */
+    --fi-font-size-2xs: 0.6875rem; /* 11px · etiquetas de tabla, overline */
+    --fi-font-size-xs: 0.75rem; /* 12px · captions, ayuda de campo */
+    --fi-font-size-sm: 0.875rem; /* 14px · UI densa, tablas, botones sm */
+    --fi-font-size-md: 1rem; /* 16px · cuerpo por defecto */
+    --fi-font-size-lg: 1.125rem; /* 18px · entradilla */
+    --fi-font-size-xl: 1.25rem; /* 20px · h5 */
+    --fi-font-size-2xl: 1.5rem; /* 24px · h4 */
+    --fi-font-size-3xl: clamp(1.625rem, 1.4rem + 1vw, 1.875rem); /* h3 */
+    --fi-font-size-4xl: clamp(1.875rem, 1.55rem + 1.4vw, 2.25rem); /* h2 */
+    --fi-font-size-5xl: clamp(2.25rem, 1.8rem + 2vw, 3rem); /* h1 */
+    --fi-font-size-6xl: clamp(2.75rem, 2rem + 3.2vw, 3.75rem); /* display */
+    --fi-font-size-7xl: clamp(3.25rem, 2.2rem + 4.6vw, 4.5rem); /* hero */
+
+    /* =====================================================================
+       INTERLINEADO
+       ===================================================================== */
+    --fi-line-height-none: 1;
+    --fi-line-height-tight: 1.15; /* titulares grandes */
+    --fi-line-height-snug: 1.3; /* subtítulos */
+    --fi-line-height-normal: 1.5; /* cuerpo */
+    --fi-line-height-relaxed: 1.65; /* textos largos */
+    --fi-line-height-control: 1.25; /* dentro de botones e inputs */
+
+    /* =====================================================================
+       TRACKING — las geométricas ganan mucho con tracking negativo en
+       tamaños grandes y positivo en versalitas pequeñas.
+       ===================================================================== */
+    --fi-letter-spacing-tighter: -0.03em;
+    --fi-letter-spacing-tight: -0.015em;
+    --fi-letter-spacing-normal: 0;
+    --fi-letter-spacing-wide: 0.02em;
+    --fi-letter-spacing-wider: 0.06em;
+    --fi-letter-spacing-widest: 0.12em; /* overline / eyebrow */
+
+    /* =====================================================================
+       MEDIDA — ancho de línea legible
+       ===================================================================== */
+    --fi-measure-narrow: 42ch;
+    --fi-measure: 68ch;
+    --fi-measure-wide: 84ch;
+
+    /* =====================================================================
+       ESTILOS COMPUESTOS — atajos de la shorthand `font`.
+       Uso: font: var(--fi-text-h3); (recuerda añadir letter-spacing aparte)
+       ===================================================================== */
+    --fi-text-display: var(--fi-font-weight-light) var(--fi-font-size-7xl) /
+      var(--fi-line-height-tight) var(--fi-font-display);
+    --fi-text-h1: var(--fi-font-weight-light) var(--fi-font-size-5xl) /
+      var(--fi-line-height-tight) var(--fi-font-display);
+    --fi-text-h2: var(--fi-font-weight-regular) var(--fi-font-size-4xl) /
+      var(--fi-line-height-snug) var(--fi-font-display);
+    --fi-text-h3: var(--fi-font-weight-semibold) var(--fi-font-size-3xl) /
+      var(--fi-line-height-snug) var(--fi-font-display);
+    --fi-text-h4: var(--fi-font-weight-semibold) var(--fi-font-size-2xl) /
+      var(--fi-line-height-snug) var(--fi-font-sans);
+    --fi-text-h5: var(--fi-font-weight-semibold) var(--fi-font-size-xl) /
+      var(--fi-line-height-snug) var(--fi-font-sans);
+    --fi-text-h6: var(--fi-font-weight-bold) var(--fi-font-size-md) /
+      var(--fi-line-height-snug) var(--fi-font-sans);
+    --fi-text-body: var(--fi-font-weight-regular) var(--fi-font-size-md) /
+      var(--fi-line-height-normal) var(--fi-font-sans);
+    --fi-text-body-sm: var(--fi-font-weight-regular) var(--fi-font-size-sm) /
+      var(--fi-line-height-normal) var(--fi-font-sans);
+    --fi-text-label: var(--fi-font-weight-semibold) var(--fi-font-size-sm) /
+      var(--fi-line-height-snug) var(--fi-font-sans);
+    --fi-text-caption: var(--fi-font-weight-regular) var(--fi-font-size-xs) /
+      var(--fi-line-height-normal) var(--fi-font-sans);
+    --fi-text-code: var(--fi-font-weight-regular) var(--fi-font-size-sm) /
+      var(--fi-line-height-normal) var(--fi-font-mono);
+  }
+}
+
+/* ===== tokens/spacing.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   tokens/spacing.css — ESPACIADO Y DIMENSIONES
+   --------------------------------------------------------------------------
+   Rejilla base de 4px. Los pasos siguen la nomenclatura numérica habitual
+   (1 = 4px, 2 = 8px, 4 = 16px…) para que sea inmediata de leer por cualquier
+   persona que venga de Tailwind, Chakra o Material.
+
+   Regla de uso:
+     · Dentro de un componente  → pasos 1–4
+     · Entre componentes        → pasos 4–8
+     · Entre secciones          → pasos 10–24
+   ========================================================================== */
+
+@layer tokens {
+  :root {
+    /* =====================================================================
+       ESCALA DE ESPACIADO
+       ===================================================================== */
+    --fi-space-0: 0rem;
+    --fi-space-px: 0.0625rem; /* 1px  · hairlines */
+    --fi-space-0-5: 0.125rem; /* 2px */
+    --fi-space-1: 0.25rem; /* 4px */
+    --fi-space-1-5: 0.375rem; /* 6px */
+    --fi-space-2: 0.5rem; /* 8px */
+    --fi-space-2-5: 0.625rem; /* 10px */
+    --fi-space-3: 0.75rem; /* 12px */
+    --fi-space-3-5: 0.875rem; /* 14px */
+    --fi-space-4: 1rem; /* 16px */
+    --fi-space-5: 1.25rem; /* 20px */
+    --fi-space-6: 1.5rem; /* 24px */
+    --fi-space-7: 1.75rem; /* 28px */
+    --fi-space-8: 2rem; /* 32px */
+    --fi-space-9: 2.25rem; /* 36px */
+    --fi-space-10: 2.5rem; /* 40px */
+    --fi-space-11: 2.75rem; /* 44px */
+    --fi-space-12: 3rem; /* 48px */
+    --fi-space-14: 3.5rem; /* 56px */
+    --fi-space-16: 4rem; /* 64px */
+    --fi-space-20: 5rem; /* 80px */
+    --fi-space-24: 6rem; /* 96px */
+    --fi-space-28: 7rem; /* 112px */
+    --fi-space-32: 8rem; /* 128px */
+    --fi-space-40: 10rem; /* 160px */
+
+    /* =====================================================================
+       ALTURAS DE CONTROL — mismo raíl para botones, inputs y selects, de
+       forma que se alineen perfectamente al ponerlos en una misma fila.
+       ===================================================================== */
+    --fi-control-height-xs: 1.75rem; /* 28px */
+    --fi-control-height-sm: 2.125rem; /* 34px */
+    --fi-control-height-md: 2.5rem; /* 40px · por defecto */
+    --fi-control-height-lg: 3rem; /* 48px */
+    --fi-control-height-xl: 3.5rem; /* 56px */
+
+    /* Padding horizontal asociado a cada altura de control */
+    --fi-control-padding-xs: var(--fi-space-2);
+    --fi-control-padding-sm: var(--fi-space-3);
+    --fi-control-padding-md: var(--fi-space-4);
+    --fi-control-padding-lg: var(--fi-space-5);
+    --fi-control-padding-xl: var(--fi-space-6);
+
+    /* Área táctil mínima recomendada (WCAG 2.2 · objetivo 24px, cómodo 44px) */
+    --fi-touch-target-min: 2.75rem;
+
+    /* =====================================================================
+       ICONOS
+       ===================================================================== */
+    --fi-icon-xs: 0.875rem; /* 14px */
+    --fi-icon-sm: 1rem; /* 16px */
+    --fi-icon-md: 1.25rem; /* 20px */
+    --fi-icon-lg: 1.5rem; /* 24px */
+    --fi-icon-xl: 2rem; /* 32px */
+
+    /* =====================================================================
+       AVATARES
+       ===================================================================== */
+    --fi-avatar-xs: 1.5rem;
+    --fi-avatar-sm: 2rem;
+    --fi-avatar-md: 2.5rem;
+    --fi-avatar-lg: 3rem;
+    --fi-avatar-xl: 4rem;
+    --fi-avatar-2xl: 5.5rem;
+
+    /* =====================================================================
+       CONTENEDORES Y ESTRUCTURA DE APLICACIÓN
+       ===================================================================== */
+    --fi-container-sm: 40rem; /* 640px */
+    --fi-container-md: 48rem; /* 768px */
+    --fi-container-lg: 64rem; /* 1024px */
+    --fi-container-xl: 80rem; /* 1280px */
+    --fi-container-2xl: 96rem; /* 1536px */
+    --fi-container-padding: var(--fi-space-5);
+
+    --fi-sidebar-width: 16rem; /* 256px */
+    --fi-sidebar-width-collapsed: 4.5rem;
+    --fi-topbar-height: 4rem;
+
+    /* Ritmo vertical entre bloques de una página de producto */
+    --fi-section-gap: var(--fi-space-10);
+    --fi-stack-gap: var(--fi-space-4);
+  }
+}
+
+/* ===== tokens/shape.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   tokens/shape.css — RADIOS Y BORDES
+   --------------------------------------------------------------------------
+   La guía discontinúa los triángulos y pide composiciones "limpias, mínimas
+   y guiadas por color". El sistema adopta el otro gesto ya presente en la
+   marca: el cuadrado de esquinas muy redondeadas de las muestras de color.
+   De ahí que el radio por defecto sea generoso (10–16px) y no timidamente 4px.
+   ========================================================================== */
+
+@layer tokens {
+  :root {
+    /* =====================================================================
+       RADIOS
+       ===================================================================== */
+    --fi-radius-none: 0;
+    --fi-radius-xs: 0.125rem; /* 2px */
+    --fi-radius-sm: 0.25rem; /* 4px  · chips diminutos, checkbox */
+    --fi-radius-md: 0.375rem; /* 6px */
+    --fi-radius-lg: 0.625rem; /* 10px · botones e inputs */
+    --fi-radius-xl: 0.875rem; /* 14px · tarjetas pequeñas */
+    --fi-radius-2xl: 1.25rem; /* 20px · tarjetas y paneles */
+    --fi-radius-3xl: 1.75rem; /* 28px · bloques destacados */
+    --fi-radius-full: 9999px; /* píldoras, avatares, switches */
+
+    /* Alias por componente: cambia aquí y cambia en todo el producto. */
+    --fi-radius-control: var(--fi-radius-lg);
+    --fi-radius-card: var(--fi-radius-2xl);
+    --fi-radius-surface: var(--fi-radius-xl);
+    --fi-radius-pill: var(--fi-radius-full);
+
+    /* =====================================================================
+       GROSORES DE BORDE
+       ===================================================================== */
+    --fi-border-width-0: 0;
+    --fi-border-width-hairline: 1px;
+    --fi-border-width-thin: 1.5px;
+    --fi-border-width-thick: 2px;
+    --fi-border-width-rail: 3px; /* el "rail" amarillo de marca */
+    --fi-border-width-heavy: 4px;
+
+    /* =====================================================================
+       BORDES COMPUESTOS — evitan repetir width/style/color
+       ===================================================================== */
+    --fi-border-subtle: var(--fi-border-width-hairline) solid
+      var(--fi-color-border-subtle);
+    --fi-border-default: var(--fi-border-width-hairline) solid
+      var(--fi-color-border);
+    --fi-border-strong: var(--fi-border-width-hairline) solid
+      var(--fi-color-border-strong);
+    --fi-border-dashed: var(--fi-border-width-hairline) dashed
+      var(--fi-color-border-strong);
+
+    /* =====================================================================
+       DIVISORES Y CONTORNOS
+       ===================================================================== */
+    --fi-divider: var(--fi-border-width-hairline) solid
+      var(--fi-color-border-subtle);
+    --fi-outline-focus: var(--fi-border-width-thick) solid
+      var(--fi-color-focus-ring);
+  }
+}
+
+/* ===== tokens/elevation.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   tokens/elevation.css — SOMBRAS Y ELEVACIÓN
+   --------------------------------------------------------------------------
+   Las sombras nunca son negras puras: se tiñen con el navy de marca
+   (rgb 55 74 102) para que la interfaz mantenga una temperatura fría y
+   coherente con la paleta. El negro puro produce sombras "sucias" sobre el
+   gris #f8f8fb del lienzo.
+
+   Escala de intención, no de píxeles:
+     xs  → separación mínima (inputs, chips)
+     sm  → tarjeta apoyada en el lienzo
+     md  → menú desplegable
+     lg  → popover / panel flotante
+     xl  → modal
+     2xl → hoja a pantalla completa en móvil
+   ========================================================================== */
+
+@layer tokens {
+  :root {
+    --fi-shadow-none: none;
+
+    --fi-shadow-xs: 0 1px 2px rgb(var(--fi-rgb-navy) / 0.06);
+
+    --fi-shadow-sm: 0 1px 2px rgb(var(--fi-rgb-navy) / 0.06),
+      0 2px 6px rgb(var(--fi-rgb-navy) / 0.06);
+
+    --fi-shadow-md: 0 2px 4px rgb(var(--fi-rgb-navy) / 0.06),
+      0 6px 14px rgb(var(--fi-rgb-navy) / 0.09);
+
+    --fi-shadow-lg: 0 4px 8px rgb(var(--fi-rgb-navy) / 0.07),
+      0 14px 28px rgb(var(--fi-rgb-navy) / 0.12);
+
+    --fi-shadow-xl: 0 8px 16px rgb(var(--fi-rgb-navy) / 0.08),
+      0 28px 56px rgb(var(--fi-rgb-navy) / 0.16);
+
+    --fi-shadow-2xl: 0 12px 24px rgb(var(--fi-rgb-navy) / 0.1),
+      0 48px 88px rgb(var(--fi-rgb-navy) / 0.22);
+
+    /* Sombra interior: campos hundidos, barras de progreso, celdas de datos */
+    --fi-shadow-inner: inset 0 1px 2px rgb(var(--fi-rgb-navy) / 0.1);
+
+    /* Sombras de color: refuerzan la jerarquía del botón primario y de los
+       estados de validación sin recurrir a bordes gruesos. */
+    --fi-shadow-primary: 0 4px 12px rgb(var(--fi-rgb-yellow) / 0.35);
+    --fi-shadow-danger: 0 4px 12px rgb(var(--fi-rgb-red) / 0.28);
+    --fi-shadow-success: 0 4px 12px rgb(var(--fi-rgb-green) / 0.28);
+
+    /* Sombras direccionales para barras fijas */
+    --fi-shadow-top: 0 -2px 8px rgb(var(--fi-rgb-navy) / 0.08);
+    --fi-shadow-bottom: 0 2px 8px rgb(var(--fi-rgb-navy) / 0.08);
+
+    /* Desenfoques para overlays y barras translúcidas */
+    --fi-blur-sm: blur(4px);
+    --fi-blur-md: blur(10px);
+    --fi-blur-lg: blur(20px);
+    --fi-backdrop: saturate(180%) var(--fi-blur-md);
+
+    /* Opacidades de estado */
+    --fi-opacity-disabled: 0.5;
+    --fi-opacity-muted: 0.7;
+    --fi-opacity-overlay: 0.55;
+  }
+
+  /* En oscuro las sombras pierden eficacia: se refuerzan y se apoyan en un
+     borde de luz superior, como hacen los sistemas nativos. */
+  [data-fi-theme='dark'],
+  [data-fi-theme='auto'] {
+    --fi-shadow-xs: 0 1px 2px rgb(0 0 0 / 0.4);
+    --fi-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4), 0 2px 6px rgb(0 0 0 / 0.32);
+    --fi-shadow-md: 0 2px 4px rgb(0 0 0 / 0.4), 0 6px 14px rgb(0 0 0 / 0.4);
+    --fi-shadow-lg: 0 4px 8px rgb(0 0 0 / 0.45), 0 14px 28px rgb(0 0 0 / 0.48);
+    --fi-shadow-xl: 0 8px 16px rgb(0 0 0 / 0.5), 0 28px 56px rgb(0 0 0 / 0.55);
+    --fi-shadow-2xl: 0 12px 24px rgb(0 0 0 / 0.55), 0 48px 88px rgb(0 0 0 / 0.6);
+    --fi-shadow-inner: inset 0 1px 2px rgb(0 0 0 / 0.45);
+  }
+}
+
+/* ===== tokens/motion.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   tokens/motion.css — MOVIMIENTO
+   --------------------------------------------------------------------------
+   El movimiento del sistema es corto y funcional: confirma que algo ha
+   cambiado, nunca decora. En una herramienta de gestión que se usa ocho
+   horas al día, una animación larga se convierte en una espera.
+
+   Regla de duración según distancia recorrida:
+     micro (color, opacidad)       → 120–160ms
+     control (menús, acordeones)   → 200–260ms
+     superficie (modales, paneles) → 280–360ms
+   ========================================================================== */
+
+@layer tokens {
+  :root {
+    /* =====================================================================
+       DURACIONES
+       ===================================================================== */
+    --fi-duration-instant: 0ms;
+    --fi-duration-75: 75ms;
+    --fi-duration-100: 100ms;
+    --fi-duration-150: 150ms;
+    --fi-duration-200: 200ms;
+    --fi-duration-250: 250ms;
+    --fi-duration-300: 300ms;
+    --fi-duration-400: 400ms;
+    --fi-duration-500: 500ms;
+    --fi-duration-700: 700ms;
+    --fi-duration-1000: 1000ms;
+
+    /* Alias por intención */
+    --fi-duration-micro: var(--fi-duration-150);
+    --fi-duration-control: var(--fi-duration-250);
+    --fi-duration-surface: var(--fi-duration-300);
+
+    /* =====================================================================
+       CURVAS
+       ===================================================================== */
+    --fi-ease-linear: linear;
+    --fi-ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --fi-ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --fi-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    /* Estándar del sistema: sale rápido y frena largo. Es la que da la
+       sensación "sólida" en menús y paneles. */
+    --fi-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+    /* Énfasis: para elementos que entran desde fuera de pantalla. */
+    --fi-ease-emphasized: cubic-bezier(0.2, 0, 0, 1.2);
+    /* Rebote sutil: solo para confirmaciones (check, toggle). */
+    --fi-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* =====================================================================
+       TRANSICIONES COMPUESTAS
+       ===================================================================== */
+    --fi-transition-colors: color var(--fi-duration-micro) var(--fi-ease-standard),
+      background-color var(--fi-duration-micro) var(--fi-ease-standard),
+      border-color var(--fi-duration-micro) var(--fi-ease-standard),
+      fill var(--fi-duration-micro) var(--fi-ease-standard),
+      stroke var(--fi-duration-micro) var(--fi-ease-standard);
+
+    --fi-transition-opacity: opacity var(--fi-duration-micro)
+      var(--fi-ease-standard);
+
+    --fi-transition-transform: transform var(--fi-duration-control)
+      var(--fi-ease-standard);
+
+    --fi-transition-shadow: box-shadow var(--fi-duration-micro)
+      var(--fi-ease-standard);
+
+    /* Para controles interactivos: color + sombra + desplazamiento */
+    --fi-transition-control: var(--fi-transition-colors),
+      box-shadow var(--fi-duration-micro) var(--fi-ease-standard),
+      transform var(--fi-duration-100) var(--fi-ease-standard);
+
+    --fi-transition-all: all var(--fi-duration-control) var(--fi-ease-standard);
+
+    /* =====================================================================
+       DESPLAZAMIENTOS DE ENTRADA
+       ===================================================================== */
+    --fi-motion-rise: 6px; /* menús y tooltips */
+    --fi-motion-slide: 16px; /* toasts y paneles laterales */
+    --fi-motion-scale-in: 0.97; /* modales */
+    --fi-motion-press: 1px; /* hundido de un botón al pulsar */
+  }
+
+  /* Preferencia de movimiento reducido: se anulan duraciones y traslados,
+     pero se conservan los cambios de color para no perder feedback. */
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --fi-duration-75: 0.01ms;
+      --fi-duration-100: 0.01ms;
+      --fi-duration-150: 0.01ms;
+      --fi-duration-200: 0.01ms;
+      --fi-duration-250: 0.01ms;
+      --fi-duration-300: 0.01ms;
+      --fi-duration-400: 0.01ms;
+      --fi-duration-500: 0.01ms;
+      --fi-duration-700: 0.01ms;
+      --fi-duration-1000: 0.01ms;
+      --fi-motion-rise: 0px;
+      --fi-motion-slide: 0px;
+      --fi-motion-scale-in: 1;
+      --fi-motion-press: 0px;
+    }
+  }
+}
+
+/* ===== tokens/layers.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   tokens/layers.css — Z-INDEX
+   --------------------------------------------------------------------------
+   Una única escala para todo el producto. Ningún componente debe declarar un
+   z-index numérico: si algo necesita ir por encima de otra cosa, se añade un
+   escalón aquí y se documenta. Así se evita la carrera de z-index: 9999.
+
+   Los saltos son de 100 para poder insertar capas intermedias sin renumerar.
+   ========================================================================== */
+
+@layer tokens {
+  :root {
+    --fi-z-hide: -1; /* elementos fuera de flujo visual */
+    --fi-z-base: 0; /* contenido normal */
+    --fi-z-raised: 10; /* tarjeta en hover, fila destacada */
+    --fi-z-docked: 100; /* barras de acción pegadas al contenido */
+    --fi-z-sticky: 200; /* cabeceras de tabla, filtros pegajosos */
+    --fi-z-navigation: 300; /* barra superior y menú lateral */
+    --fi-z-dropdown: 400; /* menús desplegables, autocompletar */
+    --fi-z-overlay: 500; /* fondo oscurecido del modal */
+    --fi-z-modal: 600; /* diálogos y paneles laterales */
+    --fi-z-popover: 700; /* popovers sobre un modal */
+    --fi-z-toast: 800; /* notificaciones */
+    --fi-z-tooltip: 900; /* siempre lo más cercano al cursor */
+    --fi-z-max: 9999; /* solo depuración o portales de emergencia */
+  }
+}
+
+/* ===== tokens/breakpoints.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   tokens/breakpoints.css — PUNTOS DE RUPTURA
+   --------------------------------------------------------------------------
+   Aviso técnico: las custom properties NO funcionan dentro de @media
+   (`@media (min-width: var(--x))` no es válido). Por eso los breakpoints se
+   publican de tres formas:
+
+     1. Custom properties  → para leerlos desde JavaScript
+                             getComputedStyle(document.documentElement)
+                               .getPropertyValue('--fi-bp-lg')
+     2. @custom-media      → si usas PostCSS (postcss-custom-media)
+     3. Valores literales  → los que se escriben en el CSS del producto
+
+   Estrategia: mobile first. Se escribe el estilo base para móvil y se
+   amplía con min-width. Solo se usa max-width para ocultar algo concreto.
+
+     xs   0px      Móvil pequeño
+     sm   480px    Móvil grande
+     md   768px    Tablet vertical
+     lg   1024px   Tablet horizontal / portátil pequeño
+     xl   1280px   Escritorio
+     2xl  1536px   Monitor amplio
+   ========================================================================== */
+
+@layer tokens {
+  :root {
+    --fi-bp-xs: 0px;
+    --fi-bp-sm: 480px;
+    --fi-bp-md: 768px;
+    --fi-bp-lg: 1024px;
+    --fi-bp-xl: 1280px;
+    --fi-bp-2xl: 1536px;
+
+    /* Umbrales de container queries: los componentes se adaptan al ancho de
+       su contenedor, no al de la ventana. Imprescindible cuando la misma
+       tarjeta vive en el panel principal y en un cajón lateral. */
+    --fi-cq-sm: 24rem; /* 384px */
+    --fi-cq-md: 32rem; /* 512px */
+    --fi-cq-lg: 48rem; /* 768px */
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Definiciones para PostCSS. Son inertes en navegador (se ignoran), así que
+   pueden convivir sin romper nada.
+   -------------------------------------------------------------------------- */
+@custom-media --fi-sm (min-width: 480px);
+@custom-media --fi-md (min-width: 768px);
+@custom-media --fi-lg (min-width: 1024px);
+@custom-media --fi-xl (min-width: 1280px);
+@custom-media --fi-2xl (min-width: 1536px);
+@custom-media --fi-below-md (max-width: 767.98px);
+@custom-media --fi-below-lg (max-width: 1023.98px);
+@custom-media --fi-touch (hover: none) and (pointer: coarse);
+@custom-media --fi-motion-ok (prefers-reduced-motion: no-preference);
+
+@layer utilities {
+  /* Ayudas de visibilidad por breakpoint. Se quedan en la capa de utilidades
+     para que siempre ganen a los estilos de componente. */
+  .fi-hide-below-md {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .fi-hide-below-md {
+      display: revert;
+    }
+    .fi-hide-from-md {
+      display: none;
+    }
+  }
+
+  .fi-hide-below-lg {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .fi-hide-below-lg {
+      display: revert;
+    }
+    .fi-hide-from-lg {
+      display: none;
+    }
+  }
+}
+
+/* ===== base/reset.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   base/reset.css — NORMALIZACIÓN
+   --------------------------------------------------------------------------
+   Reset moderno y corto. No borra estilos por gusto: solo neutraliza las
+   diferencias entre navegadores que afectan a la maquetación.
+   ========================================================================== */
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* Se anulan los márgenes heredados del user agent: el ritmo vertical lo
+     define el layout, no el elemento. */
+  html,
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  figure,
+  blockquote,
+  dl,
+  dd,
+  fieldset {
+    margin: 0;
+  }
+
+  ul[class],
+  ol[class] {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* El scroll suave respeta la preferencia de movimiento reducido. */
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    min-block-size: 100vh;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Los medios se comportan como bloques que nunca desbordan. */
+  img,
+  picture,
+  video,
+  canvas,
+  svg,
+  iframe {
+    display: block;
+    max-inline-size: 100%;
+  }
+
+  img,
+  video {
+    block-size: auto;
+  }
+
+  svg {
+    fill: currentColor;
+  }
+
+  /* Los controles heredan la tipografía del sistema en lugar de la del SO. */
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+  }
+
+  button {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  /* Evita que palabras largas (nombres de proyecto, referencias) rompan la
+     maqueta en columnas estrechas. */
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  li,
+  dd,
+  dt,
+  figcaption {
+    overflow-wrap: break-word;
+  }
+
+  /* Titulares con equilibrio de líneas donde el navegador lo soporte. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  fieldset {
+    padding: 0;
+    border: 0;
+  }
+
+  legend {
+    padding: 0;
+  }
+
+  /* Cifras alineadas en cualquier contexto de datos. */
+  [data-fi-numeric],
+  td,
+  th {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Se elimina el contorno por defecto solo cuando hay foco de puntero;
+     el foco de teclado se estiliza en base/elements.css. */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}
+
+/* ===== base/elements.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   base/elements.css — ELEMENTOS Y ACCESIBILIDAD
+   --------------------------------------------------------------------------
+   Da voz tipográfica a los elementos HTML sin clases, para que el contenido
+   editorial (descripciones de proyecto, ayudas, correos internos) se vea
+   correcto sin marcado adicional.
+   ========================================================================== */
+
+@layer base {
+  html {
+    font-family: var(--fi-font-sans);
+    font-size: 100%;
+  }
+
+  body {
+    background-color: var(--fi-color-canvas);
+    color: var(--fi-color-text);
+    font: var(--fi-text-body);
+    letter-spacing: var(--fi-letter-spacing-normal);
+  }
+
+  /* =======================================================================
+     JERARQUÍA TIPOGRÁFICA
+     El contraste entre niveles lo crean el peso y el tracking, no el color:
+     una sola familia geométrica exige disciplina en los pesos.
+     ======================================================================= */
+  h1,
+  .fi-h1 {
+    font: var(--fi-text-h1);
+    letter-spacing: var(--fi-letter-spacing-tighter);
+    color: var(--fi-color-text-strong);
+  }
+
+  h2,
+  .fi-h2 {
+    font: var(--fi-text-h2);
+    letter-spacing: var(--fi-letter-spacing-tight);
+    color: var(--fi-color-text-strong);
+  }
+
+  h3,
+  .fi-h3 {
+    font: var(--fi-text-h3);
+    letter-spacing: var(--fi-letter-spacing-tight);
+    color: var(--fi-color-text-strong);
+  }
+
+  h4,
+  .fi-h4 {
+    font: var(--fi-text-h4);
+    color: var(--fi-color-text-strong);
+  }
+
+  h5,
+  .fi-h5 {
+    font: var(--fi-text-h5);
+    color: var(--fi-color-text-strong);
+  }
+
+  h6,
+  .fi-h6 {
+    font: var(--fi-text-h6);
+    color: var(--fi-color-text-strong);
+  }
+
+  /* Antetítulo: versalita muy espaciada. Es el marcador estructural del
+     sistema, siempre acompañado del rail amarillo. */
+  .fi-overline {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--fi-space-2);
+    font-size: var(--fi-font-size-2xs);
+    font-weight: var(--fi-font-weight-bold);
+    letter-spacing: var(--fi-letter-spacing-widest);
+    text-transform: uppercase;
+    color: var(--fi-color-text-subtle);
+  }
+
+  .fi-overline::before {
+    content: '';
+    inline-size: var(--fi-space-5);
+    block-size: var(--fi-border-width-rail);
+    background-color: var(--fi-color-accent);
+    border-radius: var(--fi-radius-full);
+  }
+
+  .fi-lead {
+    font-size: var(--fi-font-size-lg);
+    line-height: var(--fi-line-height-relaxed);
+    color: var(--fi-color-text-muted);
+    max-inline-size: var(--fi-measure);
+  }
+
+  small,
+  .fi-caption {
+    font: var(--fi-text-caption);
+    color: var(--fi-color-text-subtle);
+  }
+
+  strong,
+  b {
+    font-weight: var(--fi-font-weight-bold);
+    color: var(--fi-color-text-strong);
+  }
+
+  /* =======================================================================
+     ENLACES
+     Subrayado con offset generoso: en geométricas, el subrayado pegado
+     colisiona con los descendentes.
+     ======================================================================= */
+  a {
+    color: var(--fi-color-text-link);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    text-decoration-color: var(--fi-color-accent-soft);
+    transition: var(--fi-transition-colors);
+  }
+
+  a:hover {
+    color: var(--fi-color-text-link-hover);
+    text-decoration-color: currentColor;
+  }
+
+  /* =======================================================================
+     CONTENIDO EDITORIAL
+     ======================================================================= */
+  ul:not([class]),
+  ol:not([class]) {
+    padding-inline-start: var(--fi-space-5);
+    display: grid;
+    gap: var(--fi-space-1-5);
+    color: var(--fi-color-text-muted);
+  }
+
+  ul:not([class])::marker,
+  ul:not([class]) li::marker {
+    color: var(--fi-color-accent);
+  }
+
+  blockquote {
+    border-inline-start: var(--fi-border-width-rail) solid
+      var(--fi-color-accent);
+    padding-inline-start: var(--fi-space-4);
+    color: var(--fi-color-text-muted);
+    font-size: var(--fi-font-size-lg);
+    line-height: var(--fi-line-height-relaxed);
+  }
+
+  hr {
+    block-size: 0;
+    border: 0;
+    border-block-start: var(--fi-divider);
+    margin-block: var(--fi-space-6);
+  }
+
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--fi-font-mono);
+    font-size: 0.9em;
+  }
+
+  :not(pre) > code {
+    background-color: var(--fi-color-surface-sunken);
+    border: var(--fi-border-subtle);
+    border-radius: var(--fi-radius-sm);
+    padding: 0.1em 0.35em;
+    color: var(--fi-color-text-strong);
+  }
+
+  pre {
+    background-color: var(--fi-color-surface-sunken);
+    border: var(--fi-border-subtle);
+    border-radius: var(--fi-radius-surface);
+    padding: var(--fi-space-4);
+    overflow-x: auto;
+    line-height: var(--fi-line-height-relaxed);
+  }
+
+  kbd {
+    background-color: var(--fi-color-surface);
+    border: var(--fi-border-default);
+    border-block-end-width: var(--fi-border-width-thick);
+    border-radius: var(--fi-radius-sm);
+    padding: 0.1em 0.4em;
+    font-size: var(--fi-font-size-xs);
+    color: var(--fi-color-text-muted);
+  }
+
+  mark {
+    background-color: var(--fi-color-primary-subtle);
+    color: var(--fi-color-text-strong);
+    border-radius: var(--fi-radius-xs);
+    padding: 0 0.15em;
+  }
+
+  abbr[title] {
+    text-decoration: underline dotted;
+    text-underline-offset: 0.2em;
+    cursor: help;
+  }
+
+  ::selection {
+    background-color: var(--fi-color-primary);
+    color: var(--fi-color-primary-on);
+  }
+
+  /* =======================================================================
+     FOCO — Un único patrón visible en todo el producto.
+     ======================================================================= */
+  :focus-visible {
+    outline: var(--fi-border-width-thick) solid var(--fi-color-focus-ring);
+    outline-offset: var(--fi-focus-ring-offset);
+    border-radius: var(--fi-radius-sm);
+  }
+
+  /* =======================================================================
+     SCROLLBARS — discretas y del color del sistema.
+     ======================================================================= */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--fi-color-border-strong) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    inline-size: 10px;
+    block-size: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--fi-color-border-strong);
+    border-radius: var(--fi-radius-full);
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--fi-color-neutral);
+    background-clip: content-box;
+  }
+
+  /* =======================================================================
+     ACCESIBILIDAD
+     ======================================================================= */
+
+  /* Texto solo para lectores de pantalla. */
+  .fi-sr-only {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Igual, pero visible al recibir foco: enlace "saltar al contenido". */
+  .fi-skip-link {
+    position: absolute;
+    inset-block-start: var(--fi-space-2);
+    inset-inline-start: var(--fi-space-2);
+    z-index: var(--fi-z-max);
+    padding: var(--fi-space-2) var(--fi-space-4);
+    background-color: var(--fi-color-primary);
+    color: var(--fi-color-primary-on);
+    border-radius: var(--fi-radius-control);
+    font-weight: var(--fi-font-weight-bold);
+    text-decoration: none;
+    transform: translateY(-200%);
+    transition: var(--fi-transition-transform);
+  }
+
+  .fi-skip-link:focus-visible {
+    transform: translateY(0);
+  }
+}
+
+/* ===== components/button.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   components/button.css — BOTONES
+   --------------------------------------------------------------------------
+   API:
+     .fi-btn                      base (obligatoria)
+     Rol      → --primary --secondary --success --warning --danger --info
+                --neutral
+     Aspecto  → (sólido por defecto) --outline --soft --ghost --link
+     Tamaño   → --xs --sm (--md por defecto) --lg --xl
+     Formas   → --icon (cuadrado) --pill --block
+     Estados  → :hover :active :focus-visible [disabled] [aria-busy="true"]
+
+   Cada rol solo redefine cuatro variables locales; los aspectos las consumen.
+   Añadir un rol nuevo son cinco líneas, no un bloque de estilos completo.
+
+   Ejemplo:
+     <button class="fi-btn fi-btn--primary">Guardar cambios</button>
+     <button class="fi-btn fi-btn--danger fi-btn--outline fi-btn--sm">Eliminar</button>
+   ========================================================================== */
+
+@layer components {
+  .fi-btn {
+    /* --- Variables locales por defecto (rol neutro) --- */
+    --btn-solid: var(--fi-color-secondary);
+    --btn-solid-hover: var(--fi-color-secondary-hover);
+    --btn-solid-active: var(--fi-color-secondary-active);
+    --btn-on: var(--fi-color-secondary-on);
+    --btn-subtle: var(--fi-color-secondary-subtle);
+    --btn-subtle-hover: var(--fi-color-secondary-subtle-hover);
+    --btn-text: var(--fi-color-secondary-text);
+    --btn-border: var(--fi-color-secondary-border);
+    --btn-shadow: var(--fi-shadow-xs);
+
+    /* --- Métrica por defecto (tamaño md) --- */
+    --btn-height: var(--fi-control-height-md);
+    --btn-padding: var(--fi-control-padding-md);
+    --btn-font-size: var(--fi-font-size-sm);
+    --btn-gap: var(--fi-space-2);
+    --btn-radius: var(--fi-radius-control);
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--btn-gap);
+
+    block-size: var(--btn-height);
+    padding-inline: var(--btn-padding);
+    border: var(--fi-border-width-hairline) solid transparent;
+    border-radius: var(--btn-radius);
+
+    font-family: var(--fi-font-sans);
+    font-size: var(--btn-font-size);
+    font-weight: var(--fi-font-weight-bold);
+    line-height: var(--fi-line-height-control);
+    letter-spacing: var(--fi-letter-spacing-wide);
+    white-space: nowrap;
+    text-decoration: none;
+
+    background-color: var(--btn-solid);
+    color: var(--btn-on);
+    box-shadow: var(--btn-shadow);
+    cursor: pointer;
+    user-select: none;
+    transition: var(--fi-transition-control);
+  }
+
+  .fi-btn:hover:not(:disabled):not([aria-busy='true']) {
+    background-color: var(--btn-solid-hover);
+  }
+
+  .fi-btn:active:not(:disabled) {
+    background-color: var(--btn-solid-active);
+    transform: translateY(var(--fi-motion-press));
+    box-shadow: none;
+  }
+
+  .fi-btn:focus-visible {
+    outline: none;
+    box-shadow: var(--fi-focus-ring);
+  }
+
+  .fi-btn:disabled,
+  .fi-btn[aria-disabled='true'] {
+    background-color: var(--fi-color-surface-disabled);
+    color: var(--fi-color-text-disabled);
+    border-color: transparent;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Icono dentro del botón: tamaño ligado al de la tipografía. */
+  .fi-btn > svg,
+  .fi-btn > .fi-icon {
+    inline-size: var(--fi-icon-sm);
+    block-size: var(--fi-icon-sm);
+    flex-shrink: 0;
+  }
+
+  /* =======================================================================
+     ROLES
+     ======================================================================= */
+  .fi-btn--primary {
+    --btn-solid: var(--fi-color-primary);
+    --btn-solid-hover: var(--fi-color-primary-hover);
+    --btn-solid-active: var(--fi-color-primary-active);
+    --btn-on: var(--fi-color-primary-on);
+    --btn-subtle: var(--fi-color-primary-subtle);
+    --btn-subtle-hover: var(--fi-color-primary-subtle-hover);
+    --btn-text: var(--fi-color-primary-text);
+    --btn-border: var(--fi-color-primary-border);
+    --btn-shadow: var(--fi-shadow-primary);
+  }
+
+  .fi-btn--secondary {
+    --btn-solid: var(--fi-color-secondary);
+    --btn-solid-hover: var(--fi-color-secondary-hover);
+    --btn-solid-active: var(--fi-color-secondary-active);
+    --btn-on: var(--fi-color-secondary-on);
+    --btn-subtle: var(--fi-color-secondary-subtle);
+    --btn-subtle-hover: var(--fi-color-secondary-subtle-hover);
+    --btn-text: var(--fi-color-secondary-text);
+    --btn-border: var(--fi-color-secondary-border);
+  }
+
+  .fi-btn--success {
+    --btn-solid: var(--fi-color-success);
+    --btn-solid-hover: var(--fi-color-success-hover);
+    --btn-solid-active: var(--fi-color-success-active);
+    --btn-on: var(--fi-color-success-on);
+    --btn-subtle: var(--fi-color-success-subtle);
+    --btn-subtle-hover: var(--fi-color-success-subtle-hover);
+    --btn-text: var(--fi-color-success-text);
+    --btn-border: var(--fi-color-success-border);
+  }
+
+  .fi-btn--warning {
+    --btn-solid: var(--fi-color-warning);
+    --btn-solid-hover: var(--fi-color-warning-hover);
+    --btn-solid-active: var(--fi-color-warning-active);
+    --btn-on: var(--fi-color-warning-on);
+    --btn-subtle: var(--fi-color-warning-subtle);
+    --btn-subtle-hover: var(--fi-color-warning-subtle-hover);
+    --btn-text: var(--fi-color-warning-text);
+    --btn-border: var(--fi-color-warning-border);
+  }
+
+  .fi-btn--danger {
+    --btn-solid: var(--fi-color-danger);
+    --btn-solid-hover: var(--fi-color-danger-hover);
+    --btn-solid-active: var(--fi-color-danger-active);
+    --btn-on: var(--fi-color-danger-on);
+    --btn-subtle: var(--fi-color-danger-subtle);
+    --btn-subtle-hover: var(--fi-color-danger-subtle-hover);
+    --btn-text: var(--fi-color-danger-text);
+    --btn-border: var(--fi-color-danger-border);
+  }
+
+  .fi-btn--info {
+    --btn-solid: var(--fi-color-info);
+    --btn-solid-hover: var(--fi-color-info-hover);
+    --btn-solid-active: var(--fi-color-info-active);
+    --btn-on: var(--fi-color-info-on);
+    --btn-subtle: var(--fi-color-info-subtle);
+    --btn-subtle-hover: var(--fi-color-info-subtle-hover);
+    --btn-text: var(--fi-color-info-text);
+    --btn-border: var(--fi-color-info-border);
+  }
+
+  .fi-btn--neutral {
+    --btn-solid: var(--fi-color-neutral);
+    --btn-solid-hover: var(--fi-color-neutral-hover);
+    --btn-solid-active: var(--fi-color-neutral-active);
+    --btn-on: var(--fi-color-neutral-on);
+    --btn-subtle: var(--fi-color-neutral-subtle);
+    --btn-subtle-hover: var(--fi-color-neutral-subtle-hover);
+    --btn-text: var(--fi-color-neutral-text);
+    --btn-border: var(--fi-color-neutral-border);
+  }
+
+  /* =======================================================================
+     ASPECTOS
+     Van después de los roles para poder sobrescribir fondo y color.
+     ======================================================================= */
+
+  /* Contorno: acción secundaria en barras de herramientas. */
+  .fi-btn--outline {
+    background-color: transparent;
+    color: var(--btn-text);
+    border-color: var(--btn-border);
+    box-shadow: none;
+  }
+
+  .fi-btn--outline:hover:not(:disabled) {
+    background-color: var(--btn-subtle);
+    border-color: var(--btn-solid);
+  }
+
+  .fi-btn--outline:active:not(:disabled) {
+    background-color: var(--btn-subtle-hover);
+  }
+
+  /* Suave: mismo peso semántico que el contorno pero sin línea; funciona
+     mejor en listas densas donde muchos bordes crean ruido. */
+  .fi-btn--soft {
+    background-color: var(--btn-subtle);
+    color: var(--btn-text);
+    border-color: transparent;
+    box-shadow: none;
+  }
+
+  .fi-btn--soft:hover:not(:disabled) {
+    background-color: var(--btn-subtle-hover);
+  }
+
+  /* Fantasma: acciones terciarias y menús de fila. */
+  .fi-btn--ghost {
+    background-color: transparent;
+    color: var(--btn-text);
+    border-color: transparent;
+    box-shadow: none;
+  }
+
+  .fi-btn--ghost:hover:not(:disabled) {
+    background-color: var(--btn-subtle);
+  }
+
+  .fi-btn--ghost:active:not(:disabled) {
+    background-color: var(--btn-subtle-hover);
+  }
+
+  /* Enlace: se comporta como texto, útil dentro de párrafos y celdas. */
+  .fi-btn--link {
+    background-color: transparent;
+    color: var(--btn-text);
+    border-color: transparent;
+    box-shadow: none;
+    block-size: auto;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-color: var(--fi-color-accent-soft);
+  }
+
+  .fi-btn--link:hover:not(:disabled) {
+    background-color: transparent;
+    text-decoration-color: currentColor;
+  }
+
+  .fi-btn--link:active:not(:disabled) {
+    transform: none;
+    background-color: transparent;
+  }
+
+  /* =======================================================================
+     TAMAÑOS
+     ======================================================================= */
+  .fi-btn--xs {
+    --btn-height: var(--fi-control-height-xs);
+    --btn-padding: var(--fi-control-padding-xs);
+    --btn-font-size: var(--fi-font-size-2xs);
+    --btn-gap: var(--fi-space-1);
+    --btn-radius: var(--fi-radius-md);
+  }
+
+  .fi-btn--sm {
+    --btn-height: var(--fi-control-height-sm);
+    --btn-padding: var(--fi-control-padding-sm);
+    --btn-font-size: var(--fi-font-size-xs);
+    --btn-gap: var(--fi-space-1-5);
+  }
+
+  .fi-btn--lg {
+    --btn-height: var(--fi-control-height-lg);
+    --btn-padding: var(--fi-control-padding-lg);
+    --btn-font-size: var(--fi-font-size-md);
+  }
+
+  .fi-btn--xl {
+    --btn-height: var(--fi-control-height-xl);
+    --btn-padding: var(--fi-control-padding-xl);
+    --btn-font-size: var(--fi-font-size-lg);
+    --btn-gap: var(--fi-space-3);
+    --btn-radius: var(--fi-radius-xl);
+  }
+
+  /* =======================================================================
+     FORMAS
+     ======================================================================= */
+
+  /* Botón cuadrado: solo icono. Requiere siempre aria-label. */
+  .fi-btn--icon {
+    inline-size: var(--btn-height);
+    padding-inline: 0;
+  }
+
+  .fi-btn--pill {
+    --btn-radius: var(--fi-radius-full);
+  }
+
+  .fi-btn--block {
+    display: flex;
+    inline-size: 100%;
+  }
+
+  /* =======================================================================
+     ESTADO DE CARGA
+     Se marca con aria-busy="true": el lector de pantalla anuncia el cambio y
+     el CSS oculta el contenido dejando el ancho intacto (sin saltos).
+     ======================================================================= */
+  .fi-btn[aria-busy='true'] {
+    color: transparent;
+    pointer-events: none;
+  }
+
+  .fi-btn[aria-busy='true']::after {
+    content: '';
+    position: absolute;
+    inline-size: 1em;
+    block-size: 1em;
+    border: 2px solid currentColor;
+    border-block-start-color: transparent;
+    border-radius: var(--fi-radius-full);
+    color: var(--btn-on);
+    animation: fi-spin var(--fi-duration-700) linear infinite;
+  }
+
+  .fi-btn--outline[aria-busy='true']::after,
+  .fi-btn--soft[aria-busy='true']::after,
+  .fi-btn--ghost[aria-busy='true']::after {
+    color: var(--btn-text);
+  }
+
+  @keyframes fi-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* =======================================================================
+     GRUPO DE BOTONES — segmentado, para filtros y cambios de vista.
+     ======================================================================= */
+  .fi-btn-group {
+    display: inline-flex;
+    align-items: stretch;
+    background-color: var(--fi-color-surface);
+    border: var(--fi-border-default);
+    border-radius: var(--fi-radius-control);
+    padding: var(--fi-space-0-5);
+    gap: var(--fi-space-0-5);
+  }
+
+  .fi-btn-group .fi-btn {
+    box-shadow: none;
+    background-color: transparent;
+    color: var(--fi-color-text-muted);
+    border-color: transparent;
+  }
+
+  .fi-btn-group .fi-btn:hover:not(:disabled) {
+    background-color: var(--fi-color-surface-hover);
+    color: var(--fi-color-text);
+  }
+
+  /* La opción activa se marca con el amarillo de marca, no con un relleno
+     completo: mantiene la barra ligera y coherente con el rail. */
+  .fi-btn-group .fi-btn[aria-pressed='true'],
+  .fi-btn-group .fi-btn.is-active {
+    background-color: var(--fi-color-primary-subtle);
+    color: var(--fi-color-primary-text);
+    box-shadow: inset 0 calc(-1 * var(--fi-border-width-rail)) 0 0
+      var(--fi-color-accent);
+  }
+
+  /* Barra de acciones: agrupa botones con separación uniforme. */
+  .fi-btn-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--fi-space-2);
+  }
+}
+
+/* ===== components/form.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   components/form.css — FORMULARIOS
+   --------------------------------------------------------------------------
+   Estructura recomendada de un campo:
+
+     <div class="fi-field">
+       <label class="fi-label" for="orcid">
+         ORCID <span class="fi-label__required" aria-hidden="true">*</span>
+       </label>
+       <input class="fi-input" id="orcid" aria-describedby="orcid-help">
+       <p class="fi-field__help" id="orcid-help">Formato 0000-0000-0000-0000</p>
+     </div>
+
+   Validación: se marca con [data-invalid] en .fi-field o con aria-invalid en
+   el control. El mensaje de error usa role="alert" para que se anuncie.
+
+   Todos los controles comparten la misma altura (--fi-control-height-*), de
+   modo que un input, un select y un botón se alinean en la misma fila.
+   ========================================================================== */
+
+@layer components {
+  /* =======================================================================
+     CONTENEDOR DE CAMPO
+     ======================================================================= */
+  .fi-field {
+    display: grid;
+    gap: var(--fi-space-1-5);
+    min-inline-size: 0;
+  }
+
+  .fi-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--fi-space-1-5);
+    font: var(--fi-text-label);
+    color: var(--fi-color-text-strong);
+  }
+
+  .fi-label__required {
+    color: var(--fi-color-danger-text);
+    font-weight: var(--fi-font-weight-bold);
+  }
+
+  .fi-label__optional {
+    font-weight: var(--fi-font-weight-regular);
+    font-size: var(--fi-font-size-xs);
+    color: var(--fi-color-text-subtle);
+  }
+
+  .fi-field__help {
+    font: var(--fi-text-caption);
+    color: var(--fi-color-text-subtle);
+    margin: 0;
+  }
+
+  .fi-field__error {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--fi-space-1-5);
+    font: var(--fi-text-caption);
+    font-weight: var(--fi-font-weight-semibold);
+    color: var(--fi-color-danger-text);
+    margin: 0;
+  }
+
+  .fi-field__error::before {
+    content: '';
+    inline-size: 0.875em;
+    block-size: 0.875em;
+    flex-shrink: 0;
+    margin-block-start: 0.15em;
+    background-color: currentColor;
+    /* Icono de aviso en máscara: sin dependencias de librería de iconos. */
+    mask: center / contain no-repeat
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2 1 21h22L12 2Zm0 6a1 1 0 0 1 1 1v5a1 1 0 1 1-2 0V9a1 1 0 0 1 1-1Zm0 9.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5Z'/%3E%3C/svg%3E");
+  }
+
+  /* Filas y rejillas de formulario */
+  .fi-form {
+    display: grid;
+    gap: var(--fi-space-5);
+  }
+
+  .fi-form-row {
+    display: grid;
+    gap: var(--fi-space-4);
+  }
+
+  @media (min-width: 768px) {
+    .fi-form-row--2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .fi-form-row--3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .fi-form-row--sidebar {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    }
+  }
+
+  .fi-fieldset {
+    display: grid;
+    gap: var(--fi-space-4);
+    border: var(--fi-border-subtle);
+    border-radius: var(--fi-radius-surface);
+    padding: var(--fi-space-5);
+  }
+
+  .fi-fieldset__legend {
+    font: var(--fi-text-h6);
+    color: var(--fi-color-text-strong);
+    padding-inline-end: var(--fi-space-2);
+  }
+
+  /* =======================================================================
+     CONTROLES DE TEXTO
+     ======================================================================= */
+  .fi-input,
+  .fi-select,
+  .fi-textarea {
+    --control-height: var(--fi-control-height-md);
+    --control-padding: var(--fi-space-3);
+
+    inline-size: 100%;
+    min-inline-size: 0;
+    block-size: var(--control-height);
+    padding-inline: var(--control-padding);
+
+    font-family: var(--fi-font-sans);
+    font-size: var(--fi-font-size-sm);
+    line-height: var(--fi-line-height-control);
+    color: var(--fi-color-text);
+
+    background-color: var(--fi-color-surface);
+    border: var(--fi-border-width-hairline) solid var(--fi-color-border-strong);
+    border-radius: var(--fi-radius-control);
+    box-shadow: var(--fi-shadow-xs);
+    transition: var(--fi-transition-control);
+  }
+
+  .fi-textarea {
+    block-size: auto;
+    min-block-size: calc(var(--fi-control-height-md) * 2.4);
+    padding-block: var(--fi-space-2-5);
+    line-height: var(--fi-line-height-normal);
+  }
+
+  .fi-input::placeholder,
+  .fi-textarea::placeholder {
+    color: var(--fi-color-text-placeholder);
+  }
+
+  .fi-input:hover:not(:disabled):not(:read-only),
+  .fi-select:hover:not(:disabled),
+  .fi-textarea:hover:not(:disabled):not(:read-only) {
+    border-color: var(--fi-color-border-interactive);
+  }
+
+  /* Foco: borde amarillo de marca + halo navy accesible. La combinación
+     comunica "activo" con la identidad y mantiene el contraste 3:1. */
+  .fi-input:focus,
+  .fi-select:focus,
+  .fi-textarea:focus {
+    outline: none;
+    border-color: var(--fi-color-primary);
+    box-shadow: var(--fi-focus-ring);
+  }
+
+  .fi-input:disabled,
+  .fi-select:disabled,
+  .fi-textarea:disabled {
+    background-color: var(--fi-color-surface-disabled);
+    color: var(--fi-color-text-disabled);
+    border-color: var(--fi-color-border-subtle);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
+  .fi-input:read-only:not(:focus),
+  .fi-textarea:read-only:not(:focus) {
+    background-color: var(--fi-color-surface-sunken);
+    border-style: dashed;
+  }
+
+  /* --- Estados de validación --------------------------------------------
+     Se aceptan tres orígenes: atributo en el control, atributo en el campo
+     contenedor y clase de utilidad. */
+  .fi-input[aria-invalid='true'],
+  .fi-select[aria-invalid='true'],
+  .fi-textarea[aria-invalid='true'],
+  [data-invalid] .fi-input,
+  [data-invalid] .fi-select,
+  [data-invalid] .fi-textarea {
+    border-color: var(--fi-color-danger);
+    background-color: var(--fi-color-danger-subtle);
+  }
+
+  .fi-input[aria-invalid='true']:focus,
+  [data-invalid] .fi-input:focus,
+  [data-invalid] .fi-textarea:focus,
+  [data-invalid] .fi-select:focus {
+    box-shadow: 0 0 0 var(--fi-focus-ring-offset) var(--fi-color-focus-offset),
+      0 0 0 calc(var(--fi-focus-ring-offset) + var(--fi-focus-ring-width))
+        var(--fi-color-danger);
+  }
+
+  [data-valid] .fi-input,
+  .fi-input[data-valid] {
+    border-color: var(--fi-color-success);
+  }
+
+  /* --- Tamaños ---------------------------------------------------------- */
+  .fi-input--sm,
+  .fi-select--sm {
+    --control-height: var(--fi-control-height-sm);
+    --control-padding: var(--fi-space-2-5);
+    font-size: var(--fi-font-size-xs);
+  }
+
+  .fi-input--lg,
+  .fi-select--lg {
+    --control-height: var(--fi-control-height-lg);
+    --control-padding: var(--fi-space-4);
+    font-size: var(--fi-font-size-md);
+  }
+
+  /* =======================================================================
+     SELECT — flecha propia dibujada con máscara para que herede el color.
+     ======================================================================= */
+  .fi-select {
+    appearance: none;
+    padding-inline-end: var(--fi-space-9);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235c5d74' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--fi-space-3) center;
+    background-size: 1rem;
+    cursor: pointer;
+  }
+
+  [data-fi-theme='dark'] .fi-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d2d2e0' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  }
+
+  /* =======================================================================
+     GRUPO DE ENTRADA — prefijos, sufijos e iconos interiores
+     ======================================================================= */
+  .fi-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    inline-size: 100%;
+  }
+
+  .fi-input-group__icon {
+    position: absolute;
+    inset-inline-start: var(--fi-space-3);
+    display: grid;
+    place-items: center;
+    inline-size: var(--fi-icon-md);
+    block-size: var(--fi-icon-md);
+    color: var(--fi-color-text-subtle);
+    pointer-events: none;
+  }
+
+  .fi-input-group__icon--end {
+    inset-inline-start: auto;
+    inset-inline-end: var(--fi-space-3);
+  }
+
+  .fi-input-group:has(.fi-input-group__icon:not(.fi-input-group__icon--end))
+    .fi-input {
+    padding-inline-start: var(--fi-space-10);
+  }
+
+  .fi-input-group:has(.fi-input-group__icon--end) .fi-input {
+    padding-inline-end: var(--fi-space-10);
+  }
+
+  /* Afijos: unidades y dominios (h/año, €, @fi-group.com) */
+  .fi-input-group__affix {
+    display: inline-flex;
+    align-items: center;
+    block-size: var(--fi-control-height-md);
+    padding-inline: var(--fi-space-3);
+    background-color: var(--fi-color-surface-sunken);
+    border: var(--fi-border-width-hairline) solid var(--fi-color-border-strong);
+    color: var(--fi-color-text-muted);
+    font-size: var(--fi-font-size-sm);
+    white-space: nowrap;
+  }
+
+  .fi-input-group__affix:first-child {
+    border-start-start-radius: var(--fi-radius-control);
+    border-end-start-radius: var(--fi-radius-control);
+    border-inline-end: 0;
+  }
+
+  .fi-input-group__affix:last-child {
+    border-start-end-radius: var(--fi-radius-control);
+    border-end-end-radius: var(--fi-radius-control);
+    border-inline-start: 0;
+  }
+
+  .fi-input-group__affix:first-child ~ .fi-input {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+
+  .fi-input-group:has(.fi-input-group__affix:last-child) .fi-input {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  /* =======================================================================
+     CASILLA Y RADIO
+     Se dibujan con appearance:none para poder teñirlas con el amarillo de
+     marca manteniendo el control nativo (accesible por defecto).
+     ======================================================================= */
+  .fi-checkbox,
+  .fi-radio {
+    --check-size: 1.125rem;
+
+    appearance: none;
+    flex-shrink: 0;
+    inline-size: var(--check-size);
+    block-size: var(--check-size);
+    margin: 0;
+    background-color: var(--fi-color-surface);
+    border: var(--fi-border-width-thin) solid var(--fi-color-border-strong);
+    border-radius: var(--fi-radius-sm);
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+    transition: var(--fi-transition-control);
+  }
+
+  .fi-radio {
+    border-radius: var(--fi-radius-full);
+  }
+
+  .fi-checkbox:hover:not(:disabled),
+  .fi-radio:hover:not(:disabled) {
+    border-color: var(--fi-color-primary);
+  }
+
+  .fi-checkbox::before {
+    content: '';
+    inline-size: var(--check-size);
+    block-size: var(--check-size);
+    transform: scale(0);
+    transition: transform var(--fi-duration-150) var(--fi-ease-spring);
+    background-color: var(--fi-color-primary-on);
+    mask: center / 0.75em no-repeat
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  }
+
+  .fi-radio::before {
+    content: '';
+    inline-size: 0.5rem;
+    block-size: 0.5rem;
+    border-radius: var(--fi-radius-full);
+    background-color: var(--fi-color-primary-on);
+    transform: scale(0);
+    transition: transform var(--fi-duration-150) var(--fi-ease-spring);
+  }
+
+  .fi-checkbox:checked,
+  .fi-checkbox:indeterminate,
+  .fi-radio:checked {
+    background-color: var(--fi-color-primary);
+    border-color: var(--fi-color-primary);
+  }
+
+  .fi-checkbox:checked::before,
+  .fi-radio:checked::before {
+    transform: scale(1);
+  }
+
+  /* Estado indeterminado: selección parcial en tablas. */
+  .fi-checkbox:indeterminate::before {
+    transform: scale(1);
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round'%3E%3Cpath d='M5 12h14'/%3E%3C/svg%3E");
+  }
+
+  .fi-checkbox:focus-visible,
+  .fi-radio:focus-visible {
+    outline: none;
+    box-shadow: var(--fi-focus-ring);
+  }
+
+  .fi-checkbox:disabled,
+  .fi-radio:disabled {
+    background-color: var(--fi-color-surface-disabled);
+    border-color: var(--fi-color-border-subtle);
+    cursor: not-allowed;
+  }
+
+  /* Casilla con etiqueta y descripción */
+  .fi-choice {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--fi-space-1) var(--fi-space-3);
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .fi-choice__label {
+    font-size: var(--fi-font-size-sm);
+    color: var(--fi-color-text);
+  }
+
+  .fi-choice__description {
+    grid-column: 2;
+    font: var(--fi-text-caption);
+    color: var(--fi-color-text-subtle);
+  }
+
+  .fi-choice:has(:disabled) {
+    cursor: not-allowed;
+    color: var(--fi-color-text-disabled);
+  }
+
+  /* Tarjeta seleccionable: alternativa de mayor superficie de acierto para
+     elegir perfil, dedicación o tipo de proyecto. */
+  .fi-choice-card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--fi-space-3);
+    align-items: start;
+    padding: var(--fi-space-4);
+    background-color: var(--fi-color-surface);
+    border: var(--fi-border-default);
+    border-radius: var(--fi-radius-surface);
+    cursor: pointer;
+    transition: var(--fi-transition-control);
+  }
+
+  .fi-choice-card:hover {
+    border-color: var(--fi-color-primary-border);
+    background-color: var(--fi-color-surface-hover);
+  }
+
+  .fi-choice-card:has(:checked) {
+    border-color: var(--fi-color-primary);
+    background-color: var(--fi-color-primary-subtle);
+    box-shadow: inset var(--fi-border-width-rail) 0 0 0 var(--fi-color-accent);
+  }
+
+  .fi-choice-card:has(:focus-visible) {
+    box-shadow: var(--fi-focus-ring);
+  }
+
+  /* =======================================================================
+     INTERRUPTOR (SWITCH)
+     Para preferencias que se aplican al instante. Si la acción necesita
+     confirmación, usar casilla dentro de un formulario, no un switch.
+     ======================================================================= */
+  .fi-switch {
+    --switch-width: 2.75rem;
+    --switch-height: 1.5rem;
+    --switch-gap: 0.1875rem;
+
+    appearance: none;
+    position: relative;
+    flex-shrink: 0;
+    inline-size: var(--switch-width);
+    block-size: var(--switch-height);
+    margin: 0;
+    background-color: var(--fi-color-neutral-subtle);
+    border: var(--fi-border-width-hairline) solid var(--fi-color-border-strong);
+    border-radius: var(--fi-radius-full);
+    cursor: pointer;
+    transition: var(--fi-transition-colors);
+  }
+
+  .fi-switch::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: var(--switch-gap);
+    inline-size: calc(var(--switch-height) - var(--switch-gap) * 2 - 2px);
+    block-size: calc(var(--switch-height) - var(--switch-gap) * 2 - 2px);
+    background-color: var(--fi-color-surface);
+    border-radius: var(--fi-radius-full);
+    box-shadow: var(--fi-shadow-sm);
+    transform: translateY(-50%);
+    transition: translate var(--fi-duration-200) var(--fi-ease-standard),
+      background-color var(--fi-duration-150) var(--fi-ease-standard);
+  }
+
+  .fi-switch:checked {
+    background-color: var(--fi-color-primary);
+    border-color: var(--fi-color-primary);
+  }
+
+  .fi-switch:checked::after {
+    translate: calc(var(--switch-width) - var(--switch-height)) 0;
+  }
+
+  .fi-switch:focus-visible {
+    outline: none;
+    box-shadow: var(--fi-focus-ring);
+  }
+
+  .fi-switch:disabled {
+    opacity: var(--fi-opacity-disabled);
+    cursor: not-allowed;
+  }
+
+  .fi-switch--sm {
+    --switch-width: 2.25rem;
+    --switch-height: 1.25rem;
+  }
+
+  .fi-switch-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--fi-space-4);
+    padding-block: var(--fi-space-2);
+  }
+
+  /* =======================================================================
+     RANGO — porcentaje de dedicación, umbrales de horas
+     ======================================================================= */
+  .fi-range {
+    appearance: none;
+    inline-size: 100%;
+    block-size: 1.25rem;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .fi-range::-webkit-slider-runnable-track {
+    block-size: 0.375rem;
+    border-radius: var(--fi-radius-full);
+    background-color: var(--fi-color-neutral-subtle);
+  }
+
+  .fi-range::-moz-range-track {
+    block-size: 0.375rem;
+    border-radius: var(--fi-radius-full);
+    background-color: var(--fi-color-neutral-subtle);
+  }
+
+  .fi-range::-webkit-slider-thumb {
+    appearance: none;
+    inline-size: 1.125rem;
+    block-size: 1.125rem;
+    margin-block-start: -0.375rem;
+    border-radius: var(--fi-radius-full);
+    background-color: var(--fi-color-primary);
+    border: 2px solid var(--fi-color-surface);
+    box-shadow: var(--fi-shadow-sm);
+  }
+
+  .fi-range::-moz-range-thumb {
+    inline-size: 1.125rem;
+    block-size: 1.125rem;
+    border-radius: var(--fi-radius-full);
+    background-color: var(--fi-color-primary);
+    border: 2px solid var(--fi-color-surface);
+    box-shadow: var(--fi-shadow-sm);
+  }
+
+  .fi-range:focus-visible {
+    outline: none;
+  }
+
+  .fi-range:focus-visible::-webkit-slider-thumb {
+    box-shadow: var(--fi-focus-ring);
+  }
+
+  /* =======================================================================
+     ARCHIVO — zona de arrastre para justificantes y memorias técnicas
+     ======================================================================= */
+  .fi-dropzone {
+    display: grid;
+    place-items: center;
+    gap: var(--fi-space-2);
+    padding: var(--fi-space-8) var(--fi-space-5);
+    text-align: center;
+    background-color: var(--fi-color-surface-sunken);
+    border: var(--fi-border-width-thin) dashed var(--fi-color-border-strong);
+    border-radius: var(--fi-radius-surface);
+    color: var(--fi-color-text-muted);
+    cursor: pointer;
+    transition: var(--fi-transition-colors);
+  }
+
+  .fi-dropzone:hover,
+  .fi-dropzone.is-dragover {
+    border-color: var(--fi-color-primary);
+    background-color: var(--fi-color-primary-subtle);
+    color: var(--fi-color-text);
+  }
+
+  .fi-dropzone__hint {
+    font: var(--fi-text-caption);
+    color: var(--fi-color-text-subtle);
+  }
+}
+
+/* ===== components/card.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   components/card.css — TARJETAS, PANELES Y MÉTRICAS
+   --------------------------------------------------------------------------
+   API:
+     .fi-card                    contenedor
+       .fi-card__header          título + acciones
+       .fi-card__body            contenido
+       .fi-card__footer          acciones o metadatos
+     Modificadores: --flat --raised --interactive --accent --inverse
+                    --flush (sin padding, para tablas a sangre)
+
+     .fi-stat                    tarjeta de métrica (KPI)
+     .fi-section-header          cabecera de bloque con rail amarillo
+   ========================================================================== */
+
+@layer components {
+  .fi-card {
+    --card-padding: var(--fi-space-5);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-inline-size: 0;
+    background-color: var(--fi-color-surface);
+    border: var(--fi-border-subtle);
+    border-radius: var(--fi-radius-card);
+    box-shadow: var(--fi-shadow-sm);
+    /* Permite que los componentes internos reaccionen al ancho de la tarjeta
+       y no al de la ventana. */
+    container-type: inline-size;
+    transition: var(--fi-transition-control);
+  }
+
+  .fi-card__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--fi-space-4);
+    padding: var(--card-padding);
+    padding-block-end: var(--fi-space-3);
+  }
+
+  .fi-card__title {
+    font: var(--fi-text-h5);
+    color: var(--fi-color-text-strong);
+    margin: 0;
+  }
+
+  .fi-card__subtitle {
+    font: var(--fi-text-body-sm);
+    color: var(--fi-color-text-muted);
+    margin-block-start: var(--fi-space-1);
+  }
+
+  .fi-card__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--fi-space-2);
+    flex-shrink: 0;
+  }
+
+  .fi-card__body {
+    padding: var(--card-padding);
+    padding-block-start: var(--fi-space-2);
+    color: var(--fi-color-text-muted);
+    flex: 1;
+  }
+
+  /* Cuando el body es lo primero de la tarjeta recupera el padding superior. */
+  .fi-card__body:first-child {
+    padding-block-start: var(--card-padding);
+  }
+
+  .fi-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--fi-space-2);
+    padding: var(--fi-space-4) var(--card-padding);
+    border-block-start: var(--fi-divider);
+    background-color: var(--fi-color-surface-sunken);
+    border-end-start-radius: inherit;
+    border-end-end-radius: inherit;
+  }
+
+  .fi-card__footer--split {
+    justify-content: space-between;
+  }
+
+  /* --- Variantes -------------------------------------------------------- */
+  .fi-card--flat {
+    box-shadow: none;
+    border-color: var(--fi-color-border);
+  }
+
+  .fi-card--raised {
+    box-shadow: var(--fi-shadow-md);
+    border-color: transparent;
+  }
+
+  /* Tarjeta clicable completa (fila de investigador, proyecto). */
+  .fi-card--interactive {
+    cursor: pointer;
+  }
+
+  .fi-card--interactive:hover {
+    box-shadow: var(--fi-shadow-md);
+    border-color: var(--fi-color-primary-border);
+    transform: translateY(-2px);
+  }
+
+  .fi-card--interactive:focus-within {
+    box-shadow: var(--fi-focus-ring);
+  }
+
+  /* Rail amarillo: el gesto de marca. Marca la tarjeta destacada o activa. */
+  .fi-card--accent {
+    border-inline-start: var(--fi-border-width-rail) solid
+      var(--fi-color-accent);
+  }
+
+  .fi-card--inverse {
+    background-color: var(--fi-color-surface-inverse);
+    border-color: transparent;
+    color: var(--fi-color-text-inverse);
+  }
+
+  .fi-card--inverse .fi-card__title,
+  .fi-card--inverse .fi-card__body {
+    color: var(--fi-color-text-inverse);
+  }
+
+  .fi-card--inverse .fi-card__subtitle {
+    color: var(--fi-neutral-400);
+  }
+
+  /* Sin relleno: para meter una tabla o una lista a sangre. */
+  .fi-card--flush .fi-card__body {
+    padding: 0;
+  }
+
+  .fi-card--flush .fi-card__body:first-child {
+    padding: 0;
+  }
+
+  .fi-card--compact {
+    --card-padding: var(--fi-space-4);
+  }
+
+  /* Rejilla de tarjetas responsive sin media queries. */
+  .fi-card-grid {
+    display: grid;
+    gap: var(--fi-space-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  }
+
+  /* =======================================================================
+     MÉTRICA / KPI
+     Estructura pensada para el panel de control: valor grande en peso ligero
+     (la geométrica lo pide), etiqueta en versalita y variación con color.
+     ======================================================================= */
+  .fi-stat {
+    display: grid;
+    gap: var(--fi-space-2);
+    padding: var(--fi-space-5);
+    background-color: var(--fi-color-surface);
+    border: var(--fi-border-subtle);
+    border-radius: var(--fi-radius-card);
+    box-shadow: var(--fi-shadow-sm);
+  }
+
+  .fi-stat__label {
+    font-size: var(--fi-font-size-2xs);
+    font-weight: var(--fi-font-weight-bold);
+    letter-spacing: var(--fi-letter-spacing-widest);
+    text-transform: uppercase;
+    color: var(--fi-color-text-subtle);
+  }
+
+  .fi-stat__value {
+    font-family: var(--fi-font-display);
+    font-size: var(--fi-font-size-4xl);
+    font-weight: var(--fi-font-weight-light);
+    line-height: var(--fi-line-height-none);
+    letter-spacing: var(--fi-letter-spacing-tighter);
+    color: var(--fi-color-text-strong);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .fi-stat__unit {
+    font-size: var(--fi-font-size-lg);
+    font-weight: var(--fi-font-weight-regular);
+    color: var(--fi-color-text-muted);
+    margin-inline-start: var(--fi-space-1);
+  }
+
+  .fi-stat__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--fi-space-2);
+    font-size: var(--fi-font-size-xs);
+    color: var(--fi-color-text-subtle);
+  }
+
+  .fi-stat__delta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--fi-space-1);
+    font-weight: var(--fi-font-weight-bold);
+    padding: var(--fi-space-0-5) var(--fi-space-1-5);
+    border-radius: var(--fi-radius-sm);
+  }
+
+  .fi-stat__delta--up {
+    color: var(--fi-color-success-text);
+    background-color: var(--fi-color-success-subtle);
+  }
+
+  .fi-stat__delta--down {
+    color: var(--fi-color-danger-text);
+    background-color: var(--fi-color-danger-subtle);
+  }
+
+  .fi-stat__delta--flat {
+    color: var(--fi-color-neutral-text);
+    background-color: var(--fi-color-neutral-subtle);
+  }
+
+  /* Barra de acento inferior, alternativa al rail lateral. */
+  .fi-stat--accent {
+    border-block-end: var(--fi-border-width-rail) solid var(--fi-color-accent);
+  }
+
+  /* =======================================================================
+     CABECERA DE SECCIÓN
+     El antetítulo con rail organiza la página sin recurrir a numeraciones
+     decorativas: solo se numera lo que de verdad es una secuencia.
+     ======================================================================= */
+  .fi-section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--fi-space-4);
+    flex-wrap: wrap;
+    margin-block-end: var(--fi-space-5);
+  }
+
+  .fi-section-header__text {
+    display: grid;
+    gap: var(--fi-space-2);
+    min-inline-size: 0;
+  }
+
+  .fi-section-header__title {
+    font: var(--fi-text-h3);
+    letter-spacing: var(--fi-letter-spacing-tight);
+    margin: 0;
+  }
+
+  .fi-section-header__description {
+    color: var(--fi-color-text-muted);
+    max-inline-size: var(--fi-measure);
+    margin: 0;
+  }
+
+  /* Panel simple sin cromo: agrupa sin competir visualmente con la tarjeta. */
+  .fi-panel {
+    background-color: var(--fi-color-surface-sunken);
+    border-radius: var(--fi-radius-surface);
+    padding: var(--fi-space-4);
+  }
+}
+
+/* ===== components/table.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   components/table.css — TABLAS DE DATOS
+   --------------------------------------------------------------------------
+   La tabla es el componente central de una herramienta de gestión de personal
+   investigador: se optimiza para densidad, lectura de cifras y selección.
+
+   API:
+     .fi-table-wrap        contenedor con scroll horizontal y bordes
+     .fi-table             tabla
+       --compact --comfortable   densidad
+       --striped --bordered      apariencia
+       --hoverable               resalte de fila
+     Celdas:
+       .fi-table__num      cifras alineadas a la derecha, tabulares
+       .fi-table__actions  columna de acciones, se revela al pasar el ratón
+     Fila:
+       [aria-selected="true"]    seleccionada (rail amarillo)
+       [data-state="warning|danger|success"]  fila marcada por estado
+   ========================================================================== */
+
+@layer components {
+  .fi-table-wrap {
+    inline-size: 100%;
+    overflow-x: auto;
+    background-color: var(--fi-color-surface);
+    border: var(--fi-border-subtle);
+    border-radius: var(--fi-radius-card);
+    /* Sombras de desplazamiento: avisan de que hay más columnas a los lados. */
+    background-image: linear-gradient(
+        to right,
+        var(--fi-color-surface) 30%,
+        transparent
+      ),
+      linear-gradient(to left, var(--fi-color-surface) 30%, transparent),
+      linear-gradient(to right, var(--fi-color-scrim), transparent 12px),
+      linear-gradient(to left, var(--fi-color-scrim), transparent 12px);
+    background-position: left center, right center, left center, right center;
+    background-repeat: no-repeat;
+    background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+    background-attachment: local, local, scroll, scroll;
+  }
+
+  .fi-table {
+    --cell-padding-block: var(--fi-space-3);
+    --cell-padding-inline: var(--fi-space-4);
+
+    inline-size: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: var(--fi-font-size-sm);
+    color: var(--fi-color-text);
+  }
+
+  .fi-table caption {
+    caption-side: top;
+    text-align: start;
+    padding: var(--fi-space-4) var(--cell-padding-inline);
+    font: var(--fi-text-caption);
+    color: var(--fi-color-text-subtle);
+  }
+
+  /* --- Cabecera --------------------------------------------------------- */
+  .fi-table thead th {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: var(--fi-z-sticky);
+
+    padding: var(--fi-space-2-5) var(--cell-padding-inline);
+    text-align: start;
+    vertical-align: middle;
+    white-space: nowrap;
+
+    background-color: var(--fi-color-surface-sunken);
+    border-block-end: var(--fi-border-width-hairline) solid
+      var(--fi-color-border);
+    color: var(--fi-color-text-subtle);
+    font-size: var(--fi-font-size-2xs);
+    font-weight: var(--fi-font-weight-bold);
+    letter-spacing: var(--fi-letter-spacing-wider);
+    text-transform: uppercase;
+  }
+
+  /* Cabecera ordenable */
+  .fi-table th[aria-sort] {
+    cursor: pointer;
+    user-select: none;
+    transition: var(--fi-transition-colors);
+  }
+
+  .fi-table th[aria-sort]:hover {
+    color: var(--fi-color-text);
+    background-color: var(--fi-color-surface-active);
+  }
+
+  .fi-table th[aria-sort]::after {
+    content: '';
+    display: inline-block;
+    inline-size: 0.75em;
+    block-size: 0.75em;
+    margin-inline-start: var(--fi-space-1-5);
+    vertical-align: -0.1em;
+    background-color: currentColor;
+    opacity: 0.35;
+    mask: center / contain no-repeat
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 4 7 11h10L12 4Zm0 16 5-7H7l5 7Z'/%3E%3C/svg%3E");
+  }
+
+  .fi-table th[aria-sort='ascending']::after {
+    opacity: 1;
+    color: var(--fi-color-primary-text);
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 5 5 15h14L12 5Z'/%3E%3C/svg%3E");
+  }
+
+  .fi-table th[aria-sort='descending']::after {
+    opacity: 1;
+    color: var(--fi-color-primary-text);
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 19 5 9h14l-7 10Z'/%3E%3C/svg%3E");
+  }
+
+  /* --- Cuerpo ----------------------------------------------------------- */
+  .fi-table tbody td {
+    padding: var(--cell-padding-block) var(--cell-padding-inline);
+    border-block-end: var(--fi-border-width-hairline) solid
+      var(--fi-color-border-subtle);
+    vertical-align: middle;
+  }
+
+  .fi-table tbody tr:last-child td {
+    border-block-end: 0;
+  }
+
+  .fi-table--hoverable tbody tr {
+    transition: background-color var(--fi-duration-100) var(--fi-ease-standard);
+  }
+
+  .fi-table--hoverable tbody tr:hover td {
+    background-color: var(--fi-color-surface-hover);
+  }
+
+  .fi-table--striped tbody tr:nth-child(even) td {
+    background-color: var(--fi-color-surface-sunken);
+  }
+
+  .fi-table--bordered td,
+  .fi-table--bordered th {
+    border-inline-end: var(--fi-border-width-hairline) solid
+      var(--fi-color-border-subtle);
+  }
+
+  .fi-table--bordered td:last-child,
+  .fi-table--bordered th:last-child {
+    border-inline-end: 0;
+  }
+
+  /* --- Densidad --------------------------------------------------------- */
+  .fi-table--compact {
+    --cell-padding-block: var(--fi-space-1-5);
+    --cell-padding-inline: var(--fi-space-3);
+    font-size: var(--fi-font-size-xs);
+  }
+
+  .fi-table--comfortable {
+    --cell-padding-block: var(--fi-space-4);
+  }
+
+  /* --- Estados de fila -------------------------------------------------- */
+  /* La selección usa el rail: coherente con pestañas, tarjetas y menú. */
+  .fi-table tbody tr[aria-selected='true'] td {
+    background-color: var(--fi-color-surface-selected);
+  }
+
+  .fi-table tbody tr[aria-selected='true'] td:first-child {
+    box-shadow: inset var(--fi-border-width-rail) 0 0 0 var(--fi-color-accent);
+  }
+
+  .fi-table tbody tr[data-state='danger'] td:first-child {
+    box-shadow: inset var(--fi-border-width-rail) 0 0 0 var(--fi-color-danger);
+  }
+
+  .fi-table tbody tr[data-state='warning'] td:first-child {
+    box-shadow: inset var(--fi-border-width-rail) 0 0 0 var(--fi-color-warning);
+  }
+
+  .fi-table tbody tr[data-state='success'] td:first-child {
+    box-shadow: inset var(--fi-border-width-rail) 0 0 0 var(--fi-color-success);
+  }
+
+  /* --- Celdas especiales ------------------------------------------------ */
+  .fi-table__num {
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+
+  .fi-table__check {
+    inline-size: var(--fi-space-12);
+  }
+
+  .fi-table__actions {
+    inline-size: 1%;
+    white-space: nowrap;
+    text-align: end;
+  }
+
+  /* Las acciones de fila aparecen al pasar el ratón o al enfocar con teclado,
+     y permanecen visibles en pantallas táctiles. */
+  .fi-table__actions .fi-btn {
+    opacity: 0;
+    transition: var(--fi-transition-opacity);
+  }
+
+  .fi-table tbody tr:hover .fi-table__actions .fi-btn,
+  .fi-table__actions:focus-within .fi-btn {
+    opacity: 1;
+  }
+
+  @media (hover: none) {
+    .fi-table__actions .fi-btn {
+      opacity: 1;
+    }
+  }
+
+  /* Celda de identidad: avatar + nombre + dato secundario. */
+  .fi-table__identity {
+    display: flex;
+    align-items: center;
+    gap: var(--fi-space-3);
+    min-inline-size: 0;
+  }
+
+  .fi-table__identity-text {
+    display: grid;
+    min-inline-size: 0;
+  }
+
+  .fi-table__identity-name {
+    font-weight: var(--fi-font-weight-semibold);
+    color: var(--fi-color-text-strong);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .fi-table__identity-meta {
+    font-size: var(--fi-font-size-xs);
+    color: var(--fi-color-text-subtle);
+  }
+
+  /* Pie de tabla: totales. Sticky para no perderlos al desplazar. */
+  .fi-table tfoot td {
+    padding: var(--cell-padding-block) var(--cell-padding-inline);
+    background-color: var(--fi-color-surface-sunken);
+    border-block-start: var(--fi-border-width-hairline) solid
+      var(--fi-color-border);
+    font-weight: var(--fi-font-weight-bold);
+    color: var(--fi-color-text-strong);
+  }
+
+  /* Barra de selección masiva que aparece sobre la tabla. */
+  .fi-table-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--fi-space-3);
+    flex-wrap: wrap;
+    padding: var(--fi-space-3) var(--fi-space-4);
+    border-block-end: var(--fi-divider);
+  }
+
+  .fi-table-toolbar--selection {
+    background-color: var(--fi-color-primary-subtle);
+    color: var(--fi-color-primary-text);
+    font-weight: var(--fi-font-weight-semibold);
+    font-size: var(--fi-font-size-sm);
+  }
+}
+
+/* ===== components/data-display.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   components/data-display.css — ETIQUETAS, AVATARES Y LISTAS
+   --------------------------------------------------------------------------
+   Contiene:
+     .fi-badge      estado de un registro (no clicable)
+     .fi-chip       valor filtrable o eliminable (clicable)
+     .fi-avatar     identidad de una persona
+     .fi-dl         lista de definición (ficha de investigador)
+     .fi-timeline   histórico de un expediente
+     .fi-divider    separador con o sin etiqueta
+   ========================================================================== */
+
+@layer components {
+  /* =======================================================================
+     BADGE — comunica estado. Por defecto tenue: en una tabla con cientos de
+     filas, los rellenos sólidos saturan la pantalla.
+     ======================================================================= */
+  .fi-badge {
+    --badge-bg: var(--fi-color-neutral-subtle);
+    --badge-fg: var(--fi-color-neutral-text);
+    --badge-dot: var(--fi-color-neutral);
+
+    display: inline-flex;
+    align-items: center;
+    gap: var(--fi-space-1-5);
+    padding: var(--fi-space-0-5) var(--fi-space-2);
+    background-color: var(--badge-bg);
+    color: var(--badge-fg);
+    border: var(--fi-border-width-hairline) solid transparent;
+    border-radius: var(--fi-radius-sm);
+    font-size: var(--fi-font-size-2xs);
+    font-weight: var(--fi-font-weight-bold);
+    letter-spacing: var(--fi-letter-spacing-wide);
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  .fi-badge--primary {
+    --badge-bg: var(--fi-color-primary-subtle);
+    --badge-fg: var(--fi-color-primary-text);
+    --badge-dot: var(--fi-color-primary);
+  }
+  .fi-badge--secondary {
+    --badge-bg: var(--fi-color-secondary-subtle);
+    --badge-fg: var(--fi-color-secondary-text);
+    --badge-dot: var(--fi-color-secondary);
+  }
+  .fi-badge--success {
+    --badge-bg: var(--fi-color-success-subtle);
+    --badge-fg: var(--fi-color-success-text);
+    --badge-dot: var(--fi-color-success);
+  }
+  .fi-badge--warning {
+    --badge-bg: var(--fi-color-warning-subtle);
+    --badge-fg: var(--fi-color-warning-text);
+    --badge-dot: var(--fi-color-warning);
+  }
+  .fi-badge--danger {
+    --badge-bg: var(--fi-color-danger-subtle);
+    --badge-fg: var(--fi-color-danger-text);
+    --badge-dot: var(--fi-color-danger);
+  }
+  .fi-badge--info {
+    --badge-bg: var(--fi-color-info-subtle);
+    --badge-fg: var(--fi-color-info-text);
+    --badge-dot: var(--fi-color-info);
+  }
+
+  /* Punto de estado: más legible que el color de fondo en listas densas. */
+  .fi-badge--dot::before {
+    content: '';
+    inline-size: 0.375rem;
+    block-size: 0.375rem;
+    border-radius: var(--fi-radius-full);
+    background-color: var(--badge-dot);
+    flex-shrink: 0;
+  }
+
+  .fi-badge--solid {
+    background-color: var(--badge-dot);
+    color: var(--fi-color-surface);
+  }
+
+  .fi-badge--outline {
+    background-color: transparent;
+    border-color: currentColor;
+  }
+
+  .fi-badge--pill {
+    border-radius: var(--fi-radius-full);
+    padding-inline: var(--fi-space-2-5);
+  }
+
+  .fi-badge--lg {
+    font-size: var(--fi-font-size-xs);
+    padding: var(--fi-space-1) var(--fi-space-2-5);
+  }
+
+  /* Contador de notificaciones */
+  .fi-badge--count {
+    min-inline-size: 1.25rem;
+    block-size: 1.25rem;
+    justify-content: center;
+    padding-inline: var(--fi-space-1-5);
+    border-radius: var(--fi-radius-full);
+    background-color: var(--fi-color-danger);
+    color: var(--fi-color-danger-on);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* =======================================================================
+     CHIP — filtro aplicado, etiqueta editable
+     ======================================================================= */
+  .fi-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--fi-space-1-5);
+    block-size: var(--fi-control-height-xs);
+    padding-inline: var(--fi-space-3);
+    background-color: var(--fi-color-surface);
+    border: var(--fi-border-default);
+    border-radius: var(--fi-radius-full);
+    font-size: var(--fi-font-size-xs);
+    font-weight: var(--fi-font-weight-semibold);
+    color: var(--fi-color-text-muted);
+    cursor: pointer;
+    transition: var(--fi-transition-control);
+  }
+
+  .fi-chip:hover {
+    border-color: var(--fi-color-primary);
+    color: var(--fi-color-text);
+  }
+
+  .fi-chip[aria-pressed='true'],
+  .fi-chip.is-active {
+    background-color: var(--fi-color-primary-subtle);
+    border-color: var(--fi-color-primary);
+    color: var(--fi-color-primary-text);
+  }
+
+  .fi-chip:focus-visible {
+    outline: none;
+    box-shadow: var(--fi-focus-ring);
+  }
+
+  .fi-chip__remove {
+    display: grid;
+    place-items: center;
+    inline-size: 1rem;
+    block-size: 1rem;
+    margin-inline-end: calc(-1 * var(--fi-space-1));
+    border-radius: var(--fi-radius-full);
+    color: var(--fi-color-text-subtle);
+    transition: var(--fi-transition-colors);
+  }
+
+  .fi-chip__remove:hover {
+    background-color: var(--fi-color-danger-subtle);
+    color: var(--fi-color-danger-text);
+  }
+
+  .fi-chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--fi-space-2);
+  }
+
+  /* =======================================================================
+     AVATAR
+     ======================================================================= */
+  .fi-avatar {
+    --avatar-size: var(--fi-avatar-md);
+
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+    inline-size: var(--avatar-size);
+    block-size: var(--avatar-size);
+    border-radius: var(--fi-radius-full);
+    background-color: var(--fi-color-secondary-subtle);
+    color: var(--fi-color-secondary-text);
+    font-size: calc(var(--avatar-size) * 0.38);
+    font-weight: var(--fi-font-weight-bold);
+    letter-spacing: var(--fi-letter-spacing-wide);
+    text-transform: uppercase;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  .fi-avatar img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .fi-avatar--xs {
+    --avatar-size: var(--fi-avatar-xs);
+  }
+  .fi-avatar--sm {
+    --avatar-size: var(--fi-avatar-sm);
+  }
+  .fi-avatar--lg {
+    --avatar-size: var(--fi-avatar-lg);
+  }
+  .fi-avatar--xl {
+    --avatar-size: var(--fi-avatar-xl);
+  }
+  .fi-avatar--2xl {
+    --avatar-size: var(--fi-avatar-2xl);
+  }
+
+  /* Tinte de marca para el usuario en sesión. */
+  .fi-avatar--brand {
+    background-color: var(--fi-color-primary);
+    color: var(--fi-color-primary-on);
+  }
+
+  .fi-avatar--square {
+    border-radius: var(--fi-radius-lg);
+  }
+
+  /* Indicador de disponibilidad (en laboratorio, ausente, de baja). */
+  .fi-avatar__status {
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-end: 0;
+    inline-size: 28%;
+    block-size: 28%;
+    border-radius: var(--fi-radius-full);
+    border: 2px solid var(--fi-color-surface);
+    background-color: var(--fi-color-neutral);
+  }
+
+  .fi-avatar__status--online {
+    background-color: var(--fi-color-success);
+  }
+  .fi-avatar__status--busy {
+    background-color: var(--fi-color-warning);
+  }
+  .fi-avatar__status--away {
+    background-color: var(--fi-color-neutral);
+  }
+
+  /* Grupo solapado con contador de resto. */
+  .fi-avatar-group {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .fi-avatar-group > .fi-avatar {
+    border: 2px solid var(--fi-color-surface);
+    margin-inline-start: calc(var(--fi-space-2) * -1);
+  }
+
+  .fi-avatar-group > .fi-avatar:first-child {
+    margin-inline-start: 0;
+  }
+
+  .fi-avatar-group > .fi-avatar:last-child {
+    background-color: var(--fi-color-neutral-subtle);
+    color: var(--fi-color-text-muted);
+  }
+
+  /* =======================================================================
+     LISTA DE DEFINICIÓN — ficha de datos de un investigador
+     ======================================================================= */
+  .fi-dl {
+    display: grid;
+    gap: var(--fi-space-4) var(--fi-space-6);
+    margin: 0;
+  }
+
+  @container (min-width: 32rem) {
+    .fi-dl--columns {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .fi-dl__term {
+    font-size: var(--fi-font-size-2xs);
+    font-weight: var(--fi-font-weight-bold);
+    letter-spacing: var(--fi-letter-spacing-wider);
+    text-transform: uppercase;
+    color: var(--fi-color-text-subtle);
+    margin-block-end: var(--fi-space-1);
+  }
+
+  .fi-dl__value {
+    margin: 0;
+    color: var(--fi-color-text);
+    font-size: var(--fi-font-size-sm);
+  }
+
+  /* =======================================================================
+     LÍNEA DE TIEMPO — historial de un expediente. Aquí el orden sí es
+     información, por eso el hilo vertical y los hitos numerables.
+     ======================================================================= */
+  .fi-timeline {
+    display: grid;
+    gap: var(--fi-space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .fi-timeline__item {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--fi-space-4);
+  }
+
+  .fi-timeline__marker {
+    position: relative;
+    inline-size: 0.75rem;
+    block-size: 0.75rem;
+    margin-block-start: 0.3rem;
+    border-radius: var(--fi-radius-full);
+    background-color: var(--fi-color-surface);
+    border: var(--fi-border-width-thick) solid var(--fi-color-border-strong);
+  }
+
+  /* El hilo se dibuja desde el marcador hacia el siguiente hito. */
+  .fi-timeline__item:not(:last-child) .fi-timeline__marker::after {
+    content: '';
+    position: absolute;
+    inset-block-start: calc(100% + 4px);
+    inset-inline-start: 50%;
+    translate: -50% 0;
+    inline-size: var(--fi-border-width-hairline);
+    block-size: calc(100% + var(--fi-space-5));
+    background-color: var(--fi-color-border);
+  }
+
+  .fi-timeline__item--current .fi-timeline__marker {
+    border-color: var(--fi-color-primary);
+    background-color: var(--fi-color-primary);
+    box-shadow: 0 0 0 4px var(--fi-color-primary-subtle);
+  }
+
+  .fi-timeline__item--done .fi-timeline__marker {
+    border-color: var(--fi-color-success);
+    background-color: var(--fi-color-success);
+  }
+
+  .fi-timeline__title {
+    font-size: var(--fi-font-size-sm);
+    font-weight: var(--fi-font-weight-semibold);
+    color: var(--fi-color-text-strong);
+  }
+
+  .fi-timeline__meta {
+    font: var(--fi-text-caption);
+    color: var(--fi-color-text-subtle);
+  }
+
+  /* =======================================================================
+     SEPARADORES
+     ======================================================================= */
+  .fi-divider {
+    block-size: 0;
+    border: 0;
+    border-block-start: var(--fi-divider);
+    margin-block: var(--fi-space-5);
+  }
+
+  .fi-divider--vertical {
+    inline-size: 0;
+    block-size: auto;
+    align-self: stretch;
+    border-block-start: 0;
+    border-inline-start: var(--fi-divider);
+    margin: 0 var(--fi-space-3);
+  }
+
+  /* Separador con etiqueta centrada. */
+  .fi-divider-label {
+    display: flex;
+    align-items: center;
+    gap: var(--fi-space-3);
+    margin-block: var(--fi-space-5);
+    font-size: var(--fi-font-size-2xs);
+    font-weight: var(--fi-font-weight-bold);
+    letter-spacing: var(--fi-letter-spacing-widest);
+    text-transform: uppercase;
+    color: var(--fi-color-text-subtle);
+  }
+
+  .fi-divider-label::before,
+  .fi-divider-label::after {
+    content: '';
+    flex: 1;
+    block-size: var(--fi-border-width-hairline);
+    background-color: var(--fi-color-border-subtle);
+  }
+
+  /* =======================================================================
+     ESTADO VACÍO — una pantalla vacía es una invitación a actuar.
+     ======================================================================= */
+  .fi-empty {
+    display: grid;
+    justify-items: center;
+    gap: var(--fi-space-3);
+    padding: var(--fi-space-12) var(--fi-space-5);
+    text-align: center;
+  }
+
+  .fi-empty__icon {
+    display: grid;
+    place-items: center;
+    inline-size: 3.5rem;
+    block-size: 3.5rem;
+    border-radius: var(--fi-radius-2xl);
+    background-color: var(--fi-color-primary-subtle);
+    color: var(--fi-color-primary-text);
+  }
+
+  .fi-empty__title {
+    font: var(--fi-text-h5);
+    color: var(--fi-color-text-strong);
+  }
+
+  .fi-empty__text {
+    color: var(--fi-color-text-muted);
+    max-inline-size: 42ch;
+    margin: 0;
+  }
+}
+
+/* ===== components/feedback.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   components/feedback.css — ALERTAS, AVISOS Y PROGRESO
+   --------------------------------------------------------------------------
+   Criterio de escritura de mensajes (aplicado en la demo):
+     · Un error dice qué ha pasado y cómo arreglarlo. No pide perdón.
+     · El texto usa la voz de la aplicación, no la de una persona.
+     · El botón de una alerta usa el mismo verbo que la acción que ejecuta.
+
+   Contiene: .fi-alert · .fi-toast · .fi-progress · .fi-meter ·
+             .fi-skeleton · .fi-spinner
+   ========================================================================== */
+
+@layer components {
+  /* =======================================================================
+     ALERTA — mensaje persistente dentro del flujo de la página.
+     Marcada con el rail lateral en el color del rol.
+     ======================================================================= */
+  .fi-alert {
+    --alert-bg: var(--fi-color-info-subtle);
+    --alert-fg: var(--fi-color-info-text);
+    --alert-rail: var(--fi-color-info);
+
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: start;
+    gap: var(--fi-space-3);
+    padding: var(--fi-space-4);
+    background-color: var(--alert-bg);
+    border-radius: var(--fi-radius-surface);
+    border-inline-start: var(--fi-border-width-rail) solid var(--alert-rail);
+    color: var(--fi-color-text);
+  }
+
+  .fi-alert__icon {
+    display: grid;
+    place-items: center;
+    inline-size: var(--fi-icon-md);
+    block-size: var(--fi-icon-md);
+    color: var(--alert-rail);
+    flex-shrink: 0;
+  }
+
+  .fi-alert__content {
+    display: grid;
+    gap: var(--fi-space-1);
+    min-inline-size: 0;
+  }
+
+  .fi-alert__title {
+    font-size: var(--fi-font-size-sm);
+    font-weight: var(--fi-font-weight-bold);
+    color: var(--alert-fg);
+  }
+
+  .fi-alert__text {
+    font-size: var(--fi-font-size-sm);
+    color: var(--fi-color-text-muted);
+    margin: 0;
+  }
+
+  .fi-alert__actions {
+    display: flex;
+    gap: var(--fi-space-2);
+    margin-block-start: var(--fi-space-2);
+  }
+
+  .fi-alert__close {
+    display: grid;
+    place-items: center;
+    inline-size: var(--fi-space-6);
+    block-size: var(--fi-space-6);
+    border-radius: var(--fi-radius-md);
+    color: var(--fi-color-text-subtle);
+    transition: var(--fi-transition-colors);
+  }
+
+  .fi-alert__close:hover {
+    background-color: rgb(var(--fi-rgb-navy) / 0.08);
+    color: var(--fi-color-text);
+  }
+
+  .fi-alert--success {
+    --alert-bg: var(--fi-color-success-subtle);
+    --alert-fg: var(--fi-color-success-text);
+    --alert-rail: var(--fi-color-success);
+  }
+  .fi-alert--warning {
+    --alert-bg: var(--fi-color-warning-subtle);
+    --alert-fg: var(--fi-color-warning-text);
+    --alert-rail: var(--fi-color-warning);
+  }
+  .fi-alert--danger {
+    --alert-bg: var(--fi-color-danger-subtle);
+    --alert-fg: var(--fi-color-danger-text);
+    --alert-rail: var(--fi-color-danger);
+  }
+  .fi-alert--primary {
+    --alert-bg: var(--fi-color-primary-subtle);
+    --alert-fg: var(--fi-color-primary-text);
+    --alert-rail: var(--fi-color-primary);
+  }
+  .fi-alert--neutral {
+    --alert-bg: var(--fi-color-neutral-subtle);
+    --alert-fg: var(--fi-color-neutral-text);
+    --alert-rail: var(--fi-color-neutral);
+  }
+
+  /* Versión sobria: solo borde, sin fondo. Para avisos permanentes que no
+     deben competir con el contenido. */
+  .fi-alert--quiet {
+    background-color: var(--fi-color-surface);
+    border: var(--fi-border-default);
+    border-inline-start: var(--fi-border-width-rail) solid var(--alert-rail);
+  }
+
+  /* =======================================================================
+     TOAST — confirmación efímera. Se apila en una región con aria-live.
+     ======================================================================= */
+  .fi-toast-region {
+    position: fixed;
+    inset-block-end: var(--fi-space-5);
+    inset-inline-end: var(--fi-space-5);
+    z-index: var(--fi-z-toast);
+    display: grid;
+    gap: var(--fi-space-3);
+    inline-size: min(24rem, calc(100vw - var(--fi-space-8)));
+    pointer-events: none;
+  }
+
+  .fi-toast {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--fi-space-3);
+    padding: var(--fi-space-3) var(--fi-space-4);
+    background-color: var(--fi-color-surface-inverse);
+    color: var(--fi-color-text-inverse);
+    border-radius: var(--fi-radius-surface);
+    box-shadow: var(--fi-shadow-lg);
+    pointer-events: auto;
+    animation: fi-toast-in var(--fi-duration-300) var(--fi-ease-emphasized);
+  }
+
+  .fi-toast[data-closing='true'] {
+    animation: fi-toast-out var(--fi-duration-200) var(--fi-ease-in) forwards;
+  }
+
+  .fi-toast__icon {
+    inline-size: var(--fi-icon-md);
+    block-size: var(--fi-icon-md);
+    color: var(--fi-color-primary);
+  }
+
+  .fi-toast--success .fi-toast__icon {
+    color: var(--fi-green-300);
+  }
+  .fi-toast--danger .fi-toast__icon {
+    color: var(--fi-red-300);
+  }
+
+  .fi-toast__text {
+    font-size: var(--fi-font-size-sm);
+    line-height: var(--fi-line-height-snug);
+  }
+
+  .fi-toast__title {
+    font-weight: var(--fi-font-weight-bold);
+  }
+
+  .fi-toast__close {
+    color: inherit;
+    opacity: 0.6;
+    padding: var(--fi-space-1);
+    border-radius: var(--fi-radius-sm);
+    transition: var(--fi-transition-opacity);
+  }
+
+  .fi-toast__close:hover {
+    opacity: 1;
+  }
+
+  @keyframes fi-toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(var(--fi-motion-slide));
+    }
+  }
+
+  @keyframes fi-toast-out {
+    to {
+      opacity: 0;
+      transform: translateY(var(--fi-motion-rise));
+    }
+  }
+
+  /* =======================================================================
+     PROGRESO — porcentaje de imputación, avance de justificación
+     ======================================================================= */
+  .fi-progress {
+    --progress-height: 0.5rem;
+    --progress-color: var(--fi-color-primary);
+
+    inline-size: 100%;
+    block-size: var(--progress-height);
+    background-color: var(--fi-color-neutral-subtle);
+    border-radius: var(--fi-radius-full);
+    overflow: hidden;
+    box-shadow: var(--fi-shadow-inner);
+  }
+
+  .fi-progress__bar {
+    block-size: 100%;
+    inline-size: 0;
+    background-color: var(--progress-color);
+    border-radius: inherit;
+    transition: inline-size var(--fi-duration-500) var(--fi-ease-standard);
+  }
+
+  .fi-progress--sm {
+    --progress-height: 0.25rem;
+  }
+  .fi-progress--lg {
+    --progress-height: 0.75rem;
+  }
+  .fi-progress--success {
+    --progress-color: var(--fi-color-success);
+  }
+  .fi-progress--warning {
+    --progress-color: var(--fi-color-warning);
+  }
+  .fi-progress--danger {
+    --progress-color: var(--fi-color-danger);
+  }
+
+  /* Indeterminado: proceso en curso sin porcentaje conocido. */
+  .fi-progress--indeterminate .fi-progress__bar {
+    inline-size: 40%;
+    animation: fi-progress-slide 1.2s var(--fi-ease-in-out) infinite;
+  }
+
+  @keyframes fi-progress-slide {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(250%);
+    }
+  }
+
+  .fi-progress-label {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--fi-space-3);
+    margin-block-end: var(--fi-space-2);
+    font-size: var(--fi-font-size-xs);
+    color: var(--fi-color-text-muted);
+  }
+
+  .fi-progress-label__value {
+    font-weight: var(--fi-font-weight-bold);
+    color: var(--fi-color-text-strong);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* =======================================================================
+     ESQUELETO — carga de listas y fichas
+     ======================================================================= */
+  .fi-skeleton {
+    display: block;
+    block-size: 1em;
+    border-radius: var(--fi-radius-sm);
+    background: linear-gradient(
+      90deg,
+      var(--fi-color-neutral-subtle) 25%,
+      var(--fi-color-surface-active) 37%,
+      var(--fi-color-neutral-subtle) 63%
+    );
+    background-size: 400% 100%;
+    animation: fi-skeleton 1.4s var(--fi-ease-in-out) infinite;
+  }
+
+  .fi-skeleton--text {
+    block-size: 0.75em;
+    margin-block: 0.25em;
+  }
+  .fi-skeleton--title {
+    block-size: 1.5em;
+    inline-size: 40%;
+  }
+  .fi-skeleton--circle {
+    border-radius: var(--fi-radius-full);
+    inline-size: var(--fi-avatar-md);
+    block-size: var(--fi-avatar-md);
+  }
+  .fi-skeleton--block {
+    block-size: 6rem;
+    border-radius: var(--fi-radius-surface);
+  }
+
+  @keyframes fi-skeleton {
+    from {
+      background-position: 100% 50%;
+    }
+    to {
+      background-position: 0 50%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fi-skeleton {
+      animation: none;
+      background: var(--fi-color-neutral-subtle);
+    }
+  }
+
+  /* =======================================================================
+     SPINNER
+     ======================================================================= */
+  .fi-spinner {
+    display: inline-block;
+    inline-size: var(--fi-icon-md);
+    block-size: var(--fi-icon-md);
+    border: 2px solid var(--fi-color-neutral-subtle);
+    border-block-start-color: var(--fi-color-primary);
+    border-radius: var(--fi-radius-full);
+    animation: fi-spin 700ms linear infinite;
+  }
+
+  .fi-spinner--sm {
+    inline-size: var(--fi-icon-sm);
+    block-size: var(--fi-icon-sm);
+  }
+
+  .fi-spinner--lg {
+    inline-size: var(--fi-icon-xl);
+    block-size: var(--fi-icon-xl);
+    border-width: 3px;
+  }
+}
+
+/* ===== components/navigation.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   components/navigation.css — NAVEGACIÓN Y ESTRUCTURA DE APLICACIÓN
+   --------------------------------------------------------------------------
+   Contiene: .fi-tabs · .fi-breadcrumb · .fi-pagination · .fi-steps ·
+             .fi-app (shell) · .fi-topbar · .fi-sidebar
+
+   Todo lo "activo" en el producto se marca con el mismo recurso: el rail
+   amarillo de 3px. Pestaña activa, ítem de menú, tarjeta seleccionada y fila
+   marcada comparten señal, así que se aprende una vez y sirve para todo.
+   ========================================================================== */
+
+@layer components {
+  /* =======================================================================
+     PESTAÑAS
+     ======================================================================= */
+  .fi-tabs {
+    display: flex;
+    align-items: center;
+    gap: var(--fi-space-1);
+    border-block-end: var(--fi-border-width-hairline) solid
+      var(--fi-color-border-subtle);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .fi-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .fi-tab {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--fi-space-2);
+    padding: var(--fi-space-3) var(--fi-space-4);
+    background: none;
+    border: 0;
+    color: var(--fi-color-text-muted);
+    font-size: var(--fi-font-size-sm);
+    font-weight: var(--fi-font-weight-semibold);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: var(--fi-transition-colors);
+  }
+
+  .fi-tab::after {
+    content: '';
+    position: absolute;
+    inset-block-end: -1px;
+    inset-inline: var(--fi-space-2);
+    block-size: var(--fi-border-width-rail);
+    border-radius: var(--fi-radius-full) var(--fi-radius-full) 0 0;
+    background-color: var(--fi-color-accent);
+    scale: 0 1;
+    transition: scale var(--fi-duration-200) var(--fi-ease-standard);
+  }
+
+  .fi-tab:hover {
+    color: var(--fi-color-text);
+  }
+
+  .fi-tab[aria-selected='true'] {
+    color: var(--fi-color-text-strong);
+  }
+
+  .fi-tab[aria-selected='true']::after {
+    scale: 1 1;
+  }
+
+  .fi-tab:focus-visible {
+    outline: none;
+    box-shadow: var(--fi-focus-ring);
+    border-radius: var(--fi-radius-md);
+  }
+
+  .fi-tab:disabled {
+    color: var(--fi-color-text-disabled);
+    cursor: not-allowed;
+  }
+
+  .fi-tab__count {
+    padding: 0 var(--fi-space-1-5);
+    border-radius: var(--fi-radius-full);
+    background-color: var(--fi-color-neutral-subtle);
+    color: var(--fi-color-text-subtle);
+    font-size: var(--fi-font-size-2xs);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .fi-tab[aria-selected='true'] .fi-tab__count {
+    background-color: var(--fi-color-primary-subtle);
+    color: var(--fi-color-primary-text);
+  }
+
+  .fi-tabpanel[hidden] {
+    display: none;
+  }
+
+  .fi-tabpanel {
+    padding-block-start: var(--fi-space-5);
+  }
+
+  /* Variante encapsulada, para pestañas dentro de una tarjeta. */
+  .fi-tabs--enclosed {
+    gap: var(--fi-space-0-5);
+    border-block-end: 0;
+    background-color: var(--fi-color-surface-sunken);
+    padding: var(--fi-space-1);
+    border-radius: var(--fi-radius-control);
+  }
+
+  .fi-tabs--enclosed .fi-tab {
+    padding: var(--fi-space-2) var(--fi-space-3);
+    border-radius: var(--fi-radius-md);
+  }
+
+  .fi-tabs--enclosed .fi-tab::after {
+    display: none;
+  }
+
+  .fi-tabs--enclosed .fi-tab[aria-selected='true'] {
+    background-color: var(--fi-color-surface);
+    box-shadow: var(--fi-shadow-xs);
+  }
+
+  /* =======================================================================
+     MIGAS DE PAN
+     ======================================================================= */
+  .fi-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--fi-space-2);
+    font-size: var(--fi-font-size-xs);
+    color: var(--fi-color-text-subtle);
+  }
+
+  .fi-breadcrumb__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--fi-space-2);
+  }
+
+  .fi-breadcrumb__item:not(:last-child)::after {
+    content: '/';
+    color: var(--fi-color-border-strong);
+  }
+
+  .fi-breadcrumb a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .fi-breadcrumb a:hover {
+    color: var(--fi-color-text);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .fi-breadcrumb__item[aria-current='page'] {
+    color: var(--fi-color-text-strong);
+    font-weight: var(--fi-font-weight-semibold);
+  }
+
+  /* =======================================================================
+     PAGINACIÓN
+     ======================================================================= */
+  .fi-pagination {
+    display: flex;
+    align-items: center;
+    gap: var(--fi-space-1);
+    flex-wrap: wrap;
+  }
+
+  .fi-pagination__item {
+    display: inline-grid;
+    place-items: center;
+    min-inline-size: var(--fi-control-height-sm);
+    block-size: var(--fi-control-height-sm);
+    padding-inline: var(--fi-space-2);
+    border-radius: var(--fi-radius-md);
+    color: var(--fi-color-text-muted);
+    font-size: var(--fi-font-size-sm);
+    font-weight: var(--fi-font-weight-semibold);
+    font-variant-numeric: tabular-nums;
+    text-decoration: none;
+    transition: var(--fi-transition-colors);
+  }
+
+  .fi-pagination__item:hover:not([aria-disabled='true']) {
+    background-color: var(--fi-color-surface-hover);
+    color: var(--fi-color-text);
+  }
+
+  .fi-pagination__item[aria-current='page'] {
+    background-color: var(--fi-color-primary);
+    color: var(--fi-color-primary-on);
+  }
+
+  .fi-pagination__item[aria-disabled='true'] {
+    color: var(--fi-color-text-disabled);
+    pointer-events: none;
+  }
+
+  .fi-pagination__ellipsis {
+    color: var(--fi-color-text-subtle);
+    padding-inline: var(--fi-space-1);
+  }
+
+  .fi-pagination-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--fi-space-4);
+    flex-wrap: wrap;
+    padding: var(--fi-space-3) var(--fi-space-4);
+    border-block-start: var(--fi-divider);
+    font-size: var(--fi-font-size-xs);
+    color: var(--fi-color-text-subtle);
+  }
+
+  /* =======================================================================
+     PASOS — alta de investigador en varias fases. Aquí la numeración sí
+     aporta: el orden es obligatorio y el usuario necesita saber dónde está.
+     ======================================================================= */
+  .fi-steps {
+    display: flex;
+    gap: var(--fi-space-2);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-x: auto;
+  }
+
+  .fi-step {
+    display: flex;
+    align-items: center;
+    gap: var(--fi-space-3);
+    flex: 1;
+    min-inline-size: max-content;
+  }
+
+  .fi-step__index {
+    display: grid;
+    place-items: center;
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    flex-shrink: 0;
+    border-radius: var(--fi-radius-full);
+    border: var(--fi-border-width-thin) solid var(--fi-color-border-strong);
+    color: var(--fi-color-text-subtle);
+    font-size: var(--fi-font-size-xs);
+    font-weight: var(--fi-font-weight-bold);
+  }
+
+  .fi-step__label {
+    font-size: var(--fi-font-size-sm);
+    font-weight: var(--fi-font-weight-semibold);
+    color: var(--fi-color-text-subtle);
+  }
+
+  .fi-step__line {
+    flex: 1;
+    block-size: var(--fi-border-width-hairline);
+    background-color: var(--fi-color-border);
+    min-inline-size: var(--fi-space-6);
+  }
+
+  .fi-step--current .fi-step__index {
+    background-color: var(--fi-color-primary);
+    border-color: var(--fi-color-primary);
+    color: var(--fi-color-primary-on);
+  }
+
+  .fi-step--current .fi-step__label {
+    color: var(--fi-color-text-strong);
+  }
+
+  .fi-step--done .fi-step__index {
+    background-color: var(--fi-color-success);
+    border-color: var(--fi-color-success);
+    color: var(--fi-color-success-on);
+  }
+
+  .fi-step--done .fi-step__label {
+    color: var(--fi-color-text-muted);
+  }
+
+  .fi-step--done .fi-step__line {
+    background-color: var(--fi-color-success);
+  }
+
+  /* =======================================================================
+     ESTRUCTURA DE APLICACIÓN
+     ======================================================================= */
+  .fi-app {
+    display: grid;
+    grid-template-columns: var(--fi-sidebar-width) minmax(0, 1fr);
+    min-block-size: 100vh;
+  }
+
+  @media (max-width: 1023.98px) {
+    .fi-app {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .fi-topbar {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: var(--fi-z-navigation);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--fi-space-4);
+    block-size: var(--fi-topbar-height);
+    padding-inline: var(--fi-space-5);
+    background-color: rgb(var(--fi-rgb-white) / 0.85);
+    backdrop-filter: var(--fi-backdrop);
+    border-block-end: var(--fi-divider);
+  }
+
+  [data-fi-theme='dark'] .fi-topbar {
+    background-color: rgb(21 29 41 / 0.85);
+  }
+
+  .fi-topbar__group {
+    display: flex;
+    align-items: center;
+    gap: var(--fi-space-3);
+    min-inline-size: 0;
+  }
+
+  .fi-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--fi-space-6);
+    padding: var(--fi-space-5) var(--fi-space-3);
+    background-color: var(--fi-color-surface);
+    border-inline-end: var(--fi-divider);
+  }
+
+  .fi-nav {
+    display: grid;
+    gap: var(--fi-space-0-5);
+  }
+
+  .fi-nav__title {
+    padding-inline: var(--fi-space-3);
+    margin-block-end: var(--fi-space-2);
+    font-size: var(--fi-font-size-2xs);
+    font-weight: var(--fi-font-weight-bold);
+    letter-spacing: var(--fi-letter-spacing-widest);
+    text-transform: uppercase;
+    color: var(--fi-color-text-subtle);
+  }
+
+  .fi-nav__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--fi-space-3);
+    padding: var(--fi-space-2-5) var(--fi-space-3);
+    border-radius: var(--fi-radius-control);
+    color: var(--fi-color-text-muted);
+    font-size: var(--fi-font-size-sm);
+    font-weight: var(--fi-font-weight-semibold);
+    text-decoration: none;
+    transition: var(--fi-transition-colors);
+  }
+
+  .fi-nav__item:hover {
+    background-color: var(--fi-color-surface-hover);
+    color: var(--fi-color-text);
+  }
+
+  .fi-nav__item[aria-current='page'],
+  .fi-nav__item.is-active {
+    background-color: var(--fi-color-primary-subtle);
+    color: var(--fi-color-primary-text);
+  }
+
+  /* Rail: idéntico gesto que en pestañas y tablas. */
+  .fi-nav__item[aria-current='page']::before,
+  .fi-nav__item.is-active::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block: var(--fi-space-2);
+    inline-size: var(--fi-border-width-rail);
+    border-radius: var(--fi-radius-full);
+    background-color: var(--fi-color-accent);
+  }
+
+  .fi-nav__icon {
+    inline-size: var(--fi-icon-md);
+    block-size: var(--fi-icon-md);
+    flex-shrink: 0;
+  }
+
+  .fi-nav__badge {
+    margin-inline-start: auto;
+  }
+
+  /* Contenido principal */
+  .fi-main {
+    display: flex;
+    flex-direction: column;
+    min-inline-size: 0;
+  }
+
+  .fi-page {
+    padding: var(--fi-space-6) var(--fi-container-padding) var(--fi-space-16);
+    display: grid;
+    gap: var(--fi-section-gap);
+    max-inline-size: var(--fi-container-2xl);
+    inline-size: 100%;
+    margin-inline: auto;
+  }
+}
+
+/* ===== components/overlay.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   components/overlay.css — MODALES, MENÚS Y TOOLTIPS
+   --------------------------------------------------------------------------
+   Se apoya en elementos nativos siempre que existen:
+     · <dialog>            modal y panel lateral (foco y Escape gratis)
+     · popover / anchor    menús, cuando el navegador lo soporte
+     · aria-describedby    tooltips
+
+   Contiene: .fi-modal · .fi-drawer · .fi-menu · .fi-popover · .fi-tooltip
+   ========================================================================== */
+
+@layer components {
+  /* =======================================================================
+     MODAL — construido sobre <dialog>
+     ======================================================================= */
+  .fi-modal {
+    inline-size: min(32rem, calc(100vw - var(--fi-space-8)));
+    max-block-size: min(85vh, 48rem);
+    padding: 0;
+    border: 0;
+    border-radius: var(--fi-radius-card);
+    background-color: var(--fi-color-surface-raised);
+    color: var(--fi-color-text);
+    box-shadow: var(--fi-shadow-xl);
+    overflow: hidden;
+  }
+
+  .fi-modal::backdrop {
+    background-color: var(--fi-color-overlay);
+    backdrop-filter: var(--fi-blur-sm);
+  }
+
+  .fi-modal[open] {
+    animation: fi-modal-in var(--fi-duration-surface) var(--fi-ease-standard);
+  }
+
+  .fi-modal[open]::backdrop {
+    animation: fi-fade-in var(--fi-duration-surface) var(--fi-ease-standard);
+  }
+
+  @keyframes fi-modal-in {
+    from {
+      opacity: 0;
+      transform: scale(var(--fi-motion-scale-in)) translateY(var(--fi-motion-slide));
+    }
+  }
+
+  @keyframes fi-fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  .fi-modal__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--fi-space-4);
+    padding: var(--fi-space-5);
+    padding-block-end: var(--fi-space-3);
+  }
+
+  .fi-modal__title {
+    font: var(--fi-text-h5);
+    color: var(--fi-color-text-strong);
+    margin: 0;
+  }
+
+  .fi-modal__description {
+    font-size: var(--fi-font-size-sm);
+    color: var(--fi-color-text-muted);
+    margin-block-start: var(--fi-space-1);
+  }
+
+  .fi-modal__body {
+    padding: var(--fi-space-2) var(--fi-space-5) var(--fi-space-5);
+    overflow-y: auto;
+    color: var(--fi-color-text-muted);
+    font-size: var(--fi-font-size-sm);
+  }
+
+  .fi-modal__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--fi-space-2);
+    padding: var(--fi-space-4) var(--fi-space-5);
+    background-color: var(--fi-color-surface-sunken);
+    border-block-start: var(--fi-divider);
+  }
+
+  .fi-modal__close {
+    display: grid;
+    place-items: center;
+    inline-size: var(--fi-space-8);
+    block-size: var(--fi-space-8);
+    border-radius: var(--fi-radius-md);
+    color: var(--fi-color-text-subtle);
+    transition: var(--fi-transition-colors);
+  }
+
+  .fi-modal__close:hover {
+    background-color: var(--fi-color-surface-hover);
+    color: var(--fi-color-text);
+  }
+
+  .fi-modal--lg {
+    inline-size: min(48rem, calc(100vw - var(--fi-space-8)));
+  }
+
+  .fi-modal--danger .fi-modal__title {
+    color: var(--fi-color-danger-text);
+  }
+
+  /* =======================================================================
+     PANEL LATERAL (DRAWER) — ficha de investigador sin perder la lista
+     ======================================================================= */
+  .fi-drawer {
+    inline-size: min(28rem, 100vw);
+    max-inline-size: 100vw;
+    block-size: 100vh;
+    max-block-size: 100vh;
+    margin: 0 0 0 auto;
+    padding: 0;
+    border: 0;
+    background-color: var(--fi-color-surface-raised);
+    color: var(--fi-color-text);
+    box-shadow: var(--fi-shadow-xl);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fi-drawer::backdrop {
+    background-color: var(--fi-color-overlay);
+  }
+
+  .fi-drawer[open] {
+    animation: fi-drawer-in var(--fi-duration-surface) var(--fi-ease-standard);
+  }
+
+  @keyframes fi-drawer-in {
+    from {
+      transform: translateX(100%);
+    }
+  }
+
+  .fi-drawer__header {
+    padding: var(--fi-space-5);
+    border-block-end: var(--fi-divider);
+  }
+
+  .fi-drawer__body {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--fi-space-5);
+  }
+
+  .fi-drawer__footer {
+    padding: var(--fi-space-4) var(--fi-space-5);
+    border-block-start: var(--fi-divider);
+    display: flex;
+    gap: var(--fi-space-2);
+    justify-content: flex-end;
+  }
+
+  /* =======================================================================
+     MENÚ DESPLEGABLE
+     ======================================================================= */
+  .fi-dropdown {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .fi-menu {
+    position: absolute;
+    inset-block-start: calc(100% + var(--fi-space-2));
+    inset-inline-end: 0;
+    z-index: var(--fi-z-dropdown);
+
+    min-inline-size: 12rem;
+    padding: var(--fi-space-1-5);
+    margin: 0;
+    list-style: none;
+
+    background-color: var(--fi-color-surface-raised);
+    border: var(--fi-border-subtle);
+    border-radius: var(--fi-radius-surface);
+    box-shadow: var(--fi-shadow-lg);
+
+    opacity: 0;
+    transform: translateY(calc(var(--fi-motion-rise) * -1));
+    visibility: hidden;
+    transition: opacity var(--fi-duration-150) var(--fi-ease-standard),
+      transform var(--fi-duration-150) var(--fi-ease-standard),
+      visibility var(--fi-duration-150);
+  }
+
+  .fi-menu[data-open='true'] {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+
+  .fi-menu--start {
+    inset-inline: 0 auto;
+  }
+
+  .fi-menu__item {
+    display: flex;
+    align-items: center;
+    gap: var(--fi-space-3);
+    inline-size: 100%;
+    padding: var(--fi-space-2) var(--fi-space-3);
+    border-radius: var(--fi-radius-md);
+    color: var(--fi-color-text);
+    font-size: var(--fi-font-size-sm);
+    text-align: start;
+    text-decoration: none;
+    transition: var(--fi-transition-colors);
+  }
+
+  .fi-menu__item:hover,
+  .fi-menu__item:focus-visible {
+    background-color: var(--fi-color-surface-hover);
+    outline: none;
+  }
+
+  .fi-menu__item--danger {
+    color: var(--fi-color-danger-text);
+  }
+
+  .fi-menu__item--danger:hover {
+    background-color: var(--fi-color-danger-subtle);
+  }
+
+  .fi-menu__item[aria-disabled='true'] {
+    color: var(--fi-color-text-disabled);
+    pointer-events: none;
+  }
+
+  .fi-menu__shortcut {
+    margin-inline-start: auto;
+    font-size: var(--fi-font-size-2xs);
+    color: var(--fi-color-text-subtle);
+    font-family: var(--fi-font-mono);
+  }
+
+  .fi-menu__separator {
+    block-size: var(--fi-border-width-hairline);
+    background-color: var(--fi-color-border-subtle);
+    margin-block: var(--fi-space-1-5);
+    border: 0;
+  }
+
+  .fi-menu__label {
+    padding: var(--fi-space-2) var(--fi-space-3) var(--fi-space-1);
+    font-size: var(--fi-font-size-2xs);
+    font-weight: var(--fi-font-weight-bold);
+    letter-spacing: var(--fi-letter-spacing-wider);
+    text-transform: uppercase;
+    color: var(--fi-color-text-subtle);
+  }
+
+  /* =======================================================================
+     POPOVER — contenido más rico que un menú (filtros, ayuda contextual)
+     ======================================================================= */
+  .fi-popover {
+    position: absolute;
+    z-index: var(--fi-z-popover);
+    inline-size: min(20rem, calc(100vw - var(--fi-space-8)));
+    padding: var(--fi-space-4);
+    background-color: var(--fi-color-surface-raised);
+    border: var(--fi-border-subtle);
+    border-radius: var(--fi-radius-surface);
+    box-shadow: var(--fi-shadow-lg);
+  }
+
+  /* =======================================================================
+     TOOLTIP — solo texto breve. Nunca contiene acciones ni información
+     imprescindible: no existe en táctil ni para lectores de pantalla si no
+     se enlaza con aria-describedby.
+     ======================================================================= */
+  .fi-tooltip {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .fi-tooltip__content {
+    position: absolute;
+    inset-block-end: calc(100% + var(--fi-space-2));
+    inset-inline-start: 50%;
+    translate: -50% 0;
+    z-index: var(--fi-z-tooltip);
+
+    inline-size: max-content;
+    max-inline-size: 16rem;
+    padding: var(--fi-space-1-5) var(--fi-space-2-5);
+
+    background-color: var(--fi-color-surface-inverse);
+    color: var(--fi-color-text-inverse);
+    border-radius: var(--fi-radius-md);
+    box-shadow: var(--fi-shadow-md);
+
+    font-size: var(--fi-font-size-xs);
+    line-height: var(--fi-line-height-snug);
+    text-align: center;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--fi-duration-150) var(--fi-ease-standard),
+      visibility var(--fi-duration-150);
+    pointer-events: none;
+  }
+
+  .fi-tooltip:hover .fi-tooltip__content,
+  .fi-tooltip:focus-within .fi-tooltip__content {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .fi-tooltip__content::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline-start: 50%;
+    translate: -50% 0;
+    border: 5px solid transparent;
+    border-block-start-color: var(--fi-color-surface-inverse);
+  }
+}
+
+/* ===== utilities/layout.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   utilities/layout.css — UTILIDADES DE DISPOSICIÓN
+   --------------------------------------------------------------------------
+   Utilidades compositivas (no atómicas): en lugar de cientos de clases tipo
+   `mt-4`, se ofrecen primitivas de layout parametrizadas con una variable.
+   Cubren el 90% de los casos con una fracción del CSS.
+
+     <div class="fi-stack" style="--gap: var(--fi-space-6)">…</div>
+
+   Viven en @layer utilities, así que siempre ganan a los componentes sin
+   necesidad de !important.
+   ========================================================================== */
+
+@layer utilities {
+  /* =======================================================================
+     CONTENEDOR
+     ======================================================================= */
+  .fi-container {
+    inline-size: 100%;
+    max-inline-size: var(--fi-container-xl);
+    margin-inline: auto;
+    padding-inline: var(--fi-container-padding);
+  }
+
+  .fi-container--sm {
+    max-inline-size: var(--fi-container-sm);
+  }
+  .fi-container--md {
+    max-inline-size: var(--fi-container-md);
+  }
+  .fi-container--lg {
+    max-inline-size: var(--fi-container-lg);
+  }
+  .fi-container--2xl {
+    max-inline-size: var(--fi-container-2xl);
+  }
+  .fi-container--full {
+    max-inline-size: none;
+  }
+
+  /* =======================================================================
+     STACK — apilado vertical con separación uniforme
+     ======================================================================= */
+  .fi-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap, var(--fi-stack-gap));
+  }
+
+  .fi-stack--center {
+    align-items: center;
+  }
+
+  /* =======================================================================
+     CLUSTER — elementos en línea que fluyen a la siguiente cuando no caben
+     ======================================================================= */
+  .fi-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gap, var(--fi-space-3));
+  }
+
+  .fi-cluster--between {
+    justify-content: space-between;
+  }
+  .fi-cluster--end {
+    justify-content: flex-end;
+  }
+  .fi-cluster--center {
+    justify-content: center;
+  }
+  .fi-cluster--start {
+    align-items: flex-start;
+  }
+  .fi-cluster--baseline {
+    align-items: baseline;
+  }
+  .fi-cluster--nowrap {
+    flex-wrap: nowrap;
+  }
+
+  /* =======================================================================
+     GRID AUTOMÁTICA — columnas que se adaptan sin media queries
+     ======================================================================= */
+  .fi-grid {
+    display: grid;
+    gap: var(--gap, var(--fi-space-4));
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(min(var(--col-min, 16rem), 100%), 1fr)
+    );
+  }
+
+  /* Rejillas fijas para composiciones concretas. */
+  .fi-grid--2,
+  .fi-grid--3,
+  .fi-grid--4 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  @media (min-width: 768px) {
+    .fi-grid--2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .fi-grid--3 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .fi-grid--4 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .fi-grid--3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .fi-grid--4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  /* =======================================================================
+     SIDEBAR — contenido principal + columna auxiliar que colapsa sola
+     ======================================================================= */
+  .fi-with-sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap, var(--fi-space-6));
+  }
+
+  .fi-with-sidebar > :first-child {
+    flex: 1 1 var(--sidebar-width, 18rem);
+  }
+
+  .fi-with-sidebar > :last-child {
+    flex: 999 1 var(--main-min, 24rem);
+    min-inline-size: 0;
+  }
+
+  /* =======================================================================
+     AYUDAS PUNTUALES
+     ======================================================================= */
+  .fi-center {
+    display: grid;
+    place-items: center;
+  }
+
+  .fi-spacer {
+    flex: 1;
+  }
+
+  .fi-full {
+    inline-size: 100%;
+  }
+
+  .fi-measure {
+    max-inline-size: var(--fi-measure);
+  }
+
+  .fi-scroll-x {
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+  }
+
+  .fi-sticky-top {
+    position: sticky;
+    inset-block-start: var(--fi-topbar-height);
+    z-index: var(--fi-z-sticky);
+  }
+
+  /* Relación de aspecto para miniaturas de documento y gráficas. */
+  .fi-ratio-16-9 {
+    aspect-ratio: 16 / 9;
+  }
+  .fi-ratio-4-3 {
+    aspect-ratio: 4 / 3;
+  }
+  .fi-ratio-1-1 {
+    aspect-ratio: 1;
+  }
+}
+
+/* ===== utilities/helpers.css ===== */
+/* ==========================================================================
+   FI GROUP by EPSA · Design System
+   utilities/helpers.css — UTILIDADES DE TEXTO, COLOR Y SUPERFICIE
+   --------------------------------------------------------------------------
+   Conjunto deliberadamente corto. La regla del sistema es: si necesitas más
+   de dos o tres utilidades seguidas sobre el mismo elemento, probablemente
+   falte un componente. Estas clases resuelven ajustes finos, no maquetación.
+   ========================================================================== */
+
+@layer utilities {
+  /* =======================================================================
+     TIPOGRAFÍA
+     ======================================================================= */
+  .fi-text-2xs {
+    font-size: var(--fi-font-size-2xs);
+  }
+  .fi-text-xs {
+    font-size: var(--fi-font-size-xs);
+  }
+  .fi-text-sm {
+    font-size: var(--fi-font-size-sm);
+  }
+  .fi-text-md {
+    font-size: var(--fi-font-size-md);
+  }
+  .fi-text-lg {
+    font-size: var(--fi-font-size-lg);
+  }
+  .fi-text-xl {
+    font-size: var(--fi-font-size-xl);
+  }
+
+  .fi-font-light {
+    font-weight: var(--fi-font-weight-light);
+  }
+  .fi-font-regular {
+    font-weight: var(--fi-font-weight-regular);
+  }
+  .fi-font-semibold {
+    font-weight: var(--fi-font-weight-semibold);
+  }
+  .fi-font-bold {
+    font-weight: var(--fi-font-weight-bold);
+  }
+  .fi-font-black {
+    font-weight: var(--fi-font-weight-black);
+  }
+  .fi-font-mono {
+    font-family: var(--fi-font-mono);
+  }
+
+  .fi-text-start {
+    text-align: start;
+  }
+  .fi-text-center {
+    text-align: center;
+  }
+  .fi-text-end {
+    text-align: end;
+  }
+
+  .fi-uppercase {
+    text-transform: uppercase;
+    letter-spacing: var(--fi-letter-spacing-wider);
+  }
+
+  .fi-numeric {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Truncado de una línea y de varias. */
+  .fi-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .fi-clamp-2,
+  .fi-clamp-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .fi-clamp-2 {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+  .fi-clamp-3 {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  /* =======================================================================
+     COLOR DE TEXTO
+     ======================================================================= */
+  .fi-text-default {
+    color: var(--fi-color-text);
+  }
+  .fi-text-strong {
+    color: var(--fi-color-text-strong);
+  }
+  .fi-text-muted {
+    color: var(--fi-color-text-muted);
+  }
+  .fi-text-subtle {
+    color: var(--fi-color-text-subtle);
+  }
+  .fi-text-inverse {
+    color: var(--fi-color-text-inverse);
+  }
+  .fi-text-primary {
+    color: var(--fi-color-primary-text);
+  }
+  .fi-text-success {
+    color: var(--fi-color-success-text);
+  }
+  .fi-text-warning {
+    color: var(--fi-color-warning-text);
+  }
+  .fi-text-danger {
+    color: var(--fi-color-danger-text);
+  }
+  .fi-text-info {
+    color: var(--fi-color-info-text);
+  }
+
+  /* =======================================================================
+     FONDOS Y SUPERFICIES
+     ======================================================================= */
+  .fi-bg-canvas {
+    background-color: var(--fi-color-canvas);
+  }
+  .fi-bg-surface {
+    background-color: var(--fi-color-surface);
+  }
+  .fi-bg-sunken {
+    background-color: var(--fi-color-surface-sunken);
+  }
+  .fi-bg-inverse {
+    background-color: var(--fi-color-surface-inverse);
+    color: var(--fi-color-text-inverse);
+  }
+  .fi-bg-primary {
+    background-color: var(--fi-color-primary);
+    color: var(--fi-color-primary-on);
+  }
+  .fi-bg-primary-subtle {
+    background-color: var(--fi-color-primary-subtle);
+  }
+  .fi-bg-success-subtle {
+    background-color: var(--fi-color-success-subtle);
+  }
+  .fi-bg-warning-subtle {
+    background-color: var(--fi-color-warning-subtle);
+  }
+  .fi-bg-danger-subtle {
+    background-color: var(--fi-color-danger-subtle);
+  }
+
+  /* =======================================================================
+     BORDES, RADIOS Y SOMBRAS
+     ======================================================================= */
+  .fi-border {
+    border: var(--fi-border-default);
+  }
+  .fi-border-subtle {
+    border: var(--fi-border-subtle);
+  }
+  .fi-border-top {
+    border-block-start: var(--fi-divider);
+  }
+  .fi-border-bottom {
+    border-block-end: var(--fi-divider);
+  }
+  .fi-border-none {
+    border: 0;
+  }
+
+  /* El rail de marca como utilidad, para destacar bloques puntuales. */
+  .fi-rail {
+    border-inline-start: var(--fi-border-width-rail) solid
+      var(--fi-color-accent);
+    padding-inline-start: var(--fi-space-4);
+  }
+
+  .fi-rounded-sm {
+    border-radius: var(--fi-radius-sm);
+  }
+  .fi-rounded-md {
+    border-radius: var(--fi-radius-md);
+  }
+  .fi-rounded-lg {
+    border-radius: var(--fi-radius-lg);
+  }
+  .fi-rounded-xl {
+    border-radius: var(--fi-radius-xl);
+  }
+  .fi-rounded-2xl {
+    border-radius: var(--fi-radius-2xl);
+  }
+  .fi-rounded-full {
+    border-radius: var(--fi-radius-full);
+  }
+
+  .fi-shadow-none {
+    box-shadow: none;
+  }
+  .fi-shadow-xs {
+    box-shadow: var(--fi-shadow-xs);
+  }
+  .fi-shadow-sm {
+    box-shadow: var(--fi-shadow-sm);
+  }
+  .fi-shadow-md {
+    box-shadow: var(--fi-shadow-md);
+  }
+  .fi-shadow-lg {
+    box-shadow: var(--fi-shadow-lg);
+  }
+  .fi-shadow-xl {
+    box-shadow: var(--fi-shadow-xl);
+  }
+
+  /* =======================================================================
+     ESPACIADO PUNTUAL — solo los pasos más usados, con la variable como
+     escape para cualquier otro valor de la escala.
+     ======================================================================= */
+  .fi-p-0 {
+    padding: 0;
+  }
+  .fi-p-3 {
+    padding: var(--fi-space-3);
+  }
+  .fi-p-4 {
+    padding: var(--fi-space-4);
+  }
+  .fi-p-5 {
+    padding: var(--fi-space-5);
+  }
+  .fi-p-6 {
+    padding: var(--fi-space-6);
+  }
+
+  .fi-mt-0 {
+    margin-block-start: 0;
+  }
+  .fi-mt-2 {
+    margin-block-start: var(--fi-space-2);
+  }
+  .fi-mt-4 {
+    margin-block-start: var(--fi-space-4);
+  }
+  .fi-mt-6 {
+    margin-block-start: var(--fi-space-6);
+  }
+  .fi-mb-2 {
+    margin-block-end: var(--fi-space-2);
+  }
+  .fi-mb-4 {
+    margin-block-end: var(--fi-space-4);
+  }
+  .fi-mb-6 {
+    margin-block-end: var(--fi-space-6);
+  }
+
+  /* =======================================================================
+     ESTADO Y VISIBILIDAD
+     ======================================================================= */
+  .fi-hidden {
+    display: none;
+  }
+  .fi-invisible {
+    visibility: hidden;
+  }
+  .fi-disabled {
+    opacity: var(--fi-opacity-disabled);
+    pointer-events: none;
+  }
+  .fi-clickable {
+    cursor: pointer;
+  }
+  .fi-select-none {
+    user-select: none;
+  }
+}

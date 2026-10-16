@@ -1,6 +1,6 @@
 # Reglas de negocio
 
-**Generado con:** project-context v3.8 · [herramienta] · [modelo] · [AAAA-MM-DD]
+**Generado con:** project-context v3.9 · [herramienta] · [modelo] · [AAAA-MM-DD]
 
 > Solo reglas confirmadas: cada una con su fuente (work item, `BR-XX` de `docs/sdd/<id>/pbi.md` o
 > un comentario explícito en el código). Ninguna regla se deduce del código.

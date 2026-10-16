@@ -12,6 +12,7 @@ hooks (GitHub Copilot, Codex). For every commit in base..HEAD and every file cha
 - work items: every `docs/sdd/<id>-<title>/` changed passes check-sdd-item.py;
 - protected paths of `sdd-guardrails.json` not changed, and no secret file (`secrets`) added;
 - files installed by the kit (`.sdd-kit.json`) changed only by install.py (a `chore(sdd)` commit);
+- no draft of `docs/sdd/_borradores/` added or changed: create the work item and delete it (ADR-0027);
 - AGENTS.md under 200 lines;
 - added lines without high-confidence secrets (private keys, storage keys, SAS, tokens).
 
@@ -49,6 +50,7 @@ def git(*args: str) -> str:
 
 
 def load_checker():
+    sys.dont_write_bytecode = True  # no __pycache__ inside .agents/scripts/ of the project
     spec = importlib.util.spec_from_file_location("check_sdd_item", HERE / "check-sdd-item.py")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -124,6 +126,16 @@ def check_files(base: str, root: Path, kit_commit: bool, checker, r: Report) -> 
     added = [l for l in git("diff", "--name-only", "--diff-filter=A", f"{base}...HEAD").splitlines() if l]
     leaked = [f for f in added if any(p.match(f) for p in secrets) and f not in cfg.get("secretsAllowed", [])]
     r.add("✗" if leaked else "✓", "archivos de secretos", ", ".join(leaked) if leaked else "ninguno añadido")
+    drafts = [f for f in changed if f.startswith("docs/sdd/_borradores/") and not f.endswith(".gitkeep")]
+    if drafts:
+        r.add("✗", "borradores", ", ".join(drafts[:5]) + ": crea el work item en Azure DevOps, anota su ID donde "
+              "se citaba el borrador (bitacora.md, qa-report.md, plan.md) y borra el archivo antes del PR (ADR-0027)")
+    else:
+        r.add("✓", "borradores", "ninguno en la rama")
+    local = [f for f in added if re.match(r"docs/sdd/[^/]+/(assets/|commit-message\.md$|test-cases\.csv$)", f)]
+    if local:
+        r.add("⚠", "archivos locales", ", ".join(local[:5]) + ": no se versionan (ADR-0027); un adjunto solo si es "
+              "la especificación, añadido a propósito con git add -f")
     try:
         managed = set(json.loads((root / ".sdd-kit.json").read_text(encoding="utf-8")).get("managed", []))
     except (OSError, ValueError):

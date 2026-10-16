@@ -1,6 +1,6 @@
 # Casos de prueba — <ID> <Título>
 
-**Generado con:** test-cases v3.8 · [Claude Code | GitHub Copilot | Codex] · [modelo]
+**Generado con:** test-cases v3.9 · [Claude Code | GitHub Copilot | Codex] · [modelo]
 **Work item:** #<ID> · **Fecha:** AAAA-MM-DD · **Fuente:** pbi.md / bug.md (+ 04 SPECs si existe)
 **Estado:** Borrador — lo revisa QA (<persona>) antes de importarlo a Azure Test Plans
 

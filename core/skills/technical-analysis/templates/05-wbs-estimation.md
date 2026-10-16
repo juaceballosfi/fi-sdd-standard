@@ -1,6 +1,6 @@
 # WBS — [ID]
 
-**Generado con:** technical-analysis v3.8 · [Claude Code | GitHub Copilot | Codex] · [modelo]
+**Generado con:** technical-analysis v3.9 · [Claude Code | GitHub Copilot | Codex] · [modelo]
 **Sprint:** [número] | **Fecha:** [AAAA-MM-DD] | **Unidad:** SP (Fibonacci) | **Versión:** 1.0
 
 ## Tareas

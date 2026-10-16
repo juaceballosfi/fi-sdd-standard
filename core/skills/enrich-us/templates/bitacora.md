@@ -1,6 +1,6 @@
 # Bitácora — <ID> <Título>
 
-**Generado con:** enrich-us v3.8 · [Claude Code | GitHub Copilot | Codex] · [modelo]
+**Generado con:** enrich-us v3.9 · [Claude Code | GitHub Copilot | Codex] · [modelo]
 **Work item:** #[ID] · **Carpeta:** docs/sdd/[ID]-[slug]/
 
 > Notas de trabajo con fecha: preguntas, respuestas del PO, hallazgos y decisiones.

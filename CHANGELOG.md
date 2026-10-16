@@ -1,5 +1,28 @@
 # CHANGELOG — fi-sdd-standard
 
+## v0.12.0 — 2026-10-16 · Qué se versiona y el manual en el kit
+
+- **Qué se versiona (ADR-0027, sustituye en parte a ADR-0002).** De cada work item ya no se suben
+  `assets/` (los adjuntos están en Azure DevOps), `commit-message.md` (queda en el commit y en el
+  PR) ni `test-cases.csv` (se regenera). Los borradores de `docs/sdd/_borradores/` no llegan a
+  `dev`: se crea el work item, se anota su ID y se borran antes del PR.
+  - **`install.py`** añade al `.gitignore` del proyecto esas rutas, `.claude/settings.local.json`,
+    `.github/copilot-instructions.md` (solo si lo generó el kit) y `.agents/**/__pycache__/`.
+    Avisa (`REVISAR`) de los que ya estaban versionados, sin borrar nada.
+  - **`check-sdd-item.py`:** un adjunto enlazado que falta y que git ignora es un aviso, no un
+    error. El paso 5 se reconoce por el último commit de la carpeta con `Ref: #<id>`, y ese es el
+    mensaje que se comprueba.
+  - **`pr-check.py`:** error si la rama añade o cambia un borrador; aviso si sube un archivo local
+    a propósito. Ya no deja `__pycache__/` en `.agents/scripts/`.
+  - **Skills v3.9:** la convención compartida de borradores, `commit-message.md` como archivo
+    local, el CSV de `test-cases` local, los adjuntos desde Azure DevOps en otro equipo
+    (`enrich-us`) y el estado `Work item #<ID>` de un hallazgo de QA que se creó.
+  - `AGENTS.base.md`: una línea con lo que no se versiona. Guías rápidas, guía git y
+    `piloto-a-dev.md` actualizadas.
+- **Manual en el kit:** `docs/manual/` con el PDF, el Markdown (para dar de contexto a una IA) y
+  sus fuentes (`build.py`, `build_md.py`, `diagrams.py`, `src/`, `assets/`). No se instala en los
+  proyectos. Capítulos 3, 5, 14 y relacionados actualizados con ADR-0027.
+
 ## v0.11.0 — 2026-10-15 · Candidata a MVP (fases 1 a 3)
 
 Todo lo del MVP construido, para probarlo por olas con `tests/pilots/PLAN-PRUEBAS-MVP.md`.

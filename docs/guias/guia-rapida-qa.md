@@ -3,7 +3,7 @@
 ## Preparar el work item (antes del desarrollo)
 
 1. Crea la carpeta y copia el work item de Azure DevOps en `story.md`, con sus capturas en
-   `assets/`:
+   `assets/` (no se versiona: en otro equipo se bajan del work item):
    ```powershell
    python <kit>\scripts\new-sdd-item.py <id> "<título>"
    ```
@@ -17,7 +17,8 @@
 
 3. `/test-cases <id>`: casos funcionales, negativos, de borde, de permisos, de idioma y de
    regresión, con datos del work item.
-   - Escribe `test-cases.md` y `test-cases.csv`.
+   - Escribe `test-cases.md` y `test-cases.csv`. Solo `test-cases.md` se versiona: el CSV es local
+     y se regenera con `python .agents\skills\test-cases\scripts\test_cases_csv.py <carpeta>\test-cases.md`.
    - Los casos de un criterio *A confirmar* quedan `Bloqueado` y no van al CSV.
 4. Revisa `test-cases.md`. Después, importa el CSV en Azure Test Plans: *Test Plans → tu plan →
    suite → Import*, el archivo `test-cases.csv`.

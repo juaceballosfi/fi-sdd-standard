@@ -1,6 +1,6 @@
 # ADR-0002 · Azure DevOps es la fuente del requisito; todo el trabajo SDD vive en una carpeta versionada
 
-- **Estado:** Aceptada
+- **Estado:** Aceptada · sustituida en parte por ADR-0027 (qué archivos de la carpeta se versionan)
 - **Fecha:** 2026-10-13
 - **Decide:** Juan Ceballos
 - **Relacionados:** ADR-0007

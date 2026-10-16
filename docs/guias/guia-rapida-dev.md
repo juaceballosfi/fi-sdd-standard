@@ -15,7 +15,7 @@ Después, en una sesión nueva: `/project-context`. Opcional: `/document-project
 
 | Paso | Qué haces tú | Comando | Sale |
 | --- | --- | --- | --- |
-| 0 | Rama `feature/<id>-<título>` desde `dev`; copias el work item de Azure DevOps | `python <kit>\scripts\new-sdd-item.py <id> "<título>"` | `docs/sdd/<id>-<título>/story.md` y `assets/` |
+| 0 | Rama `feature/<id>-<título>` desde `dev`; copias el work item de Azure DevOps | `python <kit>\scripts\new-sdd-item.py <id> "<título>"` | `docs/sdd/<id>-<título>/story.md` y `assets/` (local) |
 | 1 | Respondes las preguntas (o las pasas al PO) | `/enrich-us <id>` | `pbi.md` o `bug.md` |
 | 2 | Apruebas la propuesta (03) y el plan (04) | `/technical-analysis <id>` | `00`–`06` |
 | 3 | Confirmas el inicio; resuelves bloqueos | `/wbs-execution <id>` | Código, pruebas, `CHANGELOG.md`, `commit-message.md` |
@@ -37,6 +37,11 @@ Si no la pasa, te lo dice y sigues por el paso 1. Los pasos 4–6 no cambian.
   `[PENDING-TRANSLATION]`.
 
 ## Antes del PR
+
+- Los borradores de `docs/sdd/_borradores/` no van en el PR: crea cada work item en Azure DevOps,
+  anota su ID donde se citaba y borra el borrador.
+- No se versionan (ADR-0027): `assets/` (los adjuntos están en Azure DevOps), `commit-message.md`
+  (queda en el commit) ni `test-cases.csv` (se regenera). Ya están en `.gitignore`.
 
 ```powershell
 python .agents\scripts\pr-check.py            # reglas obligatorias de la rama, contra origin/dev
