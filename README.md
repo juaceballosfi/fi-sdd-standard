@@ -4,7 +4,7 @@ Kit del equipo para trabajar con IA siguiendo un mismo flujo SDD (*Spec-Driven D
 work item de Azure DevOps a código probado, documentado y desplegado, igual en GitHub Copilot
 (VS Code y Visual Studio), Claude Code y Codex.
 
-**Versión:** 0.12.0 (candidata a MVP) · **Estado:** en pruebas por olas (`tests/pilots/PLAN-PRUEBAS-MVP.md`) · **Responsable:** Juan Ceballos
+**Versión:** 0.12.1 (candidata a MVP) · **Estado:** en pruebas por olas (`tests/pilots/PLAN-PRUEBAS-MVP.md`) · **Responsable:** Juan Ceballos
 **Pilotos:** Bonis y Calls4Grants
 
 > El brief y el plan completo están en el documento «SDD Enterprise · Brief y plan de implantación».

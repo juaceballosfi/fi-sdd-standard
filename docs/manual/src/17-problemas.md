@@ -36,6 +36,7 @@ Los problemas más frecuentes de los pilotos, con su causa y su arreglo. Casi to
 | --- | --- | --- |
 | `nothing added to commit` | Faltó el `git add`, o los archivos nuevos (`??`) no se añadieron | `git add <rutas exactas>` y `git status --short` antes del commit |
 | `git add` de la carpeta no añade `assets/` ni `commit-message.md` | Es intencionado: están en `.gitignore` (ADR-0027) | Nada. `git commit -F` lee `commit-message.md` del disco igualmente |
+| `pr-check.py`: *secretos en el diff — .agents/scripts/pr-check.py (firma SAS)* | Falso positivo de la v0.12.0: el patrón se encontraba a sí mismo cuando el kit se instala en la misma rama | Actualiza el kit a la v0.12.1 o posterior y haz el commit `chore(sdd)` de la actualización |
 | `pr-check.py`: *borradores* | La rama tiene un archivo en `docs/sdd/_borradores/` | Crea el work item en Azure DevOps, anota su ID donde se citaba el borrador y bórralo |
 | `check-sdd-item.py`: *… no está en este equipo* | Retomas un work item en otro equipo y los adjuntos no se versionan | Bájalos del work item en Azure DevOps a `assets/` con los nombres que enlaza `story.md` |
 | `install.py`: *REVISAR … archivos versionados que ya no se versionan* | El proyecto subía esos archivos antes de la v0.12.0 | `git rm -r --cached` de esas rutas (capítulo 5) y un commit `chore(sdd)` |

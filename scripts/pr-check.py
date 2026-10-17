@@ -34,7 +34,9 @@ AGENTS_MAX = 200
 SECRET_PATTERNS = [
     (re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----"), "clave privada"),
     (re.compile(r"AccountKey=[A-Za-z0-9+/]{30,}={0,2}"), "clave de cuenta de Azure Storage"),
-    (re.compile(r"SharedAccessSignature=|[?&]sig=[A-Za-z0-9%+/]{30,}"), "firma SAS"),
+    # Every pattern needs a value after the key: a bare "SharedAccessSignature=" also matched this
+    # very line when the kit was installed in the same branch (Calls4Grants, v0.12.0).
+    (re.compile(r"SharedAccessSignature=[^;\s\"']{20,}|[?&]sig=[A-Za-z0-9%+/]{30,}"), "firma SAS"),
     (re.compile(r"\bgh[pousr]_[A-Za-z0-9]{36,}\b"), "token de GitHub"),
     (re.compile(r"\bxox[abpr]-[A-Za-z0-9-]{20,}\b"), "token de Slack"),
     (re.compile(r"\bAKIA[0-9A-Z]{16}\b"), "clave de AWS"),

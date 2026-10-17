@@ -1,6 +1,6 @@
 # fi-sdd-standard · Manual de uso
 
-**Kit:** fi-sdd-standard v0.12.0 (candidata a MVP) · **Skills:** v3.9 (9 skills, 7 subagentes)
+**Kit:** fi-sdd-standard v0.12.1 (candidata a MVP) · **Skills:** v3.9 (9 skills, 7 subagentes)
 **Herramientas:** Claude Code · GitHub Copilot (VS Code y Visual Studio) · Codex (fase 7)
 **Fecha:** 16 de octubre de 2026 · **Responsables:** Juan Clavijo · Juan Ceballos
 **Para:** desarrollo, QA y tech leads de FI GROUP
@@ -86,7 +86,7 @@ desatascar problemas sencillos. Sigue estas reglas:
 **Convenciones de este archivo:** los bloques **Lo que pides** son mensajes que se escriben en el
 chat de la herramienta; **Lo que responde**, lo que devuelve la skill o el script; **Comando**, lo
 que se ejecuta en la terminal; **Archivo**, el contenido de un archivo. Las salidas de los scripts
-son reales (kit v0.12.0); las respuestas de la IA siguen el formato exacto de cada skill, pero su
+son reales (kit v0.12.1); las respuestas de la IA siguen el formato exacto de cada skill, pero su
 texto varía de una sesión a otra. Los avisos usan alertas de GitHub: `[!NOTE]` nota, `[!TIP]`
 consejo, `[!WARNING]` atención, `[!CAUTION]` nunca.
 
@@ -3624,6 +3624,7 @@ Los problemas más frecuentes de los pilotos, con su causa y su arreglo. Casi to
 | --- | --- | --- |
 | `nothing added to commit` | Faltó el `git add`, o los archivos nuevos (`??`) no se añadieron | `git add <rutas exactas>` y `git status --short` antes del commit |
 | `git add` de la carpeta no añade `assets/` ni `commit-message.md` | Es intencionado: están en `.gitignore` (ADR-0027) | Nada. `git commit -F` lee `commit-message.md` del disco igualmente |
+| `pr-check.py`: *secretos en el diff — .agents/scripts/pr-check.py (firma SAS)* | Falso positivo de la v0.12.0: el patrón se encontraba a sí mismo cuando el kit se instala en la misma rama | Actualiza el kit a la v0.12.1 o posterior y haz el commit `chore(sdd)` de la actualización |
 | `pr-check.py`: *borradores* | La rama tiene un archivo en `docs/sdd/_borradores/` | Crea el work item en Azure DevOps, anota su ID donde se citaba el borrador y bórralo |
 | `check-sdd-item.py`: *… no está en este equipo* | Retomas un work item en otro equipo y los adjuntos no se versionan | Bájalos del work item en Azure DevOps a `assets/` con los nombres que enlaza `story.md` |
 | `install.py`: *REVISAR … archivos versionados que ya no se versionan* | El proyecto subía esos archivos antes de la v0.12.0 | `git rm -r --cached` de esas rutas (capítulo 5) y un commit `chore(sdd)` |

@@ -222,6 +222,28 @@ def check_adrs() -> None:
             errors.append(f"docs/adr/README.md does not list {adr.name}")
 
 
+def check_secret_patterns() -> None:
+    """The kit installs pr-check.py into every project: no kit file may trigger its secret scan."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("pr_check", ROOT / "scripts" / "pr-check.py")
+    module = importlib.util.module_from_spec(spec)
+    sys.dont_write_bytecode = True
+    spec.loader.exec_module(module)
+    for folder in ("core", "scripts", "project-templates"):
+        for f in sorted((ROOT / folder).rglob("*")):
+            if not f.is_file() or f.suffix in {".pyc", ".png", ".woff2"}:
+                continue
+            try:
+                lines = f.read_text(encoding="utf-8").splitlines()
+            except UnicodeDecodeError:
+                continue
+            for n, line in enumerate(lines, 1):
+                for pattern, label in module.SECRET_PATTERNS:
+                    if pattern.search(line):
+                        errors.append(f"{f.relative_to(ROOT).as_posix()}:{n} triggers pr-check.py ({label}): "
+                                      "every project that installs the kit would fail its PR")
+
+
 def main() -> int:
     if not SKILLS_DIR.exists():
         print(f"Skills folder not found: {SKILLS_DIR}")
@@ -281,6 +303,7 @@ def main() -> int:
     check_agents()
     check_base_rules()
     check_adrs()
+    check_secret_patterns()
 
     checked = len([p for p in SKILLS_DIR.iterdir() if p.is_dir()])
     for w in warnings:

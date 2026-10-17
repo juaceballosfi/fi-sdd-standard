@@ -1,5 +1,16 @@
 # CHANGELOG — fi-sdd-standard
 
+## v0.12.1 — 2026-10-16 · Corrección de `pr-check.py`
+
+- **Falso positivo de «secretos en el diff» (detectado en el piloto de Calls4Grants).** El patrón de
+  firmas SAS aceptaba `SharedAccessSignature=` sin valor, así que encontraba su propia definición en
+  `.agents/scripts/pr-check.py`. Pasaba en el primer PR de todo proyecto que instala el kit en la
+  misma rama. Ahora el patrón exige un valor de al menos 20 caracteres; sigue detectando las
+  cadenas de conexión y las URL con `sig=`.
+- **`validate.py`** pasa los patrones de secretos de `pr-check.py` por todos los archivos del kit
+  que se instalan (`core/`, `scripts/`, `project-templates/`): un archivo del kit que dispare la
+  comprobación es un error al validar el kit, antes de publicar.
+
 ## v0.12.0 — 2026-10-16 · Qué se versiona y el manual en el kit
 
 - **Qué se versiona (ADR-0027, sustituye en parte a ADR-0002).** De cada work item ya no se suben
