@@ -32,3 +32,4 @@ copia `0000-plantilla.md` con el siguiente número y añádela a este índice en
 | [0025](0025-qa-modo-y-casos-de-prueba.md) | Modo QA de `enrich-us` y skill `test-cases`, con CSV para Azure Test Plans | Aceptada |
 | [0026](0026-bucle-de-pipeline-en-la-fase-4.md) | El bucle de pipeline en rojo pasa a la fase 4 | Aceptada |
 | [0027](0027-que-se-versiona.md) | Qué se versiona en un proyecto con el kit: fuera `assets/`, `commit-message.md`, `test-cases.csv` y los borradores | Aceptada |
+| [0028](0028-alcance-project-context-y-borradores-con-prioridad.md) | `/project-context` deja el kit a punto y no arregla el proyecto; compuerta del entorno; borradores con prioridad; más secretos por defecto | Aceptada |

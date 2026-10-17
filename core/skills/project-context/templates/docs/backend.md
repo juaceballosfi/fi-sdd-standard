@@ -1,6 +1,6 @@
 # Backend
 
-**Generado con:** project-context v3.9 · [herramienta] · [modelo] · [AAAA-MM-DD]
+**Generado con:** project-context v3.10 · [herramienta] · [modelo] · [AAAA-MM-DD]
 
 ## Stack
 <!-- Framework, versión, paquetes principales. -->

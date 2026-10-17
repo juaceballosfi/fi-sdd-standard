@@ -6,8 +6,9 @@
 
 pre  blocks editing a protected path and reading or editing a secret file, also through a shell
      command that names it.
-post runs the formatter configured for the file's extension, checks that the file is still UTF-8
-     and warns about the configured patterns.
+post runs the formatter configured for the file's extension (one command, or a list of commands
+     run in order, each within `formatTimeout` seconds), checks that the file is still UTF-8 and
+     warns about the configured patterns.
 
 The rules come from `sdd-guardrails.json` at the repository root (written by install.py and
 completed by /project-context). The hook is an early warning: every mandatory rule is also checked
@@ -28,8 +29,9 @@ CONFIG = "sdd-guardrails.json"
 EDIT_TOOLS = {"Edit", "Write", "MultiEdit", "NotebookEdit"}
 SHELL_TOOLS = {"Bash", "PowerShell"}
 # Words of a shell command that look like a file name, to compare with the secret patterns.
-PATH_TOKEN = re.compile(r"[\w./\\:*-]*(?:\.env(?:\.[\w-]+)?|appsettings\.[\w.-]+\.json|secrets\.json|\.pfx|\.key|\.pem)\b",
-                        re.I)
+PATH_TOKEN = re.compile(r"[\w./\\:*-]*(?:\.env(?:\.[\w-]+)?|appsettings(?:\.[\w.-]+)?\.json|secrets\.json|"
+                        r"nuget(?:\.[\w-]+)?\.config|\.npmrc|\.pfx|\.key|\.pem)\b", re.I)
+DEFAULT_FORMAT_TIMEOUT = 60
 
 
 def glob_regex(pattern: str) -> re.Pattern:
@@ -115,12 +117,17 @@ def post(event: dict, root: Path, cfg: dict) -> int:
         return 0
     warnings: list[str] = []
     command = (cfg.get("format") or {}).get(file.suffix.lower())
-    if command:
-        args = [a.replace("{file}", str(file)) for a in command]
+    commands = command if command and isinstance(command[0], list) else ([command] if command else [])
+    timeout = cfg.get("formatTimeout") or DEFAULT_FORMAT_TIMEOUT
+    for cmd in commands:
+        args = [a.replace("{file}", str(file)) for a in cmd]
         try:
-            res = subprocess.run(args, cwd=root, capture_output=True, text=True, timeout=90)
+            res = subprocess.run(args, cwd=root, capture_output=True, text=True, timeout=timeout)
             if res.returncode != 0:
                 warnings.append(f"el formateador ({args[0]}) terminó con código {res.returncode}: revisa el archivo")
+        except subprocess.TimeoutExpired:
+            warnings.append(f"el formateador ({args[0]}) tardó más de {timeout} s y se ha omitido (suele pasar en el "
+                            "primer arranque). No lo depures en esta sesión: si se repite, anótalo en un borrador")
         except (OSError, subprocess.SubprocessError) as exc:
             warnings.append(f"no se pudo ejecutar el formateador ({args[0]}): {exc.__class__.__name__}")
     raw = file.read_bytes()
@@ -147,7 +154,9 @@ def main() -> int:
         sys.stderr.reconfigure(encoding="utf-8")
     mode = sys.argv[1] if len(sys.argv) > 1 else ""
     try:
-        event = json.loads(sys.stdin.read() or "{}")
+        # Bytes + utf-8-sig: Windows PowerShell 5.1 pipes stdin with a BOM, and json.loads rejects it.
+        raw = sys.stdin.buffer.read() if hasattr(sys.stdin, "buffer") else sys.stdin.read().encode("utf-8")
+        event = json.loads(raw.decode("utf-8-sig").strip() or "{}")
         root = project_root(event)
         cfg = load_config(root)
         if mode == "pre":

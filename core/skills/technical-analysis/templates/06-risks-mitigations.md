@@ -1,6 +1,6 @@
 # Riesgos y mitigaciones — [ID]
 
-**Generado con:** technical-analysis v3.9 · [Claude Code | GitHub Copilot | Codex] · [modelo]
+**Generado con:** technical-analysis v3.10 · [Claude Code | GitHub Copilot | Codex] · [modelo]
 **Sprint:** [número] | **Fecha:** [AAAA-MM-DD] | **Versión:** 1.0
 
 ## Matriz

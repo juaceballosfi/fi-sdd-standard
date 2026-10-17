@@ -37,33 +37,67 @@ ejecutado o de una respuesta tuya, y lo que no pudo verificar queda marcado `[RE
 | `fresh` | Quieres rehacerlo sin dejarte llevar por el actual | Ignora el contexto actual y compara al final |
 | `check` | `check_project.py` da avisos o errores | Pasada corta: convierte cada aviso en una fila con su resolución, sin inventario ni build |
 
+### Su alcance: dejar el kit a punto, no arreglar el proyecto
+
+`/project-context` termina cuando el kit se puede usar: contexto, documentos base, proyecto de
+pruebas, guardarraíles y `check_project.py` con 0 errores. Todo lo demás que encuentre y haya que
+arreglar (un secreto versionado, un hueco de autorización, un script roto, un paquete vulnerable) es
+un **borrador con prioridad** en `docs/sdd/_borradores/` y la sesión sigue (ADR-0028). Una
+herramienta que falla (un formateador, un hook antiguo) tiene **un** intento; si sigue fallando, se
+anota y se deja como está. En el primer piloto de Calls4Grants la sesión se fue a depurar el
+formateador y los hooks de PowerShell, y hubo que repetirla.
+
+:::warn Antes de lanzarlo
+1. Instala la **última versión** del kit y **haz commit de la instalación**
+   (`chore(sdd): instalar fi-sdd-standard v<versión>`). La skill se para si no está hecho: con la
+   instalación guardada, una sesión que sale mal se descarta sin perder el kit.
+2. Comprueba que el proyecto **compila en tu máquina**: `dotnet restore` sin 401 (credenciales de
+   NuGet fuera del repositorio), la versión de Node que pide el repositorio, los submódulos y los
+   enlaces (`core`, `core-ui`) creados. La skill lo comprueba y se para si algo falla, pero
+   arreglarlo antes ahorra una sesión.
+3. Ten a mano quién despliega, el modelo de ramas y qué hacer con la configuración de IA anterior:
+   son las preguntas del bloque del paso 6.
+:::
+
 ### Qué hace, paso a paso
 
-1. **Precondiciones:** no en `dev`/`main` (crea `chore/sdd-project-context`), kit instalado. Dice el
-   modo y cuánto puede tardar.
-2. **Inventario determinista** con `inventory.py`: proyectos, lockfiles, archivos de traducción,
+1. **Precondiciones:** no en `dev`/`main` (crea `chore/sdd-project-context`), kit instalado **y con
+   su commit hecho**. Dice el modo y cuánto puede tardar.
+2. **Compuerta del entorno:** `inventory.py` compara la máquina con lo que pide el repositorio (SDK,
+   Node, gestor de paquetes, `node_modules`, enlaces y submódulos) y lista los **secretos
+   versionados** (archivo, línea y clave, nunca el valor). Después hace `dotnet restore`. Un `✗` o un
+   restore fallido **paran la sesión** con los pasos exactos para que los arregles tú: la IA no toca
+   credenciales ni la configuración del sistema. Un `⚠` se anota y sigue.
+3. **Inventario determinista** con `inventory.py`: proyectos, lockfiles, archivos de traducción,
    pipeline, endpoints, proyecto de pruebas, configuración de IA existente. Marca lo que necesita
-   una decisión (dos lockfiles, traducciones generadas, sin proyecto de pruebas…).
-3. **Exploración** en paralelo con `code-explorer`, una pregunta por área: arquitectura,
+   una decisión (dos lockfiles, traducciones generadas, sin proyecto de pruebas…). Cada secreto
+   versionado es un borrador **Urgente**.
+4. **Exploración** en paralelo con `code-explorer`, una pregunta por área: arquitectura,
    autorización y errores, datos, frontend, traducciones, pruebas y ejecución local. Lee además lo
    que las personas ya escribieron (README, `CLAUDE.md`, `docs/`). Si contradice al código, gana el
    código y la contradicción se pregunta.
-4. **Ejecuta todo** (te pide confirmación: tarda minutos): restore y build, toda la suite de
+5. **Ejecuta todo** (te pide confirmación: tarda minutos): restore y build, toda la suite de
    backend, lint, pruebas y build de frontend, type check. Registra si funciona, cuánto tarda y su
    **línea base** (avisos, pruebas que ya fallan). Nunca arregla lo que ya fallaba.
-5. **Infraestructura de pruebas:** sin proyecto de pruebas de backend, lo crea (xUnit v3 y Moq,
-   misma versión de .NET, en la solución, con una prueba que ejercita código real). Copia la
+6. **Infraestructura de pruebas:** sin proyecto de pruebas de backend, lo crea (xUnit v3 y Moq,
+   misma versión de .NET, en la solución, con una prueba que ejercita código real, y con
+   `Microsoft.NET.Test.Sdk` y `xunit.runner.visualstudio` para que `dotnet test` funcione con el SDK
+   local y con el del pipeline). El cambio del pipeline, si no lo apruebas, queda en un borrador. Copia la
    plantilla de **pruebas de arquitectura** y deja que `backend-dev` la complete; lo que ya
    incumple una regla va a su lista de excepciones con el motivo.
-6. **Preguntas en un bloque**, solo lo que el repositorio no responde: qué es el producto y quién
+7. **Preguntas en un bloque**, solo lo que el repositorio no responde: qué es el producto y quién
    lo usa, quién despliega, convenciones que no están en el código, conflictos encontrados, qué
-   hacer con la configuración de IA existente.
-7. **Borrador para aprobar:** *Project context* (encabezados fijos, unas 120 líneas, el archivo
+   hacer con la configuración de IA existente. Termina con una línea para copiar y rellenar
+   (`1 sí · 2 … · 3 no lo sé`); lo que dejes vacío toma el valor por defecto.
+8. **Borrador para aprobar:** *Project context* (encabezados fijos, unas 120 líneas, el archivo
    entero por debajo de 185), los seis `docs/`, la integración con el sitio de documentación
    (DocFX), los cambios a la configuración de IA anterior y `sdd-guardrails.json`. Puedes aprobarlo
-   por partes.
-8. **Escribe:** la sesión escribe `AGENTS.md` (debajo del bloque del kit); `doc-writer`, `docs/`.
-9. **Verifica:** `check_project.py` con 0 errores, y lee los diffs.
+   por partes. De los hooks antiguos pasan siempre las rutas protegidas y los patrones; un
+   formateador solo si el paso 5 lo ejecutó y tardó menos de unos 20 s. Un hook antiguo se borra
+   cuando has visto al guard bloquear una edición de una ruta protegida, y con tu aprobación.
+9. **Escribe:** la sesión escribe `AGENTS.md` (debajo del bloque del kit); `doc-writer`, `docs/`.
+10. **Verifica:** `check_project.py` con 0 errores, y lee los diffs. El cierre lista los borradores
+    por prioridad: crea los **Urgente** en Azure DevOps en cuanto hagas el commit.
 
 ### Los encabezados fijos de Project context
 
@@ -89,8 +123,9 @@ Modo: new · AGENTS.md: 178 líneas · docs/: creados architecture, backend, dat
 Verificado: build OK (1 min 40 s, 15 avisos) · pruebas 298 OK, 2 fallaban antes · lint 0 errores · tipos 3 errores previos
 Proyecto de pruebas: creado MiProyecto.Tests (4 pruebas) · CI: dotnet test añadido (aprobado)
 Decisiones: yarn.lock es el válido; i18n/*.json se editan a mano; CLAUDE.md → @AGENTS.md
-Pendiente: [REQUIRES-VALIDATION] usuario local de pruebas · _borradores/pruebas-frontend.md
-Siguiente: /document-project (documentación completa) o el primer work item con /enrich-us
+Borradores: Urgente secretos-appsettings · Alta autorizacion-controllers · Media pruebas-frontend
+Pendiente: [REQUIRES-VALIDATION] usuario local de pruebas
+Siguiente: commit · crear los Urgente en Azure DevOps · /document-project o el primer work item con /enrich-us
 git add AGENTS.md CLAUDE.md docs/ MiProyecto.Tests/ MiProyecto.sln sdd-guardrails.json azure-pipelines.yml
 :::
 
@@ -110,6 +145,10 @@ Ejecuta `check_project.py` y te propone una tabla, por ejemplo:
 | Fuentes cambiadas después de la fecha del contexto | Releer solo esas fuentes y proponer el cambio | La sesión, con aprobación |
 | `sdd-guardrails.json` sin rutas protegidas · sin pruebas de arquitectura | Proponer la configuración y las pruebas | La sesión, con aprobación |
 | Sin proyecto de pruebas · `CLAUDE.md` con contenido propio | El modo completo | `/project-context` |
+| Borradores pendientes · un borrador sin prioridad | Añadir la prioridad; listar los Urgente para crearlos ya | La sesión · una persona |
+
+Si la sesión se para antes de terminar (la compuerta del entorno, un bloqueo, una decisión tuya), el
+cierre dice qué está hecho, qué falta y con qué comando seguir. Lo aprobado y escrito se conserva.
 
 ## document-project · documentar todo el proyecto
 

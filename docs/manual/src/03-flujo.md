@@ -79,10 +79,13 @@ Lo que no se versiona ya está en el `.gitignore` del proyecto (lo añade `insta
 
 Hay además dos carpetas compartidas en `docs/sdd/`:
 
-- `_borradores/`: propuestas de work items nuevos (un bug o una deuda encontrados fuera del
-  alcance). Nunca son un `story.md` y **no llegan a `dev`**: antes del PR, una persona crea el work
-  item en Azure DevOps, anota su ID donde se citaba el borrador y lo borra. `pr-check.py` da error
-  si un borrador llega al PR.
+- `_borradores/`: propuestas de work items nuevos (un bug, una deuda o un riesgo encontrados fuera
+  del alcance), con su **prioridad** (ADR-0028): `Urgente` (un secreto o un fallo de seguridad
+  expuesto, o bloquea el build o al equipo), `Alta` (comportamiento incorrecto o riesgo en
+  producción), `Media` (deuda que frena) o `Baja` (cosmético). La skill que lo encuentra no lo
+  arregla: lo escribe y sigue. Nunca son un `story.md` y **no llegan a `dev`**: antes del PR, una
+  persona crea el work item en Azure DevOps, anota su ID donde se citaba el borrador y lo borra.
+  Los urgentes, en cuanto aparecen. `pr-check.py` da error si un borrador llega al PR.
 - `_documentacion/`: el plan de `/document-project` (`plan.md`), un `B-NN.md` por bloque y
   `avisos.md` con la línea base de avisos del build. Se versiona mientras dure el plan.
 

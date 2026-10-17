@@ -46,7 +46,7 @@ final, te da el *Comentario para Azure DevOps*.
 Cada archivo que genera la IA empieza su bloque de metadatos con:
 
 ```markdown
-**Generado con:** enrich-us v3.9 · Claude Code · claude-opus-5-5
+**Generado con:** enrich-us v3.10 · Claude Code · claude-opus-5-5
 ```
 
 - `<skill> v<versión>`: la skill y la versión de las skills del kit.
@@ -61,7 +61,7 @@ llevan `Co-Authored-By` (ADR-0004). Nunca se borra. `story.md`, que lo prepara u
 Cuando una skill posterior cambia un documento con una decisión confirmada, añade debajo:
 
 ```markdown
-**Actualizado con:** technical-analysis v3.9 · Claude Code · claude-opus-5-5 (2026-10-16: CA-03 añadido, aprobado por Laura Gómez)
+**Actualizado con:** technical-analysis v3.10 · Claude Code · claude-opus-5-5 (2026-10-16: CA-03 añadido, aprobado por Laura Gómez)
 ```
 
 ## Anclas
@@ -99,7 +99,7 @@ nueva) sabe qué se preguntó, qué se respondió y quién lo confirmó.
 :::file bitacora.md
 # Bitácora — 40399 Sección de ofertas en el menú lateral
 
-**Generado con:** enrich-us v3.9 · Claude Code · claude-opus-5-5
+**Generado con:** enrich-us v3.10 · Claude Code · claude-opus-5-5
 **Work item:** #40399 · **Carpeta:** docs/sdd/40399-seccion-de-ofertas-en-el-menu-lateral/
 
 ## Decisiones

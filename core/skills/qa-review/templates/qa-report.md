@@ -1,6 +1,6 @@
 # Informe de QA — <ID> <Título>
 
-**Generado con:** qa-review v3.9 · [Claude Code | GitHub Copilot | Codex] · [modelo]
+**Generado con:** qa-review v3.10 · [Claude Code | GitHub Copilot | Codex] · [modelo]
 **Fecha:** AAAA-MM-DD · **Ronda:** 1 · **Revisor:** qa-reviewer (subagente) | esta sesión
 **Alcance:** `<base>..<head>` · N archivos de código · **Pruebas ejecutadas por el revisor:** Sí | No (motivo)
 **Revisado contra:** pbi.md, 03-solution-proposal.md, 04-implementation-plan.md, 06-risks-mitigations.md, AGENTS.md

@@ -47,7 +47,7 @@ referencia de cada pieza, y los últimos son recetas y soluciones para el día a
 
 Los ejemplos usan un proyecto ficticio con el work item **#40399 «Sección de ofertas en el menú
 lateral»** y el bug **#41020 «El total de la factura redondea mal los céntimos»**. Las salidas de
-scripts son reales: se generaron con el kit v0.12.0. Las respuestas de la IA son representativas:
+scripts son reales: se generaron con el kit v0.12.0 y v0.13.0. Las respuestas de la IA son representativas:
 siguen el formato exacto que fija cada skill, pero el texto varía de una sesión a otra.
 
 :::ask Lo que pides

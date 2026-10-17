@@ -195,38 +195,34 @@ en el índice.
 
 Inventario determinista para `project-context`: proyectos .NET y de pruebas, paquetes, lockfiles,
 CI, contenedores y submódulos, traducciones, documentación existente, configuración de IA
-existente y tabla de endpoints REST.
+existente y tabla de endpoints REST. Desde la v0.13.0 empieza con dos secciones que usa la
+compuerta del entorno (ADR-0028):
+
+- **Entorno (preflight):** el SDK de .NET y el Node de tu máquina frente a lo que pide el
+  repositorio (`global.json`, `.nvmrc`, `engines`), el gestor de paquetes del lockfile,
+  `node_modules`, enlaces rotos o guardados como archivo de texto, submódulos vacíos y los
+  orígenes privados de NuGet. `✗` para la sesión; `⚠` se anota.
+- **Secretos versionados:** claves con aspecto de secreto y un valor real en archivos de
+  configuración que git versiona (`appsettings*.json`, `*.config`, `.npmrc`, `docker-compose`).
+  Solo muestra archivo, línea y clave: **el valor no sale nunca**.
 
 ```text
 python .agents/skills/project-context/scripts/inventory.py --out <temp>/inventario.md --endpoints <temp>/endpoints.md
 ```
 
-:::out Extracto real
-# Inventario de `demo`
-Generado por inventory.py (fi-sdd-standard). Cada dato indica su archivo.
-## CI
-- Sin pipelines
-## Traducciones
-- Sin archivos de traducción detectados
-## Configuración de IA existente
-- `AGENTS.md`: 68 líneas, bloque del kit sí; secciones de contexto: ninguna
-- `CLAUDE.md`: 1 líneas (solo importa `@AGENTS.md`)
-- `.sdd-kit.json`: fi-sdd-standard v0.12.0
+:::out Extracto real (repositorio de prueba)
+## Entorno (preflight)
+| ✗ | SDK de .NET | no está instalado (el repositorio pide framework net8.0) |
+| · | NuGet | `nuget.config` usa orígenes privados (MiFeed): dotnet restore comprueba las credenciales (Paso 0) |
+| ✓ | Node (src/Api/ClientApp) | local v22.22.0; pide >=22 |
+| ⚠ | dependencias (src/Api/ClientApp) | sin node_modules: se instalan en el Paso 3 si lo apruebas |
+| ✗ | enlace de git | `src/Api/ClientApp/core` es un enlace simbólico en git y aquí es un archivo de texto: créalo (…) |
+| ✗ | submódulo | `core-ui` está vacío: git submodule update --init --recursive |
+## Secretos versionados
+| `nuget.config:8` | `ClearTextPassword` |
+| `src/Api/appsettings.json:3` | `Default` |
+| `src/Api/appsettings.json:4` | `ExternalApiPat` |
 :::
-
-## check_project.py
-
-Comprueba el contexto del proyecto: bloque del kit, encabezados fijos de *Project context*, sello y
-marca `sdd:context`, tamaño de `AGENTS.md` y de cada sección, `CLAUDE.md`, los seis `docs/`,
-`[REQUIRES-VALIDATION]` abiertos, fuentes cambiadas desde la fecha del contexto,
-`sdd-guardrails.json` frente a *Protected paths* y la existencia de pruebas de arquitectura.
-
-```text
-python .agents/skills/project-context/scripts/check_project.py [--root <raíz>]
-```
-
-Debe acabar en **0 errores** antes de `/document-project` y del primer work item. Los avisos se
-resuelven con `/project-context check`.
 
 ## comment_only.py
 

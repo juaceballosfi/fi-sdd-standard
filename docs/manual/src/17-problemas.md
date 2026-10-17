@@ -65,7 +65,22 @@ Los problemas más frecuentes de los pilotos, con su causa y su arreglo. Casi to
 | Bloquea un archivo que necesitas leer | Coincide con `secrets` | Si de verdad no tiene secretos (una plantilla), añádelo a `secretsAllowed` con motivo en el PR |
 | Aviso de patrón que no aplica | El patrón es demasiado amplio | Ajusta el `glob` o la expresión en `sdd-guardrails.json` |
 | El formateador falla en cada edición | Comando de `format` no instalado | Quítalo de `format` o instala la herramienta (`dotnet tool restore`) |
+| *el formateador tardó más de 60 s y se ha omitido* | Primer arranque en frío de `npx` o `dotnet` | Nada si es la primera vez. Si se repite, sube `formatTimeout` o quita esa extensión de `format`. No dejes que la IA lo depure: va a un borrador |
+| Con Windows PowerShell el hook no bloquea nada, sin error | Antes de la v0.13.0, el JSON con BOM que manda PowerShell 5.1 se descartaba en silencio | Actualiza el kit a la v0.13.0 o posterior |
 | Te pide permiso para `git commit` y lo deniega | Es intencionado: está en `deny` | Haz el commit tú en la terminal |
+
+## Entorno y project-context
+
+| Síntoma | Causa | Solución |
+| --- | --- | --- |
+| `/project-context` se para: *Commit the installation first* | La instalación del kit no tiene su commit | `git add` de las rutas que da `install.py` y `git commit -m "chore(sdd): instalar fi-sdd-standard v<versión>"` |
+| `dotnet restore`: `NU1301` · `401 (Unauthorized)` | El PAT del feed privado venció, o el `nuget.config` del repositorio trae credenciales de ese origen: ganan sobre las de tu `NuGet.Config` de usuario | PAT nuevo con solo *Packaging (Read)*. Si el `nuget.config` versionado tiene credenciales, es un secreto versionado: borrador **Urgente** para quitarlas. Mientras tanto, una copia ignorada por git (`nuget.local.config`) y `dotnet restore --configfile nuget.local.config`. Nunca hagas commit del PAT |
+| *enlace de git … aquí es un archivo de texto* · *enlace roto* (`ClientApp/src/core`) | Windows creó el enlace simbólico como archivo, o el destino no existe | Bórralo y crea el enlace sin ser administrador: `cmd /c mklink /J <enlace> <destino>`. O `git config core.symlinks true` y vuelve a hacer checkout |
+| *submódulo … está vacío* | Clon sin submódulos | `git submodule update --init --recursive` |
+| Node distinto del que pide el repositorio | Otra versión instalada (por ejemplo 24 frente a 22) | `nvm install 22` y `nvm use 22` (nvm-windows) antes de la sesión. Un ⚠ no para la skill, pero la línea base queda con esa versión |
+| `dotnet test` falla con el SDK 10 y xUnit v3 (*Microsoft.Testing.Platform*) | El proyecto de pruebas no tiene el adaptador de VSTest | Añade `Microsoft.NET.Test.Sdk` y `xunit.runner.visualstudio` al `.csproj`. Mientras tanto: `dotnet run --project <pruebas>` |
+| La sesión se pone a depurar el formateador, los hooks antiguos o un script | Se salió del alcance (ADR-0028) | Dile: «anótalo en un borrador con su prioridad y sigue con el paso N». Si ya se perdió, guarda `docs/sdd/_borradores/` fuera del repositorio, descarta con `git restore .` y `git clean -fd` (la instalación está en su commit) y vuelve a lanzar `/project-context` |
+| Un PAT o una clave quedó en el chat o en la consola | Se pegó en un comando o la IA leyó el archivo | Rótalo ya en Azure DevOps. Borra el historial de PowerShell (`Remove-Item (Get-PSReadLineOption).HistorySavePath`) |
 
 ## Builds y avisos
 

@@ -1,6 +1,6 @@
 # Arquitectura
 
-**Generado con:** project-context v3.9 · [herramienta] · [modelo] · [AAAA-MM-DD]
+**Generado con:** project-context v3.10 · [herramienta] · [modelo] · [AAAA-MM-DD]
 
 > Mapa del sistema para quien llega nuevo. Cada dato sale del código o de una decisión registrada.
 

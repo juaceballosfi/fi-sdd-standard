@@ -10,12 +10,19 @@ and prints a Markdown report with the source file of every fact:
 existing documentation (docs/, DocFX), translation files, tests, Entity Framework, existing AI
 configuration (AGENTS.md, CLAUDE.md, .claude/, .github/) and, with --endpoints, the REST endpoints
 read from ASP.NET controllers. Everything is best effort: the skill confirms what matters.
+
+It also writes the environment preflight (local SDK and Node against what the repository asks for,
+package manager, dependencies installed, broken links and submodules) and the secrets committed in
+configuration files. For those it prints the file, the line and the key name, never the value.
 """
 from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
+import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -27,6 +34,14 @@ KEY_NODE_DEPS = ["react", "react-dom", "typescript", "antd", "i18next", "react-i
                  "@craco/craco", "react-scripts", "vite", "next", "husky", "stylelint", "less"]
 TEST_PACKAGES = ("xunit", "nunit", "mstest", "microsoft.net.test.sdk")
 I18N_NAME = re.compile(r"(^i18n.*\.(json|ts|js)$)|(\.resx$)|(\.po$)|(\.xlf$)", re.I)
+BROKEN_LINKS: list[Path] = []  # filled by walk(): links or junctions whose target is missing
+# Secrets committed in configuration (ADR-0028). Only key names and lines are reported.
+SECRET_FILES = re.compile(r"(^appsettings.*\.json$)|(\.config$)|(^\.npmrc$)|(^launchSettings\.json$)|"
+                          r"(^docker-compose.*\.ya?ml$)|(^secrets\.json$)", re.I)
+SECRET_KEY = re.compile(r"(secret|password|passwd|pwd|token|apikey|api_key|accesskey|privatekey|"
+                        r"licen[cs]e_?key|signature|pat)$|^(pat|sas)$|clientsecret|cleartextpassword", re.I)
+SECRET_VALUE = re.compile(r"(password|pwd)\s*=\s*[^;\s\"']{3,}|accountkey\s*=|sharedaccesskey\s*=|[?&]sig=", re.I)
+PLACEHOLDER = re.compile(r"^\s*$|[{}<>]|\$\(|#\{|^__|^(changeme|todo|xxx+|none|null|true|false)$", re.I)
 
 
 def walk(root: Path):
@@ -39,6 +54,9 @@ def walk(root: Path):
         except OSError:
             continue
         for p in entries:
+            if os.path.lexists(p) and not p.exists():
+                BROKEN_LINKS.append(p)
+                continue
             if p.is_dir():
                 if p.name not in EXCLUDED and not p.is_symlink():
                     stack.append(p)
@@ -59,6 +77,130 @@ def rel(p: Path, root: Path) -> str:
 
 def xml_values(text: str, tag: str) -> list[str]:
     return [m.strip() for m in re.findall(rf"<{tag}>([^<]+)</{tag}>", text)]
+
+
+def run_version(*cmd: str) -> str | None:
+    exe = shutil.which(cmd[0])
+    if not exe:
+        return None
+    try:
+        res = subprocess.run([exe, *cmd[1:]], capture_output=True, text=True, timeout=30)
+        return (res.stdout or res.stderr).strip().splitlines()[0] if res.returncode == 0 else None
+    except (OSError, subprocess.SubprocessError, IndexError):
+        return None
+
+
+def git_lines(root: Path, *args: str) -> list[str]:
+    try:
+        res = subprocess.run(["git", "-C", str(root), *args], capture_output=True, text=True,
+                             encoding="utf-8", errors="replace", timeout=30)
+        return res.stdout.splitlines() if res.returncode == 0 else []
+    except (OSError, subprocess.SubprocessError):
+        return []
+
+
+def major(version: str) -> str:
+    m = re.search(r"(\d+)", version)
+    return m.group(1) if m else ""
+
+
+def environment(files: list[Path], root: Path, out: list[str]) -> None:
+    """Preflight: what the repository needs against what this machine has (Step 0 of the skill)."""
+    rows: list[tuple[str, str, str]] = []
+    if any(f.suffix.lower() in {".sln", ".slnx", ".csproj"} for f in files):
+        local = run_version("dotnet", "--version")
+        g = root / "global.json"
+        want = re.search(r'"version"\s*:\s*"([^"]+)"', read(g)) if g.exists() else None
+        tfms = sorted({m for f in files if f.suffix.lower() == ".csproj"
+                       for m in re.findall(r"<TargetFrameworks?>([^<]+)<", read(f))})
+        need = want.group(1) if want else ("framework " + ", ".join(tfms) if tfms else "—")
+        if not local:
+            rows.append(("✗", "SDK de .NET", f"no está instalado (el repositorio pide {need})"))
+        elif want and major(local) != major(want.group(1)):
+            rows.append(("⚠", "SDK de .NET", f"local {local}; global.json pide {want.group(1)}"))
+        else:
+            rows.append(("✓", "SDK de .NET", f"local {local}; el repositorio pide {need}"))
+        for cfg in (f for f in files if f.name.lower() == "nuget.config"):
+            sources = re.findall(r'<add\s+key="([^"]+)"\s+value="(https?://[^"]+)"', read(cfg))
+            private = [k for k, url in sources if "nuget.org" not in url]
+            if private:
+                rows.append(("·", "NuGet", f"`{rel(cfg, root)}` usa orígenes privados ({', '.join(private)}): "
+                             "dotnet restore comprueba las credenciales (Paso 0)"))
+    for pkg in (f for f in files if f.name == "package.json"):
+        d = pkg.parent
+        try:
+            data = json.loads(read(pkg))
+        except json.JSONDecodeError:
+            continue
+        want = next((read(f).strip() for f in (d / ".nvmrc", d / ".node-version") if f.exists()), None)
+        want = want or (data.get("engines") or {}).get("node")
+        local = run_version("node", "--version")
+        where = rel(d, root) or "."
+        if not local:
+            rows.append(("✗", f"Node ({where})", f"no está instalado (pide {want or 'sin versión fijada'})"))
+        elif want and major(want) and major(want) != major(local):
+            rows.append(("⚠", f"Node ({where})", f"local {local}; el repositorio pide {want}: usa esa versión (nvm)"))
+        else:
+            rows.append(("✓", f"Node ({where})", f"local {local}" + (f"; pide {want}" if want else "")))
+        locks = {"yarn.lock": "yarn", "package-lock.json": "npm", "pnpm-lock.yaml": "pnpm"}
+        manager = next((m for lock, m in locks.items() if (d / lock).exists()), None)
+        if manager and not shutil.which(manager):
+            rows.append(("✗", f"{manager} ({where})", "el lockfile lo pide y no está instalado"))
+        if not (d / "node_modules").is_dir():
+            rows.append(("⚠", f"dependencias ({where})", "sin node_modules: se instalan en el Paso 3 si lo apruebas"))
+    for link in BROKEN_LINKS:
+        rows.append(("✗", "enlace roto", f"`{rel(link, root)}` apunta a una ruta que no existe"))
+    for line in git_lines(root, "ls-files", "-s"):
+        mode, _, rest = line.partition(" ")
+        path = rest.split("\t", 1)[-1] if "\t" in rest else ""
+        p = root / path
+        if mode == "120000" and path and p.is_file() and not p.is_symlink() and p.stat().st_size < 512:
+            rows.append(("✗", "enlace de git", f"`{path}` es un enlace simbólico en git y aquí es un archivo de texto: "
+                         "créalo (Windows: mklink /J, o git config core.symlinks true y vuelve a hacer checkout)"))
+    gm = root / ".gitmodules"
+    if gm.exists():
+        for path in re.findall(r"path\s*=\s*(\S+)", read(gm)):
+            p = root / path
+            if not p.is_dir() or not any(p.iterdir()):
+                rows.append(("✗", "submódulo", f"`{path}` está vacío: git submodule update --init --recursive"))
+    if not rows:
+        return
+    out.append("## Entorno (preflight)\n")
+    out.append("| | Qué | Detalle |\n| --- | --- | --- |")
+    out.extend(f"| {m} | {w} | {d} |" for m, w, d in rows)
+    out.append("\n✗ = bloquea el Paso 3 (lo arregla una persona; la sesión no toca credenciales ni la "
+               "configuración del sistema) · ⚠ = se registra y, si hay que arreglarlo, va a un borrador\n")
+
+
+def committed_secrets(files: list[Path], root: Path, out: list[str]) -> None:
+    """Secret-looking keys with a real value in versioned configuration files. Never prints values."""
+    tracked = set(git_lines(root, "ls-files"))
+    hits: list[tuple[str, int, str]] = []
+    for f in files:
+        path = rel(f, root)
+        if not SECRET_FILES.search(f.name) or (tracked and path not in tracked):
+            continue
+        for n, line in enumerate(read(f).splitlines(), 1):
+            pairs = re.findall(r'"([\w.:$-]+)"\s*:\s*"([^"]*)"', line)
+            pairs += re.findall(r'<add\s+key="([^"]+)"\s+value="([^"]*)"', line, re.I)
+            pairs += re.findall(r"^\s*([\w:/.@-]*_(?:authToken|password))\s*=\s*(\S+)", line)
+            if f.suffix.lower() in {".yml", ".yaml"}:
+                pairs += re.findall(r"^\s*-?\s*([\w.-]+)\s*[:=]\s*[\"']?([^\"'\s#]+)", line)
+            for key, value in pairs:
+                name = key.rsplit(":", 1)[-1].rsplit("/", 1)[-1]
+                by_key = SECRET_KEY.search(name) and len(value) >= 8 and not PLACEHOLDER.search(value) \
+                    and not value.lower().startswith(("http://", "https://"))
+                if by_key or SECRET_VALUE.search(value):
+                    hits.append((path, n, name))
+    if not hits:
+        return
+    out.append("## Secretos versionados\n")
+    out.append("Claves con aspecto de secreto y un valor real, en archivos que git versiona. "
+               "Solo se listan el archivo, la línea y la clave: el valor no se lee ni se copia.\n")
+    out.append("| Archivo:línea | Clave |\n| --- | --- |")
+    out.extend(f"| `{p}:{n}` | `{k}` |" for p, n, k in hits)
+    out.append("\nCada archivo va a `secrets` de `sdd-guardrails.json` y cada secreto a un borrador **Urgente** "
+               "(rotarlo y sacarlo del repositorio), sin el valor.\n")
 
 
 def dotnet(files: list[Path], root: Path, out: list[str]) -> dict:
@@ -378,6 +520,8 @@ def main() -> int:
     root = args.root.resolve()
     files = list(walk(root))
     out = [f"# Inventario de `{root.name}`\n", "Generado por inventory.py (fi-sdd-standard). Cada dato indica su archivo.\n"]
+    environment(files, root, out)
+    committed_secrets(files, root, out)
     info = dotnet(files, root, out)
     node(files, root, out)
     ci(files, root, out)

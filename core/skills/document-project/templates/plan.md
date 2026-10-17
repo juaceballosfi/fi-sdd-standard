@@ -1,6 +1,6 @@
 # Plan de documentación — <repositorio>
 
-**Generado con:** document-project v3.9 · [Claude Code | GitHub Copilot | Codex] · [modelo]
+**Generado con:** document-project v3.10 · [Claude Code | GitHub Copilot | Codex] · [modelo]
 **Creado:** AAAA-MM-DD · **Work item:** #<ID> | ninguno · **Kit:** v<versión>
 **Línea base (AAAA-MM-DD):** código N/M símbolos documentados (P %) · pruebas N/M clases con resumen ·
 CS1591: N | sin `GenerateDocumentationFile` · build: N avisos · lint: N avisos · tipos: N errores ·

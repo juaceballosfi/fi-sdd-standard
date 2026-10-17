@@ -38,8 +38,8 @@ Si no la pasa, te lo dice y sigues por el paso 1. Los pasos 4–6 no cambian.
 
 ## Antes del PR
 
-- Los borradores de `docs/sdd/_borradores/` no van en el PR: crea cada work item en Azure DevOps,
-  anota su ID donde se citaba y borra el borrador.
+- Los borradores de `docs/sdd/_borradores/` no van en el PR: crea cada work item en Azure DevOps
+  (los `Urgente` en cuanto aparecen), anota su ID donde se citaba y borra el borrador.
 - No se versionan (ADR-0027): `assets/` (los adjuntos están en Azure DevOps), `commit-message.md`
   (queda en el commit) ni `test-cases.csv` (se regenera). Ya están en `.gitignore`.
 

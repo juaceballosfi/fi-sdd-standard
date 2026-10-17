@@ -27,7 +27,7 @@ que uses.
 
 ## Permisos deny
 
-El instalador añade 20 reglas a `permissions.deny` de `.claude/settings.json`, sin tocar las que ya
+El instalador añade 23 reglas a `permissions.deny` de `.claude/settings.json`, sin tocar las que ya
 tuvieras:
 
 ```json
@@ -35,6 +35,7 @@ tuvieras:
   "Read(./.env)", "Read(./.env.*)", "Read(./**/.env)", "Read(./**/.env.*)",
   "Read(./**/appsettings.*.json)", "Read(./**/secrets.json)",
   "Read(./**/*.pfx)", "Read(./**/*.pem)", "Read(./**/*.key)",
+  "Read(./**/nuget.config)", "Read(./**/NuGet.Config)", "Read(./**/nuget.*.config)",
   "Bash(git commit *)", "Bash(git push *)", "Bash(git push)", "Bash(git reset --hard *)",
   "Bash(git clean *)", "Bash(git branch -D *)", "Bash(rm -rf *)",
   "PowerShell(git commit *)", "PowerShell(git push *)", "PowerShell(git reset --hard *)",
@@ -42,10 +43,13 @@ tuvieras:
 ]
 ```
 
-:::note appsettings.json sí se puede leer
-Solo se bloquean los de entorno (`appsettings.Development.json`, `appsettings.Production.json`…),
-que son los que suelen llevar credenciales. `appsettings.json` es configuración compartida. Aun
-así, la regla de `AGENTS.md` pide leer la configuración por su estructura, nunca por sus valores.
+:::note appsettings.json y nuget.config (ADR-0028)
+`nuget.config` se bloquea siempre: sus credenciales no le sirven a la IA para nada. `appsettings.json`
+no está en las reglas deny, pero sí en los `secrets` por defecto del hook, porque en el piloto de
+Calls4Grants guardaba cuatro secretos versionados y un subagente lo leyó entero. El hook respeta
+`secretsAllowed`: si `inventory.py` muestra que el `appsettings.json` de tu proyecto no tiene
+secretos y los work items necesitan editarlo, `/project-context` te propone pasarlo ahí. La
+estructura (sus secciones) la da `inventory.py` sin leer los valores.
 :::
 
 ## El hook sdd_guard.py
@@ -71,7 +75,9 @@ instalador lo registra en `.claude/settings.json`:
 | `pre` | Antes de Read, Edit, Write, MultiEdit, NotebookEdit, Bash, PowerShell | **Bloquea** editar una ruta `protected` y leer o editar un archivo de `secrets`, también si el comando de shell lo nombra | 2 = bloqueado · 0 = sigue |
 | `post` | Después de Edit, Write, MultiEdit | Ejecuta el formateador de `format`; **avisa** si el archivo ya no es UTF-8 y de cada `pattern` incumplido. El agente lee el aviso y corrige | 2 = aviso para el agente · 0 = nada |
 
-Si el propio hook falla (un error interno), sale con 0: **nunca bloquea por un fallo propio**.
+Si el propio hook falla (un error interno), sale con 0: **nunca bloquea por un fallo propio**. Desde
+la v0.13.0 acepta el JSON con BOM que manda Windows PowerShell 5.1 por la entrada estándar; antes lo
+descartaba sin avisar y no bloqueaba nada.
 
 ### Lo que verás
 
@@ -117,7 +123,8 @@ sintaxis de `.gitignore` (`**` para cualquier profundidad).
 | `protected` | Lista de globs | Rutas que la IA nunca edita: librerías compartidas, submódulos, código generado, documentación de otro equipo | Hook `pre`, `pr-check.py` |
 | `secrets` | Lista de globs | Archivos que nadie lee ni sube | Hook `pre`, `pr-check.py` |
 | `secretsAllowed` | Lista de globs | Excepciones a `secrets` (por ejemplo, una plantilla `.env.example` sin valores). Cada una, justificada en el PR | Hook, `pr-check.py` |
-| `format` | Extensión → comando | Formateador tras cada edición; `{file}` es el archivo | Hook `post` |
+| `format` | Extensión → comando, o lista de comandos | Formateador tras cada edición; `{file}` es el archivo. Con una lista, los ejecuta en orden (por ejemplo `eslint --fix` y después `prettier`) | Hook `post` |
+| `formatTimeout` | Segundos (60 por defecto) | Tiempo máximo de cada comando de `format`. Si se pasa, se omite con un aviso: es habitual en el primer arranque en frío | Hook `post` |
 | `patterns` | Lista de `{glob, require/forbid, message}` | Reglas que una expresión regular puede comprobar | Hook `post` |
 
 :::file sdd-guardrails.json (ejemplo completo)
@@ -126,12 +133,14 @@ sintaxis de `.gitignore` (`**` para cualquier profundidad).
     "ClientApp/src/core-ui/**",
     "docs/modernizacion/**"
   ],
-  "secrets": [".env", ".env.*", "**/appsettings.*.json", "**/secrets.json", "**/*.pfx", "**/*.pem", "**/*.key"],
+  "secrets": [".env", ".env.*", "**/appsettings.json", "**/appsettings.*.json", "**/secrets.json",
+              "**/nuget.config", "**/nuget.*.config", "**/.npmrc", "**/*.pfx", "**/*.pem", "**/*.key"],
   "secretsAllowed": [".env.example"],
   "format": {
     ".cs":  ["dotnet", "csharpier", "format", "{file}"],
-    ".tsx": ["npx", "prettier", "--write", "{file}"]
+    ".tsx": [["npx", "eslint", "--fix", "{file}"], ["npx", "prettier", "--write", "{file}"]]
   },
+  "formatTimeout": 60,
   "patterns": [
     {
       "glob": "**/Controllers/*Controller.cs",
@@ -153,6 +162,8 @@ sintaxis de `.gitignore` (`**` para cualquier profundidad).
 - Nada en `secretsAllowed` sin un motivo.
 - Un formateador solo si se ejecutó y funciona (lo verifica `/project-context`): un comando
   que falla en cada edición es ruido.
+- Al actualizar el kit, `install.py` añade los `secrets` por defecto que falten (nunca quita
+  ninguno) y lo dice en su informe.
 :::
 
 ## Pruebas de arquitectura

@@ -1,6 +1,6 @@
 # CHANGELOG — [ID]
 
-**Generado con:** wbs-execution v3.9 · [Claude Code | GitHub Copilot | Codex] · [modelo]
+**Generado con:** wbs-execution v3.10 · [Claude Code | GitHub Copilot | Codex] · [modelo]
 **Work item:** #[ID] | **Proyecto:** [nombre] | **Inicio:** [AAAA-MM-DD]
 
 ---

@@ -4,7 +4,7 @@ Kit del equipo para trabajar con IA siguiendo un mismo flujo SDD (*Spec-Driven D
 work item de Azure DevOps a código probado, documentado y desplegado, igual en GitHub Copilot
 (VS Code y Visual Studio), Claude Code y Codex.
 
-**Versión:** 0.12.1 (candidata a MVP) · **Estado:** en pruebas por olas (`tests/pilots/PLAN-PRUEBAS-MVP.md`) · **Responsable:** Juan Ceballos
+**Versión:** 0.13.0 (candidata a MVP) · **Estado:** en pruebas por olas (`tests/pilots/PLAN-PRUEBAS-MVP.md`) · **Responsable:** Juan Ceballos
 **Pilotos:** Bonis y Calls4Grants
 
 > El brief y el plan completo están en el documento «SDD Enterprise · Brief y plan de implantación».
@@ -35,7 +35,7 @@ versión en Markdown para dárselo de contexto a una IA,
 fi-sdd-standard/
 ├── core/
 │   ├── AGENTS.base.md      ← reglas comunes a todos los proyectos (inglés, ADR-0003)
-│   ├── skills/             ← fuente única de los 9 skills (v3.9): project-context, document-project, enrich-us, technical-analysis, wbs-execution, qa-review, document-code, quick-fix y test-cases
+│   ├── skills/             ← fuente única de los 9 skills (v3.10): project-context, document-project, enrich-us, technical-analysis, wbs-execution, qa-review, document-code, quick-fix y test-cases
 │   ├── prompts/            ← atajos de Copilot que fijan el modelo
 │   ├── agents/             ← 7 subagentes estables en formato neutral
 │   ├── hooks/              ← sdd_guard.py: hook de Claude Code (ADR-0023)

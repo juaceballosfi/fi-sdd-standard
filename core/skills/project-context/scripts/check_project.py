@@ -6,7 +6,8 @@ Usage (from the repository root):
 
 Checks AGENTS.md (kit block, fixed headings of "Project context", stamp, size, open markers and
 whether its sources changed after the context date), CLAUDE.md, the six base documents in docs/
-(headings and sections still empty) and that a .NET solution has a test project. The required
+(headings and sections still empty), that a .NET solution has a test project, and the drafts in
+docs/sdd/_borradores/ waiting for a work item, by priority (ADR-0028). The required
 headings come from the templates next to this script, so they never drift from the skill.
 Exit code 0 = no errors (warnings allowed), 1 = errors.
 """
@@ -23,7 +24,8 @@ TEMPLATES = HERE.parent / "templates"
 DOCS = ["architecture.md", "backend.md", "database.md", "api-reference.md", "frontend.md", "reglas-negocio.md"]
 MAX_LINES, WARN_LINES = 200, 185
 TEST_PACKAGES = ("xunit", "nunit", "mstest", "microsoft.net.test.sdk")
-SKIP = {"node_modules", "bin", "obj", ".git", "dist", "build"}
+SKIP = {"node_modules", "bin", "obj", ".git", "dist", "build", ".agents", ".claude"}  # .agents/.claude: kit templates
+PRIORITIES = ("Urgente", "Alta", "Media", "Baja")
 
 
 class Report:
@@ -197,6 +199,29 @@ def check_guardrails(root: Path, r: Report) -> None:
               else "no hay: /project-context las crea desde la plantilla (ADR-0023)")
 
 
+def check_drafts(root: Path, r: Report) -> None:
+    """Drafts waiting for a work item, most urgent first (ADR-0027, ADR-0028)."""
+    folder = root / "docs" / "sdd" / "_borradores"
+    drafts = sorted(p for p in folder.glob("*.md")) if folder.is_dir() else []
+    if not drafts:
+        return
+    by_priority: dict[str, list[str]] = {p: [] for p in PRIORITIES}
+    unknown = []
+    for d in drafts:
+        m = re.search(r"^\*\*Prioridad:\*\*\s*\[?(\w+)", read(d), re.M)
+        level = next((p for p in PRIORITIES if m and m.group(1).lower() == p.lower()), None)
+        (by_priority[level] if level else unknown).append(d.name)
+    summary = " · ".join(f"{len(v)} {k.lower()}" for k, v in by_priority.items() if v)
+    if by_priority["Urgente"]:
+        r.add("⚠", "borradores", f"{summary}. Crea ya en Azure DevOps los urgentes: "
+              + ", ".join(by_priority["Urgente"]))
+    else:
+        r.add("⚠", "borradores", f"{summary or str(len(drafts))} pendientes de work item; no llegan a dev (ADR-0027)")
+    if unknown:
+        r.add("⚠", "borradores sin prioridad", ", ".join(unknown)
+              + " → añade «**Prioridad:** Urgente | Alta | Media | Baja» (plantilla borrador.md)")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Comprueba el contexto del proyecto")
     ap.add_argument("--root", default=".", type=Path)
@@ -207,6 +232,7 @@ def main() -> int:
     check_docs(root, r)
     check_tests(root, r)
     check_guardrails(root, r)
+    check_drafts(root, r)
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
     print(f"\nContexto del proyecto: {root.name}\n")

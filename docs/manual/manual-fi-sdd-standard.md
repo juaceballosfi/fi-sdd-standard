@@ -1,8 +1,8 @@
 # fi-sdd-standard · Manual de uso
 
-**Kit:** fi-sdd-standard v0.12.1 (candidata a MVP) · **Skills:** v3.9 (9 skills, 7 subagentes)
+**Kit:** fi-sdd-standard v0.13.0 (candidata a MVP) · **Skills:** v3.10 (9 skills, 7 subagentes)
 **Herramientas:** Claude Code · GitHub Copilot (VS Code y Visual Studio) · Codex (fase 7)
-**Fecha:** 16 de octubre de 2026 · **Responsables:** Juan Clavijo · Juan Ceballos
+**Fecha:** 17 de octubre de 2026 · **Responsables:** Juan Clavijo · Juan Ceballos
 **Para:** desarrollo, QA y tech leads de FI GROUP
 
 Este archivo es el mismo manual que el PDF, en Markdown y en un solo documento, para leerlo en el
@@ -86,7 +86,7 @@ desatascar problemas sencillos. Sigue estas reglas:
 **Convenciones de este archivo:** los bloques **Lo que pides** son mensajes que se escriben en el
 chat de la herramienta; **Lo que responde**, lo que devuelve la skill o el script; **Comando**, lo
 que se ejecuta en la terminal; **Archivo**, el contenido de un archivo. Las salidas de los scripts
-son reales (kit v0.12.1); las respuestas de la IA siguen el formato exacto de cada skill, pero su
+son reales (kit v0.13.0); las respuestas de la IA siguen el formato exacto de cada skill, pero su
 texto varía de una sesión a otra. Los avisos usan alertas de GitHub: `[!NOTE]` nota, `[!TIP]`
 consejo, `[!WARNING]` atención, `[!CAUTION]` nunca.
 
@@ -139,7 +139,7 @@ referencia de cada pieza, y los últimos son recetas y soluciones para el día a
 
 Los ejemplos usan un proyecto ficticio con el work item **#40399 «Sección de ofertas en el menú
 lateral»** y el bug **#41020 «El total de la factura redondea mal los céntimos»**. Las salidas de
-scripts son reales: se generaron con el kit v0.12.0. Las respuestas de la IA son representativas:
+scripts son reales: se generaron con el kit v0.12.0 y v0.13.0. Las respuestas de la IA son representativas:
 siguen el formato exacto que fija cada skill, pero el texto varía de una sesión a otra.
 
 **Lo que pides:**
@@ -255,7 +255,7 @@ El kit fija **el mismo camino para todos**:
 | **SPEC** | Una especificación verificable en formato *Dado / Cuando / Entonces*, en `04-implementation-plan.md`. Cada criterio de aceptación tiene al menos una. |
 | **WBS** | *Work Breakdown Structure*: la lista de tareas `T-01`, `T-02`… con sus puntos de historia, en `05-wbs-estimation.md`. |
 | **Marcador** | Una etiqueta en el texto que señala un hueco: `[PENDING-BUSINESS]`, `[REQUIRES-VALIDATION]`, `[ASSUMPTION-BASED]`, `[PENDING-TRANSLATION]`. |
-| **Sello** | La línea `**Generado con:** <skill> v3.9 · <herramienta> · <modelo>` al inicio de cada documento generado. Es la evidencia de que lo hizo la IA. |
+| **Sello** | La línea `**Generado con:** <skill> v3.10 · <herramienta> · <modelo>` al inicio de cada documento generado. Es la evidencia de que lo hizo la IA. |
 | **Ancla** | Un comentario `<!-- sdd:... -->` que marca una sección para que la siguiente skill la encuentre, aunque cambie el título. |
 | **Bitácora** | `bitacora.md`: las notas de trabajo con fecha (preguntas, respuestas, decisiones, hallazgos). Solo crece. |
 | **Guardarraíl** | Un mecanismo que impide o detecta lo prohibido: permisos `deny`, el hook `sdd_guard.py`, las pruebas de arquitectura y `pr-check.py`. |
@@ -418,10 +418,13 @@ Lo que no se versiona ya está en el `.gitignore` del proyecto (lo añade `insta
 
 Hay además dos carpetas compartidas en `docs/sdd/`:
 
-- `_borradores/`: propuestas de work items nuevos (un bug o una deuda encontrados fuera del
-  alcance). Nunca son un `story.md` y **no llegan a `dev`**: antes del PR, una persona crea el work
-  item en Azure DevOps, anota su ID donde se citaba el borrador y lo borra. `pr-check.py` da error
-  si un borrador llega al PR.
+- `_borradores/`: propuestas de work items nuevos (un bug, una deuda o un riesgo encontrados fuera
+  del alcance), con su **prioridad** (ADR-0028): `Urgente` (un secreto o un fallo de seguridad
+  expuesto, o bloquea el build o al equipo), `Alta` (comportamiento incorrecto o riesgo en
+  producción), `Media` (deuda que frena) o `Baja` (cosmético). La skill que lo encuentra no lo
+  arregla: lo escribe y sigue. Nunca son un `story.md` y **no llegan a `dev`**: antes del PR, una
+  persona crea el work item en Azure DevOps, anota su ID donde se citaba el borrador y lo borra.
+  Los urgentes, en cuanto aparecen. `pr-check.py` da error si un borrador llega al PR.
 - `_documentacion/`: el plan de `/document-project` (`plan.md`), un `B-NN.md` por bloque y
   `avisos.md` con la línea base de avisos del build. Se versiona mientras dure el plan.
 
@@ -612,7 +615,7 @@ algo de código. Este capítulo cubre los dos casos y cómo actualizar el kit m�
 > 
 > ```powershell
 > cd C:\Users\<tú>\Documents\fi-sdd-standard
-> git log --oneline -1          # v0.12.0
+> git log --oneline -1          # v0.13.0
 > python scripts\validate.py    # 9 skills · 7 agents checked · 0 errors · 0 warnings
 > ```
 
@@ -663,7 +666,7 @@ python ..\fi-sdd-standard\scripts\install.py --target . --tools copilot,claude
 **Salida real del instalador (resumida):**
 
 ```text
-fi-sdd-standard v0.12.0 · Instalación en C:\repos\mi-proyecto
+fi-sdd-standard v0.13.0 · Instalación en C:\repos\mi-proyecto
 
   creado       .agents/skills/document-code/SKILL.md
   ...                                              (las 9 skills con plantillas y scripts)
@@ -693,6 +696,7 @@ fi-sdd-standard v0.12.0 · Instalación en C:\repos\mi-proyecto
   PENDIENTE: 2 · actualizado: 2 · creado: 105
 
   Siguiente: revisa los PENDIENTE / REVISAR de arriba  ·  git config commit.template .gitmessage
+             ·  haz commit de la instalación antes de seguir: git add .agents … · git commit -m "chore(sdd): …"
              ·  /project-context en una sesión nueva (contexto del proyecto, documentación base y pruebas)
 ```
 
@@ -718,8 +722,11 @@ git status --short
 git add .agents .github/agents .github/prompts .claude/settings.json AGENTS.md CLAUDE.md `
         .gitignore .gitmessage .sdd-kit.json sdd-guardrails.json docs/adr docs/sdd
 git status --short          # no debe quedar nada del kit fuera, salvo .claude/skills y .claude/agents
-git commit -m "chore(sdd): instalar fi-sdd-standard v0.12.0"
+git commit -m "chore(sdd): instalar fi-sdd-standard v0.13.0"
 ```
+
+Este commit va **antes** de `/project-context`, que se para si no está hecho. Si la sesión del
+contexto sale mal, se descarta sin perder la instalación.
 
 > [!NOTE]
 > **Lo que no entra en el commit**
@@ -738,10 +745,13 @@ agentes y los hooks) y, en una **sesión nueva**:
 /project-context
 ```
 
-La skill inventaría el repositorio, ejecuta build, pruebas, lint y type check para verificar los
-comandos y registrar la línea base, te hace las preguntas que el código no responde y te enseña un
+La skill comprueba primero el entorno (SDK, Node, `dotnet restore`, enlaces y submódulos) y se para
+con los pasos exactos si algo impide compilar. Después inventaría el repositorio, ejecuta build,
+pruebas, lint y type check para verificar los comandos y registrar la línea base, te hace las preguntas que el código no responde y te enseña un
 borrador. Al aprobarlo escribe *Project context*, los seis `docs/*.md` base, el proyecto de
-pruebas si no había, las pruebas de arquitectura y `sdd-guardrails.json`. Detalle en el capítulo 8.
+pruebas si no había, las pruebas de arquitectura y `sdd-guardrails.json`. Lo que encuentre que haya
+que arreglar en el proyecto lo deja como borrador con prioridad, sin arreglarlo. Detalle en el
+capítulo 8.
 
 Al terminar, comprueba:
 
@@ -774,8 +784,11 @@ git init -b dev
 python <kit>\scripts\install.py --target . --tools copilot,claude
 git config commit.template .gitmessage
 git add .agents .github .claude/settings.json AGENTS.md CLAUDE.md .gitignore .gitmessage .sdd-kit.json sdd-guardrails.json docs
-git commit -m "chore(sdd): instalar fi-sdd-standard v0.12.0"
+git commit -m "chore(sdd): instalar fi-sdd-standard v0.13.0"
 ```
+
+Este commit va **antes** de `/project-context`, que se para si no está hecho. Si la sesión del
+contexto sale mal, se descarta sin perder la instalación.
 
 `check_project.py` dará errores de `docs/` y del contexto: es lo esperado mientras no haya código.
 
@@ -1772,33 +1785,68 @@ ejecutado o de una respuesta tuya, y lo que no pudo verificar queda marcado `[RE
 | `fresh` | Quieres rehacerlo sin dejarte llevar por el actual | Ignora el contexto actual y compara al final |
 | `check` | `check_project.py` da avisos o errores | Pasada corta: convierte cada aviso en una fila con su resolución, sin inventario ni build |
 
+#### Su alcance: dejar el kit a punto, no arreglar el proyecto
+
+`/project-context` termina cuando el kit se puede usar: contexto, documentos base, proyecto de
+pruebas, guardarraíles y `check_project.py` con 0 errores. Todo lo demás que encuentre y haya que
+arreglar (un secreto versionado, un hueco de autorización, un script roto, un paquete vulnerable) es
+un **borrador con prioridad** en `docs/sdd/_borradores/` y la sesión sigue (ADR-0028). Una
+herramienta que falla (un formateador, un hook antiguo) tiene **un** intento; si sigue fallando, se
+anota y se deja como está. En el primer piloto de Calls4Grants la sesión se fue a depurar el
+formateador y los hooks de PowerShell, y hubo que repetirla.
+
+> [!WARNING]
+> **Antes de lanzarlo**
+>
+> 1. Instala la **última versión** del kit y **haz commit de la instalación**
+>    (`chore(sdd): instalar fi-sdd-standard v<versión>`). La skill se para si no está hecho: con la
+>    instalación guardada, una sesión que sale mal se descarta sin perder el kit.
+> 2. Comprueba que el proyecto **compila en tu máquina**: `dotnet restore` sin 401 (credenciales de
+>    NuGet fuera del repositorio), la versión de Node que pide el repositorio, los submódulos y los
+>    enlaces (`core`, `core-ui`) creados. La skill lo comprueba y se para si algo falla, pero
+>    arreglarlo antes ahorra una sesión.
+> 3. Ten a mano quién despliega, el modelo de ramas y qué hacer con la configuración de IA anterior:
+>    son las preguntas del bloque del paso 6.
+
 #### Qué hace, paso a paso
 
-1. **Precondiciones:** no en `dev`/`main` (crea `chore/sdd-project-context`), kit instalado. Dice el
-   modo y cuánto puede tardar.
-2. **Inventario determinista** con `inventory.py`: proyectos, lockfiles, archivos de traducción,
+1. **Precondiciones:** no en `dev`/`main` (crea `chore/sdd-project-context`), kit instalado **y con
+   su commit hecho**. Dice el modo y cuánto puede tardar.
+2. **Compuerta del entorno:** `inventory.py` compara la máquina con lo que pide el repositorio (SDK,
+   Node, gestor de paquetes, `node_modules`, enlaces y submódulos) y lista los **secretos
+   versionados** (archivo, línea y clave, nunca el valor). Después hace `dotnet restore`. Un `✗` o un
+   restore fallido **paran la sesión** con los pasos exactos para que los arregles tú: la IA no toca
+   credenciales ni la configuración del sistema. Un `⚠` se anota y sigue.
+3. **Inventario determinista** con `inventory.py`: proyectos, lockfiles, archivos de traducción,
    pipeline, endpoints, proyecto de pruebas, configuración de IA existente. Marca lo que necesita
-   una decisión (dos lockfiles, traducciones generadas, sin proyecto de pruebas…).
-3. **Exploración** en paralelo con `code-explorer`, una pregunta por área: arquitectura,
+   una decisión (dos lockfiles, traducciones generadas, sin proyecto de pruebas…). Cada secreto
+   versionado es un borrador **Urgente**.
+4. **Exploración** en paralelo con `code-explorer`, una pregunta por área: arquitectura,
    autorización y errores, datos, frontend, traducciones, pruebas y ejecución local. Lee además lo
    que las personas ya escribieron (README, `CLAUDE.md`, `docs/`). Si contradice al código, gana el
    código y la contradicción se pregunta.
-4. **Ejecuta todo** (te pide confirmación: tarda minutos): restore y build, toda la suite de
+5. **Ejecuta todo** (te pide confirmación: tarda minutos): restore y build, toda la suite de
    backend, lint, pruebas y build de frontend, type check. Registra si funciona, cuánto tarda y su
    **línea base** (avisos, pruebas que ya fallan). Nunca arregla lo que ya fallaba.
-5. **Infraestructura de pruebas:** sin proyecto de pruebas de backend, lo crea (xUnit v3 y Moq,
-   misma versión de .NET, en la solución, con una prueba que ejercita código real). Copia la
+6. **Infraestructura de pruebas:** sin proyecto de pruebas de backend, lo crea (xUnit v3 y Moq,
+   misma versión de .NET, en la solución, con una prueba que ejercita código real, y con
+   `Microsoft.NET.Test.Sdk` y `xunit.runner.visualstudio` para que `dotnet test` funcione con el SDK
+   local y con el del pipeline). El cambio del pipeline, si no lo apruebas, queda en un borrador. Copia la
    plantilla de **pruebas de arquitectura** y deja que `backend-dev` la complete; lo que ya
    incumple una regla va a su lista de excepciones con el motivo.
-6. **Preguntas en un bloque**, solo lo que el repositorio no responde: qué es el producto y quién
+7. **Preguntas en un bloque**, solo lo que el repositorio no responde: qué es el producto y quién
    lo usa, quién despliega, convenciones que no están en el código, conflictos encontrados, qué
-   hacer con la configuración de IA existente.
-7. **Borrador para aprobar:** *Project context* (encabezados fijos, unas 120 líneas, el archivo
+   hacer con la configuración de IA existente. Termina con una línea para copiar y rellenar
+   (`1 sí · 2 … · 3 no lo sé`); lo que dejes vacío toma el valor por defecto.
+8. **Borrador para aprobar:** *Project context* (encabezados fijos, unas 120 líneas, el archivo
    entero por debajo de 185), los seis `docs/`, la integración con el sitio de documentación
    (DocFX), los cambios a la configuración de IA anterior y `sdd-guardrails.json`. Puedes aprobarlo
-   por partes.
-8. **Escribe:** la sesión escribe `AGENTS.md` (debajo del bloque del kit); `doc-writer`, `docs/`.
-9. **Verifica:** `check_project.py` con 0 errores, y lee los diffs.
+   por partes. De los hooks antiguos pasan siempre las rutas protegidas y los patrones; un
+   formateador solo si el paso 5 lo ejecutó y tardó menos de unos 20 s. Un hook antiguo se borra
+   cuando has visto al guard bloquear una edición de una ruta protegida, y con tu aprobación.
+9. **Escribe:** la sesión escribe `AGENTS.md` (debajo del bloque del kit); `doc-writer`, `docs/`.
+10. **Verifica:** `check_project.py` con 0 errores, y lee los diffs. El cierre lista los borradores
+    por prioridad: crea los **Urgente** en Azure DevOps en cuanto hagas el commit.
 
 #### Los encabezados fijos de Project context
 
@@ -1826,8 +1874,9 @@ Modo: new · AGENTS.md: 178 líneas · docs/: creados architecture, backend, dat
 Verificado: build OK (1 min 40 s, 15 avisos) · pruebas 298 OK, 2 fallaban antes · lint 0 errores · tipos 3 errores previos
 Proyecto de pruebas: creado MiProyecto.Tests (4 pruebas) · CI: dotnet test añadido (aprobado)
 Decisiones: yarn.lock es el válido; i18n/*.json se editan a mano; CLAUDE.md → @AGENTS.md
-Pendiente: [REQUIRES-VALIDATION] usuario local de pruebas · _borradores/pruebas-frontend.md
-Siguiente: /document-project (documentación completa) o el primer work item con /enrich-us
+Borradores: Urgente secretos-appsettings · Alta autorizacion-controllers · Media pruebas-frontend
+Pendiente: [REQUIRES-VALIDATION] usuario local de pruebas
+Siguiente: commit · crear los Urgente en Azure DevOps · /document-project o el primer work item con /enrich-us
 git add AGENTS.md CLAUDE.md docs/ MiProyecto.Tests/ MiProyecto.sln sdd-guardrails.json azure-pipelines.yml
 ```
 
@@ -1849,6 +1898,10 @@ Ejecuta `check_project.py` y te propone una tabla, por ejemplo:
 | Fuentes cambiadas después de la fecha del contexto | Releer solo esas fuentes y proponer el cambio | La sesión, con aprobación |
 | `sdd-guardrails.json` sin rutas protegidas · sin pruebas de arquitectura | Proponer la configuración y las pruebas | La sesión, con aprobación |
 | Sin proyecto de pruebas · `CLAUDE.md` con contenido propio | El modo completo | `/project-context` |
+| Borradores pendientes · un borrador sin prioridad | Añadir la prioridad; listar los Urgente para crearlos ya | La sesión · una persona |
+
+Si la sesión se para antes de terminar (la compuerta del entorno, un bloqueo, una decisión tuya), el
+cierre dice qué está hecho, qué falta y con qué comando seguir. Lo aprobado y escrito se conserva.
 
 ### 8.2 document-project · documentar todo el proyecto
 
@@ -2628,42 +2681,38 @@ en el índice.
 
 Inventario determinista para `project-context`: proyectos .NET y de pruebas, paquetes, lockfiles,
 CI, contenedores y submódulos, traducciones, documentación existente, configuración de IA
-existente y tabla de endpoints REST.
+existente y tabla de endpoints REST. Desde la v0.13.0 empieza con dos secciones que usa la
+compuerta del entorno (ADR-0028):
+
+- **Entorno (preflight):** el SDK de .NET y el Node de tu máquina frente a lo que pide el
+  repositorio (`global.json`, `.nvmrc`, `engines`), el gestor de paquetes del lockfile,
+  `node_modules`, enlaces rotos o guardados como archivo de texto, submódulos vacíos y los
+  orígenes privados de NuGet. `✗` para la sesión; `⚠` se anota.
+- **Secretos versionados:** claves con aspecto de secreto y un valor real en archivos de
+  configuración que git versiona (`appsettings*.json`, `*.config`, `.npmrc`, `docker-compose`).
+  Solo muestra archivo, línea y clave: **el valor no sale nunca**.
 
 ```text
 python .agents/skills/project-context/scripts/inventory.py --out <temp>/inventario.md --endpoints <temp>/endpoints.md
 ```
 
-**Extracto real:**
+**Extracto real (repositorio de prueba):**
 
 ```text
-# Inventario de `demo`
-Generado por inventory.py (fi-sdd-standard). Cada dato indica su archivo.
-## CI
-- Sin pipelines
-## Traducciones
-- Sin archivos de traducción detectados
-## Configuración de IA existente
-- `AGENTS.md`: 68 líneas, bloque del kit sí; secciones de contexto: ninguna
-- `CLAUDE.md`: 1 líneas (solo importa `@AGENTS.md`)
-- `.sdd-kit.json`: fi-sdd-standard v0.12.0
+## Entorno (preflight)
+| ✗ | SDK de .NET | no está instalado (el repositorio pide framework net8.0) |
+| · | NuGet | `nuget.config` usa orígenes privados (MiFeed): dotnet restore comprueba las credenciales (Paso 0) |
+| ✓ | Node (src/Api/ClientApp) | local v22.22.0; pide >=22 |
+| ⚠ | dependencias (src/Api/ClientApp) | sin node_modules: se instalan en el Paso 3 si lo apruebas |
+| ✗ | enlace de git | `src/Api/ClientApp/core` es un enlace simbólico en git y aquí es un archivo de texto: créalo (…) |
+| ✗ | submódulo | `core-ui` está vacío: git submodule update --init --recursive |
+## Secretos versionados
+| `nuget.config:8` | `ClearTextPassword` |
+| `src/Api/appsettings.json:3` | `Default` |
+| `src/Api/appsettings.json:4` | `ExternalApiPat` |
 ```
 
-### 11.8 check_project.py
-
-Comprueba el contexto del proyecto: bloque del kit, encabezados fijos de *Project context*, sello y
-marca `sdd:context`, tamaño de `AGENTS.md` y de cada sección, `CLAUDE.md`, los seis `docs/`,
-`[REQUIRES-VALIDATION]` abiertos, fuentes cambiadas desde la fecha del contexto,
-`sdd-guardrails.json` frente a *Protected paths* y la existencia de pruebas de arquitectura.
-
-```text
-python .agents/skills/project-context/scripts/check_project.py [--root <raíz>]
-```
-
-Debe acabar en **0 errores** antes de `/document-project` y del primer work item. Los avisos se
-resuelven con `/project-context check`.
-
-### 11.9 comment_only.py
+### 11.8 comment_only.py
 
 Demuestra que la documentación solo cambió comentarios.
 
@@ -2687,7 +2736,7 @@ cambió, 2 = error de uso. No revisa `docs/`.
 1 archivo(s) con cambios que no son comentarios
 ```
 
-### 11.10 doc_coverage.py
+### 11.9 doc_coverage.py
 
 La herramienta de medición de `document-project`. Es una heurística por líneas (no el
 compilador): sirve para planificar y medir antes y después.
@@ -2721,7 +2770,7 @@ compilador): sirve para planificar y medir antes y después.
 > Compara siempre builds hechos igual: `dotnet build <solución> --no-incremental`. Un build
 > incremental se salta proyectos y oculta sus avisos, y la comparación saldría engañosamente mejor.
 
-### 11.11 test_cases_csv.py
+### 11.10 test_cases_csv.py
 
 ```text
 python .agents/skills/test-cases/scripts/test_cases_csv.py <test-cases.md> [--out <csv>] [--area "<Area\Path>"] [--include-blocked]
@@ -2770,7 +2819,7 @@ Antes del PR           pr-check.py (.agents/scripts/)          commits, rutas, s
 
 ### 12.2 Permisos deny
 
-El instalador añade 20 reglas a `permissions.deny` de `.claude/settings.json`, sin tocar las que ya
+El instalador añade 23 reglas a `permissions.deny` de `.claude/settings.json`, sin tocar las que ya
 tuvieras:
 
 ```json
@@ -2778,6 +2827,7 @@ tuvieras:
   "Read(./.env)", "Read(./.env.*)", "Read(./**/.env)", "Read(./**/.env.*)",
   "Read(./**/appsettings.*.json)", "Read(./**/secrets.json)",
   "Read(./**/*.pfx)", "Read(./**/*.pem)", "Read(./**/*.key)",
+  "Read(./**/nuget.config)", "Read(./**/NuGet.Config)", "Read(./**/nuget.*.config)",
   "Bash(git commit *)", "Bash(git push *)", "Bash(git push)", "Bash(git reset --hard *)",
   "Bash(git clean *)", "Bash(git branch -D *)", "Bash(rm -rf *)",
   "PowerShell(git commit *)", "PowerShell(git push *)", "PowerShell(git reset --hard *)",
@@ -2786,11 +2836,14 @@ tuvieras:
 ```
 
 > [!NOTE]
-> **appsettings.json sí se puede leer**
+> **appsettings.json y nuget.config (ADR-0028)**
 >
-> Solo se bloquean los de entorno (`appsettings.Development.json`, `appsettings.Production.json`…),
-> que son los que suelen llevar credenciales. `appsettings.json` es configuración compartida. Aun
-> así, la regla de `AGENTS.md` pide leer la configuración por su estructura, nunca por sus valores.
+> `nuget.config` se bloquea siempre: sus credenciales no le sirven a la IA para nada. `appsettings.json`
+> no está en las reglas deny, pero sí en los `secrets` por defecto del hook, porque en el piloto de
+> Calls4Grants guardaba cuatro secretos versionados y un subagente lo leyó entero. El hook respeta
+> `secretsAllowed`: si `inventory.py` muestra que el `appsettings.json` de tu proyecto no tiene
+> secretos y los work items necesitan editarlo, `/project-context` te propone pasarlo ahí. La
+> estructura (sus secciones) la da `inventory.py` sin leer los valores.
 
 ### 12.3 El hook sdd_guard.py
 
@@ -2815,7 +2868,9 @@ instalador lo registra en `.claude/settings.json`:
 | `pre` | Antes de Read, Edit, Write, MultiEdit, NotebookEdit, Bash, PowerShell | **Bloquea** editar una ruta `protected` y leer o editar un archivo de `secrets`, también si el comando de shell lo nombra | 2 = bloqueado · 0 = sigue |
 | `post` | Después de Edit, Write, MultiEdit | Ejecuta el formateador de `format`; **avisa** si el archivo ya no es UTF-8 y de cada `pattern` incumplido. El agente lee el aviso y corrige | 2 = aviso para el agente · 0 = nada |
 
-Si el propio hook falla (un error interno), sale con 0: **nunca bloquea por un fallo propio**.
+Si el propio hook falla (un error interno), sale con 0: **nunca bloquea por un fallo propio**. Desde
+la v0.13.0 acepta el JSON con BOM que manda Windows PowerShell 5.1 por la entrada estándar; antes lo
+descartaba sin avisar y no bloqueaba nada.
 
 #### Lo que verás
 
@@ -2869,7 +2924,8 @@ sintaxis de `.gitignore` (`**` para cualquier profundidad).
 | `protected` | Lista de globs | Rutas que la IA nunca edita: librerías compartidas, submódulos, código generado, documentación de otro equipo | Hook `pre`, `pr-check.py` |
 | `secrets` | Lista de globs | Archivos que nadie lee ni sube | Hook `pre`, `pr-check.py` |
 | `secretsAllowed` | Lista de globs | Excepciones a `secrets` (por ejemplo, una plantilla `.env.example` sin valores). Cada una, justificada en el PR | Hook, `pr-check.py` |
-| `format` | Extensión → comando | Formateador tras cada edición; `{file}` es el archivo | Hook `post` |
+| `format` | Extensión → comando, o lista de comandos | Formateador tras cada edición; `{file}` es el archivo. Con una lista, los ejecuta en orden (por ejemplo `eslint --fix` y después `prettier`) | Hook `post` |
+| `formatTimeout` | Segundos (60 por defecto) | Tiempo máximo de cada comando de `format`. Si se pasa, se omite con un aviso: es habitual en el primer arranque en frío | Hook `post` |
 | `patterns` | Lista de `{glob, require/forbid, message}` | Reglas que una expresión regular puede comprobar | Hook `post` |
 
 **sdd-guardrails.json (ejemplo completo):**
@@ -2880,12 +2936,14 @@ sintaxis de `.gitignore` (`**` para cualquier profundidad).
     "ClientApp/src/core-ui/**",
     "docs/modernizacion/**"
   ],
-  "secrets": [".env", ".env.*", "**/appsettings.*.json", "**/secrets.json", "**/*.pfx", "**/*.pem", "**/*.key"],
+  "secrets": [".env", ".env.*", "**/appsettings.json", "**/appsettings.*.json", "**/secrets.json",
+              "**/nuget.config", "**/nuget.*.config", "**/.npmrc", "**/*.pfx", "**/*.pem", "**/*.key"],
   "secretsAllowed": [".env.example"],
   "format": {
     ".cs":  ["dotnet", "csharpier", "format", "{file}"],
-    ".tsx": ["npx", "prettier", "--write", "{file}"]
+    ".tsx": [["npx", "eslint", "--fix", "{file}"], ["npx", "prettier", "--write", "{file}"]]
   },
+  "formatTimeout": 60,
   "patterns": [
     {
       "glob": "**/Controllers/*Controller.cs",
@@ -2909,6 +2967,8 @@ sintaxis de `.gitignore` (`**` para cualquier profundidad).
 > - Nada en `secretsAllowed` sin un motivo.
 > - Un formateador solo si se ejecutó y funciona (lo verifica `/project-context`): un comando
 >   que falla en cada edición es ruido.
+> - Al actualizar el kit, `install.py` añade los `secrets` por defecto que falten (nunca quita
+>   ninguno) y lo dice en su informe.
 
 ### 12.5 Pruebas de arquitectura
 
@@ -3017,7 +3077,7 @@ final, te da el *Comentario para Azure DevOps*.
 Cada archivo que genera la IA empieza su bloque de metadatos con:
 
 ```markdown
-**Generado con:** enrich-us v3.9 · Claude Code · claude-opus-5-5
+**Generado con:** enrich-us v3.10 · Claude Code · claude-opus-5-5
 ```
 
 - `<skill> v<versión>`: la skill y la versión de las skills del kit.
@@ -3032,7 +3092,7 @@ llevan `Co-Authored-By` (ADR-0004). Nunca se borra. `story.md`, que lo prepara u
 Cuando una skill posterior cambia un documento con una decisión confirmada, añade debajo:
 
 ```markdown
-**Actualizado con:** technical-analysis v3.9 · Claude Code · claude-opus-5-5 (2026-10-16: CA-03 añadido, aprobado por Laura Gómez)
+**Actualizado con:** technical-analysis v3.10 · Claude Code · claude-opus-5-5 (2026-10-16: CA-03 añadido, aprobado por Laura Gómez)
 ```
 
 ### 13.3 Anclas
@@ -3073,7 +3133,7 @@ nueva) sabe qué se preguntó, qué se respondió y quién lo confirmó.
 ```text
 # Bitácora — 40399 Sección de ofertas en el menú lateral
 
-**Generado con:** enrich-us v3.9 · Claude Code · claude-opus-5-5
+**Generado con:** enrich-us v3.10 · Claude Code · claude-opus-5-5
 **Work item:** #40399 · **Carpeta:** docs/sdd/40399-seccion-de-ofertas-en-el-menu-lateral/
 
 ## Decisiones
@@ -3653,9 +3713,24 @@ Los problemas más frecuentes de los pilotos, con su causa y su arreglo. Casi to
 | Bloquea un archivo que necesitas leer | Coincide con `secrets` | Si de verdad no tiene secretos (una plantilla), añádelo a `secretsAllowed` con motivo en el PR |
 | Aviso de patrón que no aplica | El patrón es demasiado amplio | Ajusta el `glob` o la expresión en `sdd-guardrails.json` |
 | El formateador falla en cada edición | Comando de `format` no instalado | Quítalo de `format` o instala la herramienta (`dotnet tool restore`) |
+| *el formateador tardó más de 60 s y se ha omitido* | Primer arranque en frío de `npx` o `dotnet` | Nada si es la primera vez. Si se repite, sube `formatTimeout` o quita esa extensión de `format`. No dejes que la IA lo depure: va a un borrador |
+| Con Windows PowerShell el hook no bloquea nada, sin error | Antes de la v0.13.0, el JSON con BOM que manda PowerShell 5.1 se descartaba en silencio | Actualiza el kit a la v0.13.0 o posterior |
 | Te pide permiso para `git commit` y lo deniega | Es intencionado: está en `deny` | Haz el commit tú en la terminal |
 
-### 17.6 Builds y avisos
+### 17.6 Entorno y project-context
+
+| Síntoma | Causa | Solución |
+| --- | --- | --- |
+| `/project-context` se para: *Commit the installation first* | La instalación del kit no tiene su commit | `git add` de las rutas que da `install.py` y `git commit -m "chore(sdd): instalar fi-sdd-standard v<versión>"` |
+| `dotnet restore`: `NU1301` · `401 (Unauthorized)` | El PAT del feed privado venció, o el `nuget.config` del repositorio trae credenciales de ese origen: ganan sobre las de tu `NuGet.Config` de usuario | PAT nuevo con solo *Packaging (Read)*. Si el `nuget.config` versionado tiene credenciales, es un secreto versionado: borrador **Urgente** para quitarlas. Mientras tanto, una copia ignorada por git (`nuget.local.config`) y `dotnet restore --configfile nuget.local.config`. Nunca hagas commit del PAT |
+| *enlace de git … aquí es un archivo de texto* · *enlace roto* (`ClientApp/src/core`) | Windows creó el enlace simbólico como archivo, o el destino no existe | Bórralo y crea el enlace sin ser administrador: `cmd /c mklink /J <enlace> <destino>`. O `git config core.symlinks true` y vuelve a hacer checkout |
+| *submódulo … está vacío* | Clon sin submódulos | `git submodule update --init --recursive` |
+| Node distinto del que pide el repositorio | Otra versión instalada (por ejemplo 24 frente a 22) | `nvm install 22` y `nvm use 22` (nvm-windows) antes de la sesión. Un ⚠ no para la skill, pero la línea base queda con esa versión |
+| `dotnet test` falla con el SDK 10 y xUnit v3 (*Microsoft.Testing.Platform*) | El proyecto de pruebas no tiene el adaptador de VSTest | Añade `Microsoft.NET.Test.Sdk` y `xunit.runner.visualstudio` al `.csproj`. Mientras tanto: `dotnet run --project <pruebas>` |
+| La sesión se pone a depurar el formateador, los hooks antiguos o un script | Se salió del alcance (ADR-0028) | Dile: «anótalo en un borrador con su prioridad y sigue con el paso N». Si ya se perdió, guarda `docs/sdd/_borradores/` fuera del repositorio, descarta con `git restore .` y `git clean -fd` (la instalación está en su commit) y vuelve a lanzar `/project-context` |
+| Un PAT o una clave quedó en el chat o en la consola | Se pegó en un comando o la IA leyó el archivo | Rótalo ya en Azure DevOps. Borra el historial de PowerShell (`Remove-Item (Get-PSReadLineOption).HistorySavePath`) |
+
+### 17.7 Builds y avisos
 
 | Síntoma | Causa | Solución |
 | --- | --- | --- |
@@ -3827,6 +3902,7 @@ alternativas descartadas.
 | 0025 | Modo QA de `enrich-us` y skill `test-cases`, con CSV para Azure Test Plans | Aceptada |
 | 0026 | El bucle de pipeline en rojo pasa a la fase 4 | Aceptada |
 | 0027 | Qué se versiona en un proyecto con el kit: fuera `assets/`, `commit-message.md`, `test-cases.csv` y los borradores | Aceptada |
+| 0028 | `/project-context` deja el kit a punto y no arregla el proyecto; compuerta del entorno; borradores con prioridad | Aceptada |
 
 ### A.2 Las que más afectan al día a día
 
@@ -3845,6 +3921,7 @@ alternativas descartadas.
 | 0024 | Vía rápida para bugs pequeños con su compuerta |
 | 0025 | Modo QA de `enrich-us` y `test-cases` con CSV para Test Plans |
 | 0027 | Qué se versiona: fuera `assets/`, `commit-message.md`, `test-cases.csv` y los borradores |
+| 0028 | Lo que una skill encuentra fuera de su alcance es un borrador con prioridad (Urgente, Alta, Media, Baja); los urgentes se crean ya |
 
 ### A.3 Proponer un cambio al kit
 
@@ -3876,6 +3953,16 @@ Casi todo: `story.md`, `bitacora.md`, `pbi.md`/`bug.md`, `00`–`06` o `fix-plan
 `qa-report.md` y `test-cases.md`. No van `assets/` (los adjuntos están en Azure DevOps),
 `commit-message.md` (queda en el commit) ni `test-cases.csv` (se regenera). Ya están en `.gitignore`,
 así que `git add <carpeta>` los salta solo. (3.3, ADR-0027)
+
+**`/project-context` encontró un problema del proyecto (un secreto, un script roto). ¿Lo arregla?**
+No. Lo deja como borrador en `docs/sdd/_borradores/` con su prioridad (Urgente, Alta, Media, Baja) y
+sigue: su trabajo es dejar el kit listo. Crea los urgentes en Azure DevOps en cuanto hagas el commit.
+Si se pone a depurar una herramienta, dile que lo anote en un borrador y siga. (8.1, ADR-0028)
+
+**`/project-context` se para nada más empezar.**
+O falta el commit de la instalación, o el entorno no compila (`dotnet restore` con 401, un enlace
+roto, un submódulo vacío). Te da los pasos; arréglalo tú y vuelve a lanzarlo. (17, *Entorno y
+project-context*)
 
 **`pr-check.py` da error por un borrador.**
 Los borradores de `docs/sdd/_borradores/` no llegan a `dev`. Crea el work item en Azure DevOps, anota
@@ -4011,4 +4098,4 @@ Es inofensivo. No cambies `core.autocrlf` por esto. (17.3)
 **Los avisos del build no cuadran con la línea base.**
 Compila siempre igual (`dotnet build <solución> --no-incremental`) y compara con
 `doc_coverage.py --warnings <log> --compare docs/sdd/_documentacion/avisos.md`, que quita duplicados
-y aparta los `NU19xx` de NuGet. (11.10, 17.6)
+y aparta los `NU19xx` de NuGet. (11.10, 17.7)

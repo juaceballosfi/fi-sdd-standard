@@ -37,6 +37,7 @@ alternativas descartadas.
 | 0025 | Modo QA de `enrich-us` y skill `test-cases`, con CSV para Azure Test Plans | Aceptada |
 | 0026 | El bucle de pipeline en rojo pasa a la fase 4 | Aceptada |
 | 0027 | Qué se versiona en un proyecto con el kit: fuera `assets/`, `commit-message.md`, `test-cases.csv` y los borradores | Aceptada |
+| 0028 | `/project-context` deja el kit a punto y no arregla el proyecto; compuerta del entorno; borradores con prioridad | Aceptada |
 
 ## Las que más afectan al día a día
 
@@ -55,6 +56,7 @@ alternativas descartadas.
 | 0024 | Vía rápida para bugs pequeños con su compuerta |
 | 0025 | Modo QA de `enrich-us` y `test-cases` con CSV para Test Plans |
 | 0027 | Qué se versiona: fuera `assets/`, `commit-message.md`, `test-cases.csv` y los borradores |
+| 0028 | Lo que una skill encuentra fuera de su alcance es un borrador con prioridad (Urgente, Alta, Media, Baja); los urgentes se crean ya |
 
 ## Proponer un cambio al kit
 

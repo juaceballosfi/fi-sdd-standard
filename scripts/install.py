@@ -57,6 +57,7 @@ PROJECT_SCRIPTS = ["pr-check.py", "check-sdd-item.py", "check-encoding.py"]
 DENY_RULES = [
     "Read(./.env)", "Read(./.env.*)", "Read(./**/.env)", "Read(./**/.env.*)", "Read(./**/appsettings.*.json)",
     "Read(./**/secrets.json)", "Read(./**/*.pfx)", "Read(./**/*.pem)", "Read(./**/*.key)",
+    "Read(./**/nuget.config)", "Read(./**/NuGet.Config)", "Read(./**/nuget.*.config)",
     "Bash(git commit *)", "Bash(git push *)", "Bash(git push)", "Bash(git reset --hard *)", "Bash(git clean *)",
     "Bash(git branch -D *)", "Bash(rm -rf *)",
     "PowerShell(git commit *)", "PowerShell(git push *)", "PowerShell(git reset --hard *)",
@@ -193,10 +194,28 @@ class Installer:
             self.write(self.target / ".agents" / "scripts" / name, (KIT / "scripts" / name).read_text(encoding="utf-8"))
         cfg = self.target / "sdd-guardrails.json"
         if cfg.exists():
-            self.log("existe", "sdd-guardrails.json")
+            self.merge_default_secrets(cfg)
         else:
             self.write(cfg, (CORE / "templates" / "sdd-guardrails.json").read_text(encoding="utf-8"), managed=False)
             self.log("PENDIENTE", "sdd-guardrails.json: /project-context añade las rutas protegidas y los patrones")
+
+    def merge_default_secrets(self, cfg: Path) -> None:
+        """Add the kit's default secret patterns that the project's config lacks; never remove any."""
+        try:
+            current = json.loads(cfg.read_text(encoding="utf-8-sig"))
+            defaults = json.loads((CORE / "templates" / "sdd-guardrails.json").read_text(encoding="utf-8"))["secrets"]
+        except (OSError, ValueError, KeyError):
+            self.log("REVISAR", "sdd-guardrails.json no es JSON válido: no se ha tocado")
+            return
+        secrets = current.setdefault("secrets", [])
+        missing = [s for s in defaults if s.lower() not in {x.lower() for x in secrets}]
+        if not missing:
+            self.log("existe", "sdd-guardrails.json")
+            return
+        secrets.extend(missing)
+        self.log("actualizado", f"sdd-guardrails.json (+{len(missing)} secretos por defecto: {', '.join(missing)})")
+        if not self.dry:
+            cfg.write_text(json.dumps(current, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
 
     def claude_settings(self) -> None:
         """Merge the kit's deny rules and hooks into .claude/settings.json without touching the rest."""
@@ -383,12 +402,29 @@ class Installer:
             steps.append("revisa los PENDIENTE / REVISAR de arriba")
         if self.commit_template() != ".gitmessage":
             steps.append("git config commit.template .gitmessage")
+        pending = [] if self.dry else self.uncommitted_kit_files()
+        if pending:
+            steps.append("haz commit de la instalación antes de seguir: git add " + " ".join(pending)
+                         + f' · git commit -m "chore(sdd): instalar fi-sdd-standard v{VERSION}"')
         agents_md = self.target / "AGENTS.md"
         if not agents_md.exists() or "**Generado con:** project-context" not in agents_md.read_text(encoding="utf-8"):
             steps.append("/project-context en una sesión nueva (contexto del proyecto, documentación base y pruebas)")
         elif not (self.target / "docs" / "sdd" / "_documentacion" / "plan.md").exists():
             steps.append("/document-project en una sesión nueva (documentación completa, por bloques; opcional)")
         print("\n  " + ("Siguiente: " + "  ·  ".join(steps) if steps else "Todo en orden: no hay nada pendiente.") + "\n")
+
+    KIT_PATHS = [".agents", ".github/agents", ".github/prompts", ".claude/settings.json", ".gitmessage",
+                 ".sdd-kit.json", "sdd-guardrails.json", "AGENTS.md", "CLAUDE.md", ".gitignore", "docs"]
+
+    def uncommitted_kit_files(self) -> list[str]:
+        """Top-level kit paths with uncommitted changes: the installation must be committed first."""
+        try:
+            out = subprocess.run(["git", "-C", str(self.target), "status", "--porcelain", "--", *self.KIT_PATHS],
+                                 capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=30)
+        except (OSError, subprocess.SubprocessError):
+            return []
+        changed = [line[3:].strip().strip('"') for line in out.stdout.splitlines() if line.strip()]
+        return [p for p in self.KIT_PATHS if any(c == p or c.startswith(p + "/") for c in changed)]
 
     def commit_template(self) -> str:
         """Current commit.template of the target repository, or '' if git is unavailable or unset."""

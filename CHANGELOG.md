@@ -1,5 +1,38 @@
 # CHANGELOG — fi-sdd-standard
 
+## v0.13.0 — 2026-10-17 · project-context deja el kit a punto; borradores con prioridad
+
+Lecciones del piloto de Calls4Grants, donde el primer `/project-context` hubo que repetirlo
+(ADR-0028, `tests/pilots/calls4grants/RESULTADOS-PROJECT-CONTEXT.md`).
+
+- **Alcance de `project-context`:** deja el kit a punto (contexto, documentos base, pruebas,
+  guardarraíles, `check_project.py` en 0 errores) y no arregla el proyecto. Lo demás es un borrador
+  y la sesión sigue. Una herramienta que falla tiene un intento.
+- **Compuerta del entorno:** la skill se para si la instalación del kit no tiene commit, y antes de
+  explorar ejecuta el preflight y `dotnet restore`. Lo que impide compilar para la sesión con los
+  pasos para la persona; la IA no toca credenciales ni configuración del sistema.
+  - **`inventory.py`:** secciones *Entorno (preflight)* (SDK, Node, gestor, `node_modules`, enlaces
+    rotos o guardados como texto, submódulos vacíos, orígenes privados de NuGet) y *Secretos
+    versionados* (archivo, línea y clave, nunca el valor).
+- **Borradores con prioridad** (`Urgente`, `Alta`, `Media`, `Baja`) en la convención compartida de
+  las 9 skills, con la plantilla `enrich-us/templates/borrador.md`. `check_project.py` avisa de los
+  urgentes y de los borradores sin prioridad.
+- **`project-context`, además:** una línea para rellenar al final del bloque de preguntas; reglas
+  para migrar hooks antiguos (el formateador solo si funcionó en menos de ~20 s; borrar el hook solo
+  tras ver bloquear al guard); proyecto de pruebas con `Microsoft.NET.Test.Sdk` y
+  `xunit.runner.visualstudio` para que `dotnet test` funcione con el SDK 10; cómo seguir si se para.
+- **Secretos por defecto:** `**/appsettings.json`, `**/nuget.config`, `**/nuget.*.config` y
+  `**/.npmrc`; `nuget.config` también en las reglas deny. `install.py` añade los que falten a un
+  `sdd-guardrails.json` existente, sin quitar ninguno, y recuerda hacer commit de la instalación.
+- **`sdd_guard.py`:** acepta el JSON con BOM de Windows PowerShell 5.1 (antes lo descartaba en
+  silencio y no bloqueaba nada); `format` admite una lista de comandos por extensión; `formatTimeout`
+  (60 s por defecto) y un aviso que pide no depurar el formateador en la sesión; detecta también
+  `appsettings.json`, `nuget*.config` y `.npmrc` en comandos de shell.
+- **`check_project.py`:** ya no cuenta como pruebas de arquitectura las plantillas de `.agents/` y
+  `.claude/`.
+- **Skills v3.10.** Manual: capítulos 3, 5, 8, 11, 12 y 17 (nueva sección *Entorno y
+  project-context*), FAQ y ADR-0028.
+
 ## v0.12.1 — 2026-10-16 · Corrección de `pr-check.py`
 
 - **Falso positivo de «secretos en el diff» (detectado en el piloto de Calls4Grants).** El patrón de

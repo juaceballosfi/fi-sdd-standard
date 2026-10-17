@@ -1,6 +1,6 @@
 # Resumen ejecutivo — [Nombre del PBI / Bug]
 
-**Generado con:** technical-analysis v3.9 · [Claude Code | GitHub Copilot | Codex] · [modelo]
+**Generado con:** technical-analysis v3.10 · [Claude Code | GitHub Copilot | Codex] · [modelo]
 **Sprint:** [iteración, si se conoce] | **Fecha:** [AAAA-MM-DD] | **Tipo:** [PBI | Bug]
 **Work item:** #[ID] | **Versión:** 1.0
 

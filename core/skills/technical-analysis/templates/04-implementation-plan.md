@@ -1,6 +1,6 @@
 # Plan de implementación
 
-**Generado con:** technical-analysis v3.9 · [Claude Code | GitHub Copilot | Codex] · [modelo]
+**Generado con:** technical-analysis v3.10 · [Claude Code | GitHub Copilot | Codex] · [modelo]
 **Work item:** #[ID] | **Sprint:** [iteración, si se conoce] | **Fecha:** [AAAA-MM-DD] | **Versión:** 1.0
 **Estado:** Borrador | Aprobado ([fecha], [quién])
 

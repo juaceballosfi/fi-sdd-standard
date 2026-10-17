@@ -54,7 +54,7 @@ El kit fija **el mismo camino para todos**:
 | **SPEC** | Una especificación verificable en formato *Dado / Cuando / Entonces*, en `04-implementation-plan.md`. Cada criterio de aceptación tiene al menos una. |
 | **WBS** | *Work Breakdown Structure*: la lista de tareas `T-01`, `T-02`… con sus puntos de historia, en `05-wbs-estimation.md`. |
 | **Marcador** | Una etiqueta en el texto que señala un hueco: `[PENDING-BUSINESS]`, `[REQUIRES-VALIDATION]`, `[ASSUMPTION-BASED]`, `[PENDING-TRANSLATION]`. |
-| **Sello** | La línea `**Generado con:** <skill> v3.9 · <herramienta> · <modelo>` al inicio de cada documento generado. Es la evidencia de que lo hizo la IA. |
+| **Sello** | La línea `**Generado con:** <skill> v3.10 · <herramienta> · <modelo>` al inicio de cada documento generado. Es la evidencia de que lo hizo la IA. |
 | **Ancla** | Un comentario `<!-- sdd:... -->` que marca una sección para que la siguiente skill la encuentre, aunque cambie el título. |
 | **Bitácora** | `bitacora.md`: las notas de trabajo con fecha (preguntas, respuestas, decisiones, hallazgos). Solo crece. |
 | **Guardarraíl** | Un mecanismo que impide o detecta lo prohibido: permisos `deny`, el hook `sdd_guard.py`, las pruebas de arquitectura y `pr-check.py`. |

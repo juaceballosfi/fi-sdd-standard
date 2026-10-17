@@ -19,6 +19,16 @@ Casi todo: `story.md`, `bitacora.md`, `pbi.md`/`bug.md`, `00`–`06` o `fix-plan
 `commit-message.md` (queda en el commit) ni `test-cases.csv` (se regenera). Ya están en `.gitignore`,
 así que `git add <carpeta>` los salta solo. (3.3, ADR-0027)
 
+**`/project-context` encontró un problema del proyecto (un secreto, un script roto). ¿Lo arregla?**
+No. Lo deja como borrador en `docs/sdd/_borradores/` con su prioridad (Urgente, Alta, Media, Baja) y
+sigue: su trabajo es dejar el kit listo. Crea los urgentes en Azure DevOps en cuanto hagas el commit.
+Si se pone a depurar una herramienta, dile que lo anote en un borrador y siga. (8.1, ADR-0028)
+
+**`/project-context` se para nada más empezar.**
+O falta el commit de la instalación, o el entorno no compila (`dotnet restore` con 401, un enlace
+roto, un submódulo vacío). Te da los pasos; arréglalo tú y vuelve a lanzarlo. (17, *Entorno y
+project-context*)
+
 **`pr-check.py` da error por un borrador.**
 Los borradores de `docs/sdd/_borradores/` no llegan a `dev`. Crea el work item en Azure DevOps, anota
 su ID donde se citaba el borrador (`bitacora.md`, `qa-report.md`) y borra el archivo. (13.6, 14.2)
@@ -153,4 +163,4 @@ Es inofensivo. No cambies `core.autocrlf` por esto. (17.3)
 **Los avisos del build no cuadran con la línea base.**
 Compila siempre igual (`dotnet build <solución> --no-incremental`) y compara con
 `doc_coverage.py --warnings <log> --compare docs/sdd/_documentacion/avisos.md`, que quita duplicados
-y aparta los `NU19xx` de NuGet. (11.10, 17.6)
+y aparta los `NU19xx` de NuGet. (11.10, 17.7)

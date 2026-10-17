@@ -1,6 +1,6 @@
 # Base de datos
 
-**Generado con:** project-context v3.9 · [herramienta] · [modelo] · [AAAA-MM-DD]
+**Generado con:** project-context v3.10 · [herramienta] · [modelo] · [AAAA-MM-DD]
 
 ## Motor y acceso
 <!-- Motor, ORM, contexto(s), resiliencia (reintentos, transacciones). -->
